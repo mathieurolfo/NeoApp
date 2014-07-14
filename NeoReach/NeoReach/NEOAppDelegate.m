@@ -7,6 +7,8 @@
 //
 
 #import "NEOAppDelegate.h"
+#import "NEOLoginViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation NEOAppDelegate
 
@@ -14,6 +16,9 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    NEOLoginViewController *loginViewController = [[NEOLoginViewController alloc] init];
+    self.window.rootViewController = loginViewController;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -46,5 +51,18 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+/* For facebook login. */
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    // Call FBAppCall's handleOpenURL:sourceApplication to handle Facebook app responses
+    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+    
+    // App-specific url handling here if needed
+    
+    return wasHandled;
+}
+
 
 @end
