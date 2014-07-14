@@ -20,7 +20,7 @@
     NEOLoginViewController *loginViewController = [[NEOLoginViewController alloc] init];
     self.window.rootViewController = loginViewController;
     
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor yellowColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
