@@ -19,6 +19,7 @@
 		22A9D3FF196F56B900AF6DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E7196F56B900AF6DEB /* UIKit.framework */; };
 		22A9D407196F56B900AF6DEB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D405196F56B900AF6DEB /* InfoPlist.strings */; };
 		22A9D409196F56B900AF6DEB /* NeoReachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D408196F56B900AF6DEB /* NeoReachTests.m */; };
+		22A9D4151974385200AF6DEB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D4141974385200AF6DEB /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		22A9D404196F56B900AF6DEB /* NeoReachTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NeoReachTests-Info.plist"; sourceTree = "<group>"; };
 		22A9D406196F56B900AF6DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22A9D408196F56B900AF6DEB /* NeoReachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeoReachTests.m; sourceTree = "<group>"; };
+		22A9D4141974385200AF6DEB /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A9D3E6196F56B900AF6DEB /* CoreGraphics.framework in Frameworks */,
+				22A9D4151974385200AF6DEB /* FacebookSDK.framework in Frameworks */,
 				22A9D3E8196F56B900AF6DEB /* UIKit.framework in Frameworks */,
 				22A9D3E4196F56B900AF6DEB /* Foundation.framework in Frameworks */,
 			);
@@ -96,6 +99,7 @@
 		22A9D3E2196F56B900AF6DEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22A9D4141974385200AF6DEB /* FacebookSDK.framework */,
 				22A9D3E3196F56B900AF6DEB /* Foundation.framework */,
 				22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */,
 				22A9D3E7196F56B900AF6DEB /* UIKit.framework */,
@@ -358,6 +362,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
 				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
@@ -371,6 +379,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
 				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
