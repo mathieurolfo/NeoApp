@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOLoginViewController : UIViewController
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
