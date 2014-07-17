@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *profilePictureView;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 @end

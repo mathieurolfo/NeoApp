@@ -45,7 +45,7 @@
     }
     if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
         NSLog(@"Session closed");
-        //[self userLoggedOut];
+        [self userLoggedOut];
     }
     if (error) {
         NSLog(@"Error");
@@ -100,18 +100,19 @@
         ((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID = [user objectForKey:@"id"];
         ((NEOLoginViewController *)(self.window.rootViewController)).nameLabel.text = [user objectForKey:@"name"];
         ((NEOLoginViewController *)(self.window.rootViewController)).statusLabel.text = @"Currently logged in";
+        [((NEOLoginViewController *)(self.window.rootViewController)).loginButton setTitle:@"Logout, bitch" forState:UIControlStateNormal];
+
         //session
     }
 }
 
          
-- (void)userLoggedOut:(FBSession *)session
+- (void)userLoggedOut
 {
-    //((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID =
-    FBAccessTokenData *tokenData = session.accessTokenData;
-    NSLog(@"%@", tokenData);
-    //session.accessTokenData.appID;
-    //NSString *userID = tokenData.userID;
+    ((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID = nil;
+    ((NEOLoginViewController *)(self.window.rootViewController)).nameLabel.text = @"";
+    ((NEOLoginViewController *)(self.window.rootViewController)).statusLabel.text = @"Not logged in";
+     [((NEOLoginViewController *)(self.window.rootViewController)).loginButton setTitle:@"Login, bitch" forState:UIControlStateNormal];
 }
 
 

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Canvas.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>204A3944864E4AF2BDCAE424</key>
+		<key>61268E91198A4324B00B3BC6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FBC36CF1B9534A0FB9A7AC30</key>
+		<key>CFE7269D12F8457498AA6D5D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD2F8DB525AD4DF28A81BB78</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NEOLoginViewController">
             <connections>
+                <outlet property="loginButton" destination="pFN-ZD-OqP" id="Mcf-1g-lGX"/>
                 <outlet property="nameLabel" destination="ar0-Hd-jbj" id="bOM-Yk-1ZJ"/>
                 <outlet property="profilePictureView" destination="kZk-cf-QxI" id="4oO-nn-8Ix"/>
                 <outlet property="statusLabel" destination="u1C-ZP-ayY" id="BoP-BW-MEu"/>
