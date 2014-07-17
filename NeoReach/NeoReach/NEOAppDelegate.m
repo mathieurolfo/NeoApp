@@ -108,6 +108,8 @@
         ((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID = [user objectForKey:@"id"];
         ((NEOLoginViewController *)(self.window.rootViewController)).nameLabel.text = [user objectForKey:@"name"];
         ((NEOLoginViewController *)(self.window.rootViewController)).statusLabel.text = @"Currently logged in";
+        [((NEOLoginViewController *)(self.window.rootViewController)).loginButton setTitle:@"Logout, bitch" forState:UIControlStateNormal];
+
         //session
     }
 }
@@ -118,7 +120,7 @@
     ((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID = nil;
     ((NEOLoginViewController *)(self.window.rootViewController)).nameLabel.text = @"";
     ((NEOLoginViewController *)(self.window.rootViewController)).statusLabel.text = @"Not logged in";
-     ((NEOLoginViewController *)(self.window.rootViewController)).loginButton.text = @"Login, bitch";
+     [((NEOLoginViewController *)(self.window.rootViewController)).loginButton setTitle:@"Login, bitch" forState:UIControlStateNormal];
 }
 
 
