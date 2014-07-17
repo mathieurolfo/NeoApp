@@ -1,1108 +1,526 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>0D27BC48314D4EA7918AF464</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Pods.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3D7196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D3E9196F56B900AF6DEB</string>
-				<string>22A9D402196F56B900AF6DEB</string>
-				<string>22A9D3E2196F56B900AF6DEB</string>
-				<string>22A9D3E1196F56B900AF6DEB</string>
-				<string>0D27BC48314D4EA7918AF464</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3D8196F56B900AF6DEB</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>CLASSPREFIX</key>
-				<string>NEO</string>
-				<key>LastUpgradeCheck</key>
-				<string>0510</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>NeoReach</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>22A9D3FA196F56B900AF6DEB</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>22A9D3DF196F56B900AF6DEB</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>22A9D3DB196F56B900AF6DEB</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>22A9D3D7196F56B900AF6DEB</string>
-			<key>productRefGroup</key>
-			<string>22A9D3E1196F56B900AF6DEB</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>22A9D3DF196F56B900AF6DEB</string>
-				<string>22A9D3FA196F56B900AF6DEB</string>
-			</array>
-		</dict>
-		<key>22A9D3DB196F56B900AF6DEB</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>22A9D40A196F56B900AF6DEB</string>
-				<string>22A9D40B196F56B900AF6DEB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>22A9D3DC196F56B900AF6DEB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>22A9D41B19743B2D00AF6DEB</string>
-				<string>22A9D3F0196F56B900AF6DEB</string>
-				<string>22A9D3F4196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22A9D3DD196F56B900AF6DEB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>22A9D3E6196F56B900AF6DEB</string>
-				<string>22A9D4151974385200AF6DEB</string>
-				<string>22A9D3E8196F56B900AF6DEB</string>
-				<string>22A9D3E4196F56B900AF6DEB</string>
-				<string>C90E4AAD95664C0A8BD74538</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22A9D3DE196F56B900AF6DEB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>22A9D3EE196F56B900AF6DEB</string>
-				<string>22A9D3F6196F56B900AF6DEB</string>
-				<string>22A9D41C19743B2D00AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22A9D3DF196F56B900AF6DEB</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>22A9D40C196F56B900AF6DEB</string>
-			<key>buildPhases</key>
-			<array>
-				<string>44C98A225C054266AD9E76F2</string>
-				<string>22A9D3DC196F56B900AF6DEB</string>
-				<string>22A9D3DD196F56B900AF6DEB</string>
-				<string>22A9D3DE196F56B900AF6DEB</string>
-				<string>F2735704D83C46B485B0D567</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>NeoReach</string>
-			<key>productName</key>
-			<string>NeoReach</string>
-			<key>productReference</key>
-			<string>22A9D3E0196F56B900AF6DEB</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>22A9D3E0196F56B900AF6DEB</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>NeoReach.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>22A9D3E1196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D3E0196F56B900AF6DEB</string>
-				<string>22A9D3FB196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3E2196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D4141974385200AF6DEB</string>
-				<string>22A9D3E3196F56B900AF6DEB</string>
-				<string>22A9D3E5196F56B900AF6DEB</string>
-				<string>22A9D3E7196F56B900AF6DEB</string>
-				<string>22A9D3FC196F56B900AF6DEB</string>
-				<string>2B6613254EDF4F968B36F2CF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3E3196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>22A9D3E4196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3E3196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3E5196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>CoreGraphics.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/CoreGraphics.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>22A9D3E6196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3E5196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3E7196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>22A9D3E8196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3E7196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3E9196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D3F2196F56B900AF6DEB</string>
-				<string>22A9D3F3196F56B900AF6DEB</string>
-				<string>22A9D3F5196F56B900AF6DEB</string>
-				<string>22A9D3EA196F56B900AF6DEB</string>
-				<string>22A9D41819743B2D00AF6DEB</string>
-				<string>22A9D41919743B2D00AF6DEB</string>
-				<string>22A9D41A19743B2D00AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>NeoReach</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3EA196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D3EB196F56B900AF6DEB</string>
-				<string>22A9D3EC196F56B900AF6DEB</string>
-				<string>22A9D3EF196F56B900AF6DEB</string>
-				<string>22A9D3F1196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3EB196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>NeoReach-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3EC196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D3ED196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3ED196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3EE196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3EC196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3EF196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3F0196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3EF196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3F1196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>NeoReach-Prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3F2196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>NEOAppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3F3196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>NEOAppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3F4196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3F3196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3F5196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D3F6196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3F5196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3F7196F56B900AF6DEB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>22A9D409196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22A9D3F8196F56B900AF6DEB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>22A9D3FD196F56B900AF6DEB</string>
-				<string>22A9D3FF196F56B900AF6DEB</string>
-				<string>22A9D3FE196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22A9D3F9196F56B900AF6DEB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>22A9D407196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22A9D3FA196F56B900AF6DEB</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>22A9D40F196F56B900AF6DEB</string>
-			<key>buildPhases</key>
-			<array>
-				<string>22A9D3F7196F56B900AF6DEB</string>
-				<string>22A9D3F8196F56B900AF6DEB</string>
-				<string>22A9D3F9196F56B900AF6DEB</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>22A9D401196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>NeoReachTests</string>
-			<key>productName</key>
-			<string>NeoReachTests</string>
-			<key>productReference</key>
-			<string>22A9D3FB196F56B900AF6DEB</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>22A9D3FB196F56B900AF6DEB</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>NeoReachTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>22A9D3FC196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>XCTest.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/XCTest.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>22A9D3FD196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3FC196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3FE196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3E3196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D3FF196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D3E7196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D400196F56B900AF6DEB</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>22A9D3D8196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>22A9D3DF196F56B900AF6DEB</string>
-			<key>remoteInfo</key>
-			<string>NeoReach</string>
-		</dict>
-		<key>22A9D401196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>22A9D3DF196F56B900AF6DEB</string>
-			<key>targetProxy</key>
-			<string>22A9D400196F56B900AF6DEB</string>
-		</dict>
-		<key>22A9D402196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D408196F56B900AF6DEB</string>
-				<string>22A9D403196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>NeoReachTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D403196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D404196F56B900AF6DEB</string>
-				<string>22A9D405196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D404196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>NeoReachTests-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D405196F56B900AF6DEB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22A9D406196F56B900AF6DEB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D406196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D407196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D405196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D408196F56B900AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>NeoReachTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D409196F56B900AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D408196F56B900AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D40A196F56B900AF6DEB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>22A9D40B196F56B900AF6DEB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>22A9D40C196F56B900AF6DEB</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>22A9D40D196F56B900AF6DEB</string>
-				<string>22A9D40E196F56B900AF6DEB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>22A9D40D196F56B900AF6DEB</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>0D27BC48314D4EA7918AF464</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(PROJECT_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>NeoReach/NeoReach-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>NeoReach/NeoReach-Info.plist</string>
-				<key>OTHER_LDFLAGS[arch=*]</key>
-				<string>-ObjC</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>22A9D40E196F56B900AF6DEB</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>0D27BC48314D4EA7918AF464</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(PROJECT_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>NeoReach/NeoReach-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>NeoReach/NeoReach-Info.plist</string>
-				<key>OTHER_LDFLAGS[arch=*]</key>
-				<string>-ObjC</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>22A9D40F196F56B900AF6DEB</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>22A9D410196F56B900AF6DEB</string>
-				<string>22A9D411196F56B900AF6DEB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>22A9D410196F56B900AF6DEB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/NeoReach.app/NeoReach</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>NeoReach/NeoReach-Prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>NeoReachTests/NeoReachTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>22A9D411196F56B900AF6DEB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/NeoReach.app/NeoReach</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>NeoReach/NeoReach-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>NeoReachTests/NeoReachTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>22A9D4141974385200AF6DEB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>path</key>
-			<string>FacebookSDK.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D4151974385200AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D4141974385200AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D41819743B2D00AF6DEB</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>NEOLoginViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D41919743B2D00AF6DEB</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>NEOLoginViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D41A19743B2D00AF6DEB</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.xib</string>
-			<key>path</key>
-			<string>NEOLoginViewController.xib</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22A9D41B19743B2D00AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D41919743B2D00AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>22A9D41C19743B2D00AF6DEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>22A9D41A19743B2D00AF6DEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>2B6613254EDF4F968B36F2CF</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>44C98A225C054266AD9E76F2</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>C90E4AAD95664C0A8BD74538</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2B6613254EDF4F968B36F2CF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F2735704D83C46B485B0D567</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Pods-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>22A9D3D8196F56B900AF6DEB</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22A22D08197874AA00D4560A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A22D07197874AA00D4560A /* Storyboard.storyboard */; };
+		22A9D3E4196F56B900AF6DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E3196F56B900AF6DEB /* Foundation.framework */; };
+		22A9D3E6196F56B900AF6DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */; };
+		22A9D3E8196F56B900AF6DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E7196F56B900AF6DEB /* UIKit.framework */; };
+		22A9D3EE196F56B900AF6DEB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D3EC196F56B900AF6DEB /* InfoPlist.strings */; };
+		22A9D3F0196F56B900AF6DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D3EF196F56B900AF6DEB /* main.m */; };
+		22A9D3F4196F56B900AF6DEB /* NEOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D3F3196F56B900AF6DEB /* NEOAppDelegate.m */; };
+		22A9D3F6196F56B900AF6DEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D3F5196F56B900AF6DEB /* Images.xcassets */; };
+		22A9D3FD196F56B900AF6DEB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3FC196F56B900AF6DEB /* XCTest.framework */; };
+		22A9D3FE196F56B900AF6DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E3196F56B900AF6DEB /* Foundation.framework */; };
+		22A9D3FF196F56B900AF6DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E7196F56B900AF6DEB /* UIKit.framework */; };
+		22A9D407196F56B900AF6DEB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D405196F56B900AF6DEB /* InfoPlist.strings */; };
+		22A9D409196F56B900AF6DEB /* NeoReachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D408196F56B900AF6DEB /* NeoReachTests.m */; };
+		22A9D4151974385200AF6DEB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D4141974385200AF6DEB /* FacebookSDK.framework */; };
+		22A9D41B19743B2D00AF6DEB /* NEOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D41919743B2D00AF6DEB /* NEOLoginViewController.m */; };
+		22A9D41C19743B2D00AF6DEB /* NEOLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D41A19743B2D00AF6DEB /* NEOLoginViewController.xib */; };
+		C90E4AAD95664C0A8BD74538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6613254EDF4F968B36F2CF /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22A9D400196F56B900AF6DEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22A9D3D8196F56B900AF6DEB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22A9D3DF196F56B900AF6DEB;
+			remoteInfo = NeoReach;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D27BC48314D4EA7918AF464 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		22A22D07197874AA00D4560A /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		22A9D3E0196F56B900AF6DEB /* NeoReach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoReach.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22A9D3E3196F56B900AF6DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		22A9D3E7196F56B900AF6DEB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		22A9D3EB196F56B900AF6DEB /* NeoReach-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NeoReach-Info.plist"; sourceTree = "<group>"; };
+		22A9D3ED196F56B900AF6DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		22A9D3EF196F56B900AF6DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		22A9D3F1196F56B900AF6DEB /* NeoReach-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NeoReach-Prefix.pch"; sourceTree = "<group>"; };
+		22A9D3F2196F56B900AF6DEB /* NEOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NEOAppDelegate.h; sourceTree = "<group>"; };
+		22A9D3F3196F56B900AF6DEB /* NEOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NEOAppDelegate.m; sourceTree = "<group>"; };
+		22A9D3F5196F56B900AF6DEB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		22A9D3FB196F56B900AF6DEB /* NeoReachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeoReachTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22A9D3FC196F56B900AF6DEB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		22A9D404196F56B900AF6DEB /* NeoReachTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NeoReachTests-Info.plist"; sourceTree = "<group>"; };
+		22A9D406196F56B900AF6DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		22A9D408196F56B900AF6DEB /* NeoReachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeoReachTests.m; sourceTree = "<group>"; };
+		22A9D4141974385200AF6DEB /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		22A9D41819743B2D00AF6DEB /* NEOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOLoginViewController.h; sourceTree = "<group>"; };
+		22A9D41919743B2D00AF6DEB /* NEOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOLoginViewController.m; sourceTree = "<group>"; };
+		22A9D41A19743B2D00AF6DEB /* NEOLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOLoginViewController.xib; sourceTree = "<group>"; };
+		2B6613254EDF4F968B36F2CF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22A9D3DD196F56B900AF6DEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A9D3E6196F56B900AF6DEB /* CoreGraphics.framework in Frameworks */,
+				22A9D4151974385200AF6DEB /* FacebookSDK.framework in Frameworks */,
+				22A9D3E8196F56B900AF6DEB /* UIKit.framework in Frameworks */,
+				22A9D3E4196F56B900AF6DEB /* Foundation.framework in Frameworks */,
+				C90E4AAD95664C0A8BD74538 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22A9D3F8196F56B900AF6DEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A9D3FD196F56B900AF6DEB /* XCTest.framework in Frameworks */,
+				22A9D3FF196F56B900AF6DEB /* UIKit.framework in Frameworks */,
+				22A9D3FE196F56B900AF6DEB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22A9D3D7196F56B900AF6DEB = {
+			isa = PBXGroup;
+			children = (
+				22A9D3E9196F56B900AF6DEB /* NeoReach */,
+				22A9D402196F56B900AF6DEB /* NeoReachTests */,
+				22A9D3E2196F56B900AF6DEB /* Frameworks */,
+				22A9D3E1196F56B900AF6DEB /* Products */,
+				0D27BC48314D4EA7918AF464 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		22A9D3E1196F56B900AF6DEB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22A9D3E0196F56B900AF6DEB /* NeoReach.app */,
+				22A9D3FB196F56B900AF6DEB /* NeoReachTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22A9D3E2196F56B900AF6DEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22A9D4141974385200AF6DEB /* FacebookSDK.framework */,
+				22A9D3E3196F56B900AF6DEB /* Foundation.framework */,
+				22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */,
+				22A9D3E7196F56B900AF6DEB /* UIKit.framework */,
+				22A9D3FC196F56B900AF6DEB /* XCTest.framework */,
+				2B6613254EDF4F968B36F2CF /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22A9D3E9196F56B900AF6DEB /* NeoReach */ = {
+			isa = PBXGroup;
+			children = (
+				22A9D3F2196F56B900AF6DEB /* NEOAppDelegate.h */,
+				22A9D3F3196F56B900AF6DEB /* NEOAppDelegate.m */,
+				22A9D3F5196F56B900AF6DEB /* Images.xcassets */,
+				22A9D3EA196F56B900AF6DEB /* Supporting Files */,
+				22A9D41819743B2D00AF6DEB /* NEOLoginViewController.h */,
+				22A9D41919743B2D00AF6DEB /* NEOLoginViewController.m */,
+				22A9D41A19743B2D00AF6DEB /* NEOLoginViewController.xib */,
+				22A22D07197874AA00D4560A /* Storyboard.storyboard */,
+			);
+			path = NeoReach;
+			sourceTree = "<group>";
+		};
+		22A9D3EA196F56B900AF6DEB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22A9D3EB196F56B900AF6DEB /* NeoReach-Info.plist */,
+				22A9D3EC196F56B900AF6DEB /* InfoPlist.strings */,
+				22A9D3EF196F56B900AF6DEB /* main.m */,
+				22A9D3F1196F56B900AF6DEB /* NeoReach-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22A9D402196F56B900AF6DEB /* NeoReachTests */ = {
+			isa = PBXGroup;
+			children = (
+				22A9D408196F56B900AF6DEB /* NeoReachTests.m */,
+				22A9D403196F56B900AF6DEB /* Supporting Files */,
+			);
+			path = NeoReachTests;
+			sourceTree = "<group>";
+		};
+		22A9D403196F56B900AF6DEB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22A9D404196F56B900AF6DEB /* NeoReachTests-Info.plist */,
+				22A9D405196F56B900AF6DEB /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		22A9D3DF196F56B900AF6DEB /* NeoReach */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22A9D40C196F56B900AF6DEB /* Build configuration list for PBXNativeTarget "NeoReach" */;
+			buildPhases = (
+				44C98A225C054266AD9E76F2 /* Check Pods Manifest.lock */,
+				22A9D3DC196F56B900AF6DEB /* Sources */,
+				22A9D3DD196F56B900AF6DEB /* Frameworks */,
+				22A9D3DE196F56B900AF6DEB /* Resources */,
+				F2735704D83C46B485B0D567 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NeoReach;
+			productName = NeoReach;
+			productReference = 22A9D3E0196F56B900AF6DEB /* NeoReach.app */;
+			productType = "com.apple.product-type.application";
+		};
+		22A9D3FA196F56B900AF6DEB /* NeoReachTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22A9D40F196F56B900AF6DEB /* Build configuration list for PBXNativeTarget "NeoReachTests" */;
+			buildPhases = (
+				22A9D3F7196F56B900AF6DEB /* Sources */,
+				22A9D3F8196F56B900AF6DEB /* Frameworks */,
+				22A9D3F9196F56B900AF6DEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22A9D401196F56B900AF6DEB /* PBXTargetDependency */,
+			);
+			name = NeoReachTests;
+			productName = NeoReachTests;
+			productReference = 22A9D3FB196F56B900AF6DEB /* NeoReachTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22A9D3D8196F56B900AF6DEB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = NEO;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = NeoReach;
+				TargetAttributes = {
+					22A9D3FA196F56B900AF6DEB = {
+						TestTargetID = 22A9D3DF196F56B900AF6DEB;
+					};
+				};
+			};
+			buildConfigurationList = 22A9D3DB196F56B900AF6DEB /* Build configuration list for PBXProject "NeoReach" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 22A9D3D7196F56B900AF6DEB;
+			productRefGroup = 22A9D3E1196F56B900AF6DEB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22A9D3DF196F56B900AF6DEB /* NeoReach */,
+				22A9D3FA196F56B900AF6DEB /* NeoReachTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22A9D3DE196F56B900AF6DEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A9D3EE196F56B900AF6DEB /* InfoPlist.strings in Resources */,
+				22A22D08197874AA00D4560A /* Storyboard.storyboard in Resources */,
+				22A9D3F6196F56B900AF6DEB /* Images.xcassets in Resources */,
+				22A9D41C19743B2D00AF6DEB /* NEOLoginViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22A9D3F9196F56B900AF6DEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A9D407196F56B900AF6DEB /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		44C98A225C054266AD9E76F2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F2735704D83C46B485B0D567 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22A9D3DC196F56B900AF6DEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A9D41B19743B2D00AF6DEB /* NEOLoginViewController.m in Sources */,
+				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
+				22A9D3F4196F56B900AF6DEB /* NEOAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22A9D3F7196F56B900AF6DEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A9D409196F56B900AF6DEB /* NeoReachTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22A9D401196F56B900AF6DEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22A9D3DF196F56B900AF6DEB /* NeoReach */;
+			targetProxy = 22A9D400196F56B900AF6DEB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		22A9D3EC196F56B900AF6DEB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22A9D3ED196F56B900AF6DEB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		22A9D405196F56B900AF6DEB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22A9D406196F56B900AF6DEB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		22A9D40A196F56B900AF6DEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		22A9D40B196F56B900AF6DEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		22A9D40D196F56B900AF6DEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D27BC48314D4EA7918AF464 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
+				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		22A9D40E196F56B900AF6DEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D27BC48314D4EA7918AF464 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
+				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		22A9D410196F56B900AF6DEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NeoReach.app/NeoReach";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "NeoReachTests/NeoReachTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		22A9D411196F56B900AF6DEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NeoReach.app/NeoReach";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
+				INFOPLIST_FILE = "NeoReachTests/NeoReachTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22A9D3DB196F56B900AF6DEB /* Build configuration list for PBXProject "NeoReach" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22A9D40A196F56B900AF6DEB /* Debug */,
+				22A9D40B196F56B900AF6DEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22A9D40C196F56B900AF6DEB /* Build configuration list for PBXNativeTarget "NeoReach" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22A9D40D196F56B900AF6DEB /* Debug */,
+				22A9D40E196F56B900AF6DEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22A9D40F196F56B900AF6DEB /* Build configuration list for PBXNativeTarget "NeoReachTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22A9D410196F56B900AF6DEB /* Debug */,
+				22A9D411196F56B900AF6DEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22A9D3D8196F56B900AF6DEB /* Project object */;
+}

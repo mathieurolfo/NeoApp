@@ -18,21 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
-    NEOLoginViewController *loginViewController = [[NEOLoginViewController alloc] init];
-    self.window.rootViewController = loginViewController;
-    
-    //self.window.backgroundColor = [UIColor yellowColor];
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:NO completionHandler:
             ^(FBSession *session, FBSessionState state, NSError *error) {
             [self sessionStateChanged:session state:state error:error];
         }];
     }
-    
-    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
