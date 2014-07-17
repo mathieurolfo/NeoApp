@@ -7,6 +7,7 @@
 //
 
 #import "NEOLoginViewController.h"
+#import "NEOAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOLoginViewController ()
@@ -24,12 +25,26 @@
     return self;
 }
 
+- (IBAction)buttonTouched:(id)sender
+{
+    if (FBSession.activeSession.state == FBSessionStateOpen ||
+        FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        [FBSession.activeSession closeAndClearTokenInformation];
+    } else {
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            
+            NEOAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            [appDelegate sessionStateChanged:session state:state error:error];
+        }];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    //self.loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,6 +56,7 @@
 /* This method will be called when the user information has been fetched */
 - (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
 {
+    //this is a method call, setProfileID, which sets the profile ID to the FBGraphUser's object ID. This calls the custom setter method behind the scenes which 
     self.profilePictureView.profileID = user.objectID;
     self.nameLabel.text = user.name;
 }
