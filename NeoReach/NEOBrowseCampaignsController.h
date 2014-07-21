@@ -1,5 +1,5 @@
 //
-//  NEODashboardViewController.h
+//  NEOBrowseCampaignsController.h
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/21/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEODashboardViewController : UIViewController
+@interface NEOBrowseCampaignsController : UIViewController
 
 @end
