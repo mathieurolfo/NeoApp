@@ -22,6 +22,7 @@
 {
     NEODashboardController *dashboard = [[NEODashboardController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
+
     
     NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
     MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:navController
