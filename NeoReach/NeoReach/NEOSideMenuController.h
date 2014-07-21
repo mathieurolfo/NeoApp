@@ -1,5 +1,5 @@
 //
-//  NEODashboardViewController.h
+//  NEOSideMenuController.h
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/21/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEODashboardViewController : UIViewController
+@interface NEOSideMenuController : UIViewController
 
 @end

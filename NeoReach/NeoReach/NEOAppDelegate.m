@@ -7,7 +7,9 @@
 //
 
 #import "NEOAppDelegate.h"
-#import "NEOLoginViewController.h"
+#import "NEOSideMenuController.h"
+#import "NEODashboardController.h"
+#import <MMDrawerController/MMDrawerController.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOAppDelegate ()
@@ -18,6 +20,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    
+    NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
+    MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:navController
+                                                                 leftDrawerViewController:sideMenu];
+    
+    drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView;
+    drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
+                                        MMCloseDrawerGestureModePanningDrawerView |
+                                        MMCloseDrawerGestureModePanningCenterView;
+    
+    self.window.rootViewController = drawer;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
