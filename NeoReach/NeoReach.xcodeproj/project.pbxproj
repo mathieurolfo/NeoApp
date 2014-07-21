@@ -13,6 +13,8 @@
 		22A22D21197D6B5700D4560A /* NEODashboardController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A22D1F197D6B5700D4560A /* NEODashboardController.xib */; };
 		22A22D28197D6B7A00D4560A /* NEOBrowseCampaignsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D26197D6B7A00D4560A /* NEOBrowseCampaignsController.m */; };
 		22A22D29197D6B7A00D4560A /* NEOBrowseCampaignsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A22D27197D6B7A00D4560A /* NEOBrowseCampaignsController.xib */; };
+		22A22D2D197D6C8400D4560A /* NEOSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D2B197D6C8400D4560A /* NEOSideMenuController.m */; };
+		22A22D2E197D6C8400D4560A /* NEOSideMenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A22D2C197D6C8400D4560A /* NEOSideMenuController.xib */; };
 		22A9D3E4196F56B900AF6DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E3196F56B900AF6DEB /* Foundation.framework */; };
 		22A9D3E6196F56B900AF6DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */; };
 		22A9D3E8196F56B900AF6DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E7196F56B900AF6DEB /* UIKit.framework */; };
@@ -50,6 +52,9 @@
 		22A22D25197D6B7A00D4560A /* NEOBrowseCampaignsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NEOBrowseCampaignsController.h; path = ../NEOBrowseCampaignsController.h; sourceTree = "<group>"; };
 		22A22D26197D6B7A00D4560A /* NEOBrowseCampaignsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NEOBrowseCampaignsController.m; path = ../NEOBrowseCampaignsController.m; sourceTree = "<group>"; };
 		22A22D27197D6B7A00D4560A /* NEOBrowseCampaignsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NEOBrowseCampaignsController.xib; path = ../NEOBrowseCampaignsController.xib; sourceTree = "<group>"; };
+		22A22D2A197D6C8400D4560A /* NEOSideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOSideMenuController.h; sourceTree = "<group>"; };
+		22A22D2B197D6C8400D4560A /* NEOSideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOSideMenuController.m; sourceTree = "<group>"; };
+		22A22D2C197D6C8400D4560A /* NEOSideMenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOSideMenuController.xib; sourceTree = "<group>"; };
 		22A9D3E0196F56B900AF6DEB /* NeoReach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoReach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A9D3E3196F56B900AF6DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -142,6 +147,9 @@
 				22A22D18197D6B4200D4560A /* NEOLoginController.h */,
 				22A22D19197D6B4200D4560A /* NEOLoginController.m */,
 				22A22D1A197D6B4200D4560A /* NEOLoginController.xib */,
+				22A22D2A197D6C8400D4560A /* NEOSideMenuController.h */,
+				22A22D2B197D6C8400D4560A /* NEOSideMenuController.m */,
+				22A22D2C197D6C8400D4560A /* NEOSideMenuController.xib */,
 				22A22D1D197D6B5700D4560A /* NEODashboardController.h */,
 				22A22D1E197D6B5700D4560A /* NEODashboardController.m */,
 				22A22D1F197D6B5700D4560A /* NEODashboardController.xib */,
@@ -260,6 +268,7 @@
 				22A22D21197D6B5700D4560A /* NEODashboardController.xib in Resources */,
 				22A22D29197D6B7A00D4560A /* NEOBrowseCampaignsController.xib in Resources */,
 				22A22D1C197D6B4200D4560A /* NEOLoginController.xib in Resources */,
+				22A22D2E197D6C8400D4560A /* NEOSideMenuController.xib in Resources */,
 				22A9D3F6196F56B900AF6DEB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +323,7 @@
 			files = (
 				22A22D1B197D6B4200D4560A /* NEOLoginController.m in Sources */,
 				22A22D20197D6B5700D4560A /* NEODashboardController.m in Sources */,
+				22A22D2D197D6C8400D4560A /* NEOSideMenuController.m in Sources */,
 				22A22D28197D6B7A00D4560A /* NEOBrowseCampaignsController.m in Sources */,
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
 				22A9D3F4196F56B900AF6DEB /* NEOAppDelegate.m in Sources */,
