@@ -18,103 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:NO completionHandler:
-            ^(FBSession *session, FBSessionState state, NSError *error) {
-            [self sessionStateChanged:session state:state error:error];
-        }];
-    }
-
     return YES;
-}
-
--(void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error
-{
-    if (!error && state == FBSessionStateOpen) {
-        NSLog(@"Session opened");
-       // [self userLoggedIn:session user];
-        
-        //THIS IS THE COMMAND TO GET THE USER INFORMATION
-        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id<FBGraphUser> user, NSError *error) {
-            if (!error) {
-                NSLog(@"%@", user);
-                [self userLoggedIn:session user:(FBGraphObject *)user];
-            }
-        }];
-        return;
-    }
-    if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
-        NSLog(@"Session closed");
-        [self userLoggedOut];
-    }
-    if (error) {
-        NSLog(@"Error");
-        NSString *alertText;
-        NSString *alertTitle;
-        // If the error requires people using an app to make an action outside of the app in order to recover
-        if ([FBErrorUtility shouldNotifyUserForError:error] == YES){
-            alertTitle = @"Something went wrong";
-            alertText = [FBErrorUtility userMessageForError:error];
-            [self showMessage:alertText withTitle:alertTitle];
-        } else {
-            
-            // If the user cancelled login, do nothing
-            if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
-                NSLog(@"User cancelled login");
-                
-                // Handle session closures that happen outside of the app
-            } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession){
-                alertTitle = @"Session Error";
-                alertText = @"Your current session is no longer valid. Please log in again.";
-                [self showMessage:alertText withTitle:alertTitle];
-                
-                // Here we will handle all other errors with a generic error message.
-                // We recommend you check our Handling Errors guide for more information
-                // https://developers.facebook.com/docs/ios/errors/
-            } else {
-                //Get more error information from the error
-                NSDictionary *errorInformation = [[[error.userInfo objectForKey:@"com.facebook.sdk:ParsedJSONResponseKey"] objectForKey:@"body"] objectForKey:@"error"];
-                
-                // Show the user an error message
-                alertTitle = @"Something went wrong";
-                alertText = [NSString stringWithFormat:@"Please retry. \n\n If the problem persists contact us and mention this error code: %@", [errorInformation objectForKey:@"message"]];
-                [self showMessage:alertText withTitle:alertTitle];
-            }
-        }
-        // Clear this token
-        [FBSession.activeSession closeAndClearTokenInformation];
-        // Show the user the logged-out UI
-        //[self userLoggedOut];
-    }
 }
 
 - (void)showMessage:(NSString *)text withTitle:(NSString *)alertTitle
 {
     
 }
-
-- (void)userLoggedIn:(FBSession *)session user:(FBGraphObject *)user
-{
-    NSLog(@"userLoggedIn");
-    if (session.state == FBSessionStateOpen) {
-        ((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID = [user objectForKey:@"id"];
-        ((NEOLoginViewController *)(self.window.rootViewController)).nameLabel.text = [user objectForKey:@"name"];
-        ((NEOLoginViewController *)(self.window.rootViewController)).statusLabel.text = @"Currently logged in";
-        [((NEOLoginViewController *)(self.window.rootViewController)).loginButton setTitle:@"Logout, bitch" forState:UIControlStateNormal];
-
-        //session
-    }
-}
-
-         
-- (void)userLoggedOut
-{
-    ((NEOLoginViewController *)(self.window.rootViewController)).profilePictureView.profileID = nil;
-    ((NEOLoginViewController *)(self.window.rootViewController)).nameLabel.text = @"";
-    ((NEOLoginViewController *)(self.window.rootViewController)).statusLabel.text = @"Not logged in";
-     [((NEOLoginViewController *)(self.window.rootViewController)).loginButton setTitle:@"Login, bitch" forState:UIControlStateNormal];
-}
-
 
 
 - (void)applicationWillResignActive:(UIApplication *)application

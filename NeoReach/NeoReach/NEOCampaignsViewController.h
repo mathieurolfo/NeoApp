@@ -1,5 +1,5 @@
 //
-//  NEOLoginViewController.h
+//  NEOCampaignsViewController.h
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/21/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOLoginViewController : UIViewController
+@interface NEOCampaignsViewController : UIViewController
 
 @end

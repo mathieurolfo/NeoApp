@@ -1,18 +1,18 @@
 //
-//  NEOLoginViewController.m
+//  NEODashboardViewController.m
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/21/14.
 //  Copyright (c) 2014 NeoReach. All rights reserved.
 //
 
-#import "NEOLoginViewController.h"
+#import "NEODashboardViewController.h"
 
-@interface NEOLoginViewController ()
+@interface NEODashboardViewController ()
 
 @end
 
-@implementation NEOLoginViewController
+@implementation NEODashboardViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

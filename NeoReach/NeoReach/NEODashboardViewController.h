@@ -1,5 +1,5 @@
 //
-//  NEOLoginViewController.h
+//  NEODashboardViewController.h
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/21/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOLoginViewController : UIViewController
+@interface NEODashboardViewController : UIViewController
 
 @end

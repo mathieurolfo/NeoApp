@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		22A22D08197874AA00D4560A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A22D07197874AA00D4560A /* Storyboard.storyboard */; };
+		22A22D0B197D4C8200D4560A /* NEOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D0A197D4C8200D4560A /* NEOLoginViewController.m */; };
+		22A22D11197D4DB100D4560A /* NEODashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D10197D4DB100D4560A /* NEODashboardViewController.m */; };
+		22A22D17197D518400D4560A /* NEOCampaignsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D16197D518400D4560A /* NEOCampaignsViewController.m */; };
 		22A9D3E4196F56B900AF6DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E3196F56B900AF6DEB /* Foundation.framework */; };
 		22A9D3E6196F56B900AF6DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */; };
 		22A9D3E8196F56B900AF6DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D3E7196F56B900AF6DEB /* UIKit.framework */; };
@@ -21,8 +24,6 @@
 		22A9D407196F56B900AF6DEB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D405196F56B900AF6DEB /* InfoPlist.strings */; };
 		22A9D409196F56B900AF6DEB /* NeoReachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D408196F56B900AF6DEB /* NeoReachTests.m */; };
 		22A9D4151974385200AF6DEB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D4141974385200AF6DEB /* FacebookSDK.framework */; };
-		22A9D41B19743B2D00AF6DEB /* NEOLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D41919743B2D00AF6DEB /* NEOLoginViewController.m */; };
-		22A9D41C19743B2D00AF6DEB /* NEOLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D41A19743B2D00AF6DEB /* NEOLoginViewController.xib */; };
 		C90E4AAD95664C0A8BD74538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6613254EDF4F968B36F2CF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,12 @@
 /* Begin PBXFileReference section */
 		0D27BC48314D4EA7918AF464 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		22A22D07197874AA00D4560A /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		22A22D09197D4C8200D4560A /* NEOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOLoginViewController.h; sourceTree = "<group>"; };
+		22A22D0A197D4C8200D4560A /* NEOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOLoginViewController.m; sourceTree = "<group>"; };
+		22A22D0F197D4DB100D4560A /* NEODashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardViewController.h; sourceTree = "<group>"; };
+		22A22D10197D4DB100D4560A /* NEODashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardViewController.m; sourceTree = "<group>"; };
+		22A22D15197D518400D4560A /* NEOCampaignsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOCampaignsViewController.h; sourceTree = "<group>"; };
+		22A22D16197D518400D4560A /* NEOCampaignsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOCampaignsViewController.m; sourceTree = "<group>"; };
 		22A9D3E0196F56B900AF6DEB /* NeoReach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoReach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A9D3E3196F56B900AF6DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,9 +63,6 @@
 		22A9D406196F56B900AF6DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22A9D408196F56B900AF6DEB /* NeoReachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeoReachTests.m; sourceTree = "<group>"; };
 		22A9D4141974385200AF6DEB /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		22A9D41819743B2D00AF6DEB /* NEOLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOLoginViewController.h; sourceTree = "<group>"; };
-		22A9D41919743B2D00AF6DEB /* NEOLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOLoginViewController.m; sourceTree = "<group>"; };
-		22A9D41A19743B2D00AF6DEB /* NEOLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOLoginViewController.xib; sourceTree = "<group>"; };
 		2B6613254EDF4F968B36F2CF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,10 +132,13 @@
 				22A9D3F3196F56B900AF6DEB /* NEOAppDelegate.m */,
 				22A9D3F5196F56B900AF6DEB /* Images.xcassets */,
 				22A9D3EA196F56B900AF6DEB /* Supporting Files */,
-				22A9D41819743B2D00AF6DEB /* NEOLoginViewController.h */,
-				22A9D41919743B2D00AF6DEB /* NEOLoginViewController.m */,
-				22A9D41A19743B2D00AF6DEB /* NEOLoginViewController.xib */,
 				22A22D07197874AA00D4560A /* Storyboard.storyboard */,
+				22A22D09197D4C8200D4560A /* NEOLoginViewController.h */,
+				22A22D0A197D4C8200D4560A /* NEOLoginViewController.m */,
+				22A22D0F197D4DB100D4560A /* NEODashboardViewController.h */,
+				22A22D10197D4DB100D4560A /* NEODashboardViewController.m */,
+				22A22D15197D518400D4560A /* NEOCampaignsViewController.h */,
+				22A22D16197D518400D4560A /* NEOCampaignsViewController.m */,
 			);
 			path = NeoReach;
 			sourceTree = "<group>";
@@ -246,7 +253,6 @@
 				22A9D3EE196F56B900AF6DEB /* InfoPlist.strings in Resources */,
 				22A22D08197874AA00D4560A /* Storyboard.storyboard in Resources */,
 				22A9D3F6196F56B900AF6DEB /* Images.xcassets in Resources */,
-				22A9D41C19743B2D00AF6DEB /* NEOLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +304,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A9D41B19743B2D00AF6DEB /* NEOLoginViewController.m in Sources */,
+				22A22D11197D4DB100D4560A /* NEODashboardViewController.m in Sources */,
+				22A22D0B197D4C8200D4560A /* NEOLoginViewController.m in Sources */,
+				22A22D17197D518400D4560A /* NEOCampaignsViewController.m in Sources */,
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
 				22A9D3F4196F56B900AF6DEB /* NEOAppDelegate.m in Sources */,
 			);

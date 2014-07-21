@@ -1,18 +1,18 @@
 //
-//  NEOLoginViewController.m
+//  NEOCampaignsViewController.m
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/21/14.
 //  Copyright (c) 2014 NeoReach. All rights reserved.
 //
 
-#import "NEOLoginViewController.h"
+#import "NEOCampaignsViewController.h"
 
-@interface NEOLoginViewController ()
+@interface NEOCampaignsViewController ()
 
 @end
 
-@implementation NEOLoginViewController
+@implementation NEOCampaignsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
