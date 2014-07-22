@@ -23,7 +23,7 @@
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
         
-        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd targe4t:self action:@selector(addNewItem:)];
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
         navItem.rightBarButtonItem = bbi;
         navItem.leftBarButtonItem = self.editButtonItem;
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
