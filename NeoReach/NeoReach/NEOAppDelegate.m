@@ -22,7 +22,7 @@
 {
     
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
-
+    self.login = loginController;
 
     
     NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];

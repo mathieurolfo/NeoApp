@@ -8,6 +8,7 @@
 //
 
 #import "NEOSideMenuController.h"
+#import "NEOAppDelegate.h"
 
 @interface NEOSideMenuController ()
 @end
@@ -26,7 +27,7 @@
             return 2;
             break;
         case 2:
-            return 3;
+            return 4;
             break;
     }
     return 0;
@@ -74,6 +75,9 @@
                 case 2:
                     cell.textLabel.text = @"Tags";
                     break;
+                case 3:
+                    cell.textLabel.text = @"Log Out";
+                    break;
             }
             break;
         default:
@@ -94,6 +98,20 @@
             return @"PERSONAL DETAILS";
         }
     return @"";
+}
+
+#pragma mark - Table View Cells Clicked
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    if (indexPath.section == 2 && indexPath.row == 3) {
+        //[delegate.rootNav pushViewController:delegate.login animated:YES];
+        [delegate.drawer closeDrawerAnimated:YES completion:nil];
+        delegate.drawer.centerViewController = delegate.login;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 #pragma mark - Other Methods
