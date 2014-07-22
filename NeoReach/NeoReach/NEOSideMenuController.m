@@ -1,3 +1,4 @@
+
 //
 //  NEOSideMenuController.m
 //  NeoReach
@@ -9,6 +10,7 @@
 #import "NEOSideMenuController.h"
 
 @interface NEOSideMenuController ()
+@property (weak, nonatomic) IBOutlet UITableView *menuTableView;
 
 @end
 
@@ -18,7 +20,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        UITableView *menuTable = [[UITableView alloc] init];
+        self.menuTableView = menuTable;
+        self.menuTableView.delegate = self;
     }
     return self;
 }

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOSideMenuController : UIViewController
+@interface NEOSideMenuController : UIViewController <UITableViewDelegate>
 
 @end
