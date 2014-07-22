@@ -8,6 +8,8 @@
 
 #import "NEOAppDelegate.h"
 #import "NEOLoginController.h"
+#import "NEOSideMenuController.h"
+#import <MMDrawerController/MMDrawerController.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOAppDelegate ()
@@ -18,27 +20,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*
-    NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    
+    NEOLoginController *loginController = [[NEOLoginController alloc] init];
+
 
     
     NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
     
-    MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:navController
+    self.drawer = [[MMDrawerController alloc] initWithCenterViewController:loginController
                                                                  leftDrawerViewController:sideMenu];
-    
-    drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView |
-                                        MMOpenDrawerGestureModePanningNavigationBar;
-    drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
-                                        MMCloseDrawerGestureModePanningDrawerView |
-                                        MMCloseDrawerGestureModePanningCenterView;
-     
+    /*
+
      */
+     
     
-    NEOLoginController *loginController = [[NEOLoginController alloc] init];
     
-    self.window.rootViewController = loginController;
+    self.window.rootViewController = self.drawer;
     [self.window makeKeyAndVisible];
     
     return YES;

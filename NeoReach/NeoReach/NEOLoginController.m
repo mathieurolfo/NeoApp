@@ -7,6 +7,8 @@
 //
 
 #import "NEOLoginController.h"
+#import "NEODashboardController.h"
+#import "NEOAppDelegate.h"
 
 @interface NEOLoginController ()
 
@@ -34,5 +36,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)logInPressed:(id)sender {
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (!delegate.rootNav) {
+        NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+        delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    }
+    
+    delegate.drawer.centerViewController = delegate.rootNav;
+    delegate.drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView |
+                                                MMOpenDrawerGestureModePanningNavigationBar;
+    
+    delegate.drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
+                                                 MMCloseDrawerGestureModePanningDrawerView |
+                                                 MMCloseDrawerGestureModePanningCenterView;
+    
+}
+
+
 
 @end
