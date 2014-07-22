@@ -50,7 +50,9 @@
     
     delegate.drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
                                                  MMCloseDrawerGestureModePanningDrawerView |
-                                                 MMCloseDrawerGestureModePanningCenterView;
+                                                 MMCloseDrawerGestureModePanningCenterView |
+                                                 MMCloseDrawerGestureModeTapNavigationBar |
+                                                 MMCloseDrawerGestureModePanningNavigationBar;
     
 }
 
