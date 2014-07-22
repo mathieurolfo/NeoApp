@@ -18,9 +18,29 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Dashboard";
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+        
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd targe4t:self action:@selector(addNewItem:)];
+        navItem.rightBarButtonItem = bbi;
+        navItem.leftBarButtonItem = self.editButtonItem;
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(updateTableViewForDynamicTypeSize:) name:UIContentSizeCategoryDidChangeNotification object:nil];
     }
+    
     return self;
+}
+
+- (IBAction)addNewItem:(id)sender
+{
+    
+}
+
+- (IBAction)updateTableViewForDynamicTypeSize:(id)sender
+{
+    
 }
 
 - (void)viewDidLoad
