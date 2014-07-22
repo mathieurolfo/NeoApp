@@ -20,15 +20,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     NEODashboardController *dashboard = [[NEODashboardController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dashboard];
 
     
     NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
+    
     MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:navController
                                                                  leftDrawerViewController:sideMenu];
     
-    drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView;
+    drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView |
+                                        MMOpenDrawerGestureModePanningNavigationBar;
     drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
                                         MMCloseDrawerGestureModePanningDrawerView |
                                         MMCloseDrawerGestureModePanningCenterView;
