@@ -28,6 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.logInOutInfoLabel.text = @"";
     // Do any additional setup after loading the view from its nib.
 }
 

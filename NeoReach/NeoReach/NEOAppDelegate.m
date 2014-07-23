@@ -29,11 +29,6 @@
     
     self.drawer = [[MMDrawerController alloc] initWithCenterViewController:loginController
                                                                  leftDrawerViewController:sideMenu];
-    /*
-
-     */
-     
-    
     
     self.window.rootViewController = self.drawer;
     [self.window makeKeyAndVisible];

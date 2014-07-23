@@ -16,21 +16,6 @@
 
 @implementation NEODashboardController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        UINavigationItem *navItem = self.navigationItem;
-        navItem.title = @"Dashboard";
-        self.restorationIdentifier = NSStringFromClass([self class]);
-        self.restorationClass = [self class];
-        MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
-        
-        navItem.leftBarButtonItem = lbbi;
-    }
-    
-    return self;
-}
 
 #pragma mark NavBar Methods
 
@@ -58,6 +43,22 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Dashboard";
+        self.restorationIdentifier = NSStringFromClass([self class]);
+        self.restorationClass = [self class];
+        MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
+        
+        navItem.leftBarButtonItem = lbbi;
+    }
+    
+    return self;
 }
 
 @end
