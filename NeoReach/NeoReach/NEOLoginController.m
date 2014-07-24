@@ -46,14 +46,6 @@
     }
     
     delegate.drawer.centerViewController = delegate.rootNav;
-    delegate.drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView |
-                                                MMOpenDrawerGestureModePanningNavigationBar;
-    
-    delegate.drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
-                                                 MMCloseDrawerGestureModePanningDrawerView |
-                                                 MMCloseDrawerGestureModePanningCenterView |
-                                                 MMCloseDrawerGestureModeTapNavigationBar |
-                                                 MMCloseDrawerGestureModePanningNavigationBar;
     
 }
 

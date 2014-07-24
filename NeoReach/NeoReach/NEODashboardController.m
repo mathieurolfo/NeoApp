@@ -37,6 +37,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate enableDrawerAccess];
+    
 }
 
 
@@ -68,8 +71,12 @@
 - (IBAction)browseCampaigns:(id)sender {
     NEOBrowseCampaignsController *bcc = [[NEOBrowseCampaignsController alloc] init];
     
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate disableDrawerAccess];
+    
     [[self navigationController] pushViewController:bcc animated:YES];
     
+
 }
 
 @end

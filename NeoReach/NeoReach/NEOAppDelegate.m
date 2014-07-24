@@ -67,6 +67,28 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+-(void)enableDrawerAccess
+{
+    self.drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView |
+    MMOpenDrawerGestureModePanningNavigationBar;
+    
+    self.drawer.closeDrawerGestureModeMask = MMCloseDrawerGestureModeTapCenterView |
+    MMCloseDrawerGestureModePanningDrawerView |
+    MMCloseDrawerGestureModePanningCenterView |
+    MMCloseDrawerGestureModeTapNavigationBar |
+    MMCloseDrawerGestureModePanningNavigationBar;
+    
+
+    
+}
+
+-(void)disableDrawerAccess
+{
+    
+    self.drawer.openDrawerGestureModeMask = 0;
+    self.drawer.closeDrawerGestureModeMask = 0;
+    
+}
 
 
 @end
