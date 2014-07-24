@@ -109,7 +109,30 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3; //Stats, profile, (one) post
+    return 30; //Stats, profile, (one) post
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGFloat height = 0.0;
+    
+    switch (indexPath.row) {
+        case 0: // profile
+            height = screenHeight / 4;
+            break;
+        case 1: // browse
+            height = screenHeight / 12;
+            break;
+        case 2: // stats
+            height = screenHeight / 4;
+            break;
+        default: // posts
+            height = screenHeight / 12;
+    }
+    
+    return height;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -126,7 +149,8 @@
         case 1:
         {
             NEODashboardBrowseCampaignsCell *bcc = [tableView
-                                                    dequeueReusableCellWithIdentifier:@"NEODashboardBrowseCampaignsCell" forIndexPath:indexPath];
+                                                    dequeueReusableCellWithIdentifier:@"NEODashboardBrowseCampaignsCell"
+                                                    forIndexPath:indexPath];
             
             [bcc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
             cell = (UITableViewCell *)bcc;
@@ -135,14 +159,16 @@
         case 2:
         {
             NEODashboardStatsCell *sc = [tableView
-                                                    dequeueReusableCellWithIdentifier:@"NEODashboardStatsCell" forIndexPath:indexPath];
+                                         dequeueReusableCellWithIdentifier:@"NEODashboardStatsCell"
+                                         forIndexPath:indexPath];
             cell = (UITableViewCell *)sc;
             break;
         }
         default:
         {
             NEODashboardPostCell *poc = [tableView
-                                         dequeueReusableCellWithIdentifier:@"NEODashboardPostCell" forIndexPath:indexPath];
+                                         dequeueReusableCellWithIdentifier:@"NEODashboardPostCell"
+                                         forIndexPath:indexPath];
             cell = (UITableViewCell *)poc;
             break;
         }

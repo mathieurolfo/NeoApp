@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WO3-eX-tsT">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WO3-eX-tsT">
                         <rect key="frame" x="97" y="7" width="134" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Browse Campaigns">
@@ -21,6 +21,10 @@
                         </state>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="centerY" secondItem="WO3-eX-tsT" secondAttribute="centerY" constant="-0.5" id="5aG-11-Cbl"/>
+                    <constraint firstAttribute="centerX" secondItem="WO3-eX-tsT" secondAttribute="centerX" constant="-4" id="db7-y7-Bfk"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="browseButton" destination="WO3-eX-tsT" id="7rE-3B-W8s"/>

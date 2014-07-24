@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,18 +14,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="359" height="172"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ln5-lx-Srd">
-                        <rect key="frame" x="20" y="0.0" width="151" height="172"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ln5-lx-Srd">
+                        <rect key="frame" x="118" y="10" width="123" height="123"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Ln5-lx-Srd" secondAttribute="height" multiplier="1:1" id="QZ5-YY-Jek"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Firstname Lastname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msZ-A3-3eI">
-                        <rect key="frame" x="188" y="25" width="156" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firstname Lastname" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msZ-A3-3eI">
+                        <rect key="frame" x="101" y="141" width="156" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="msZ-A3-3eI" secondAttribute="bottom" constant="10" id="7tR-71-qbh"/>
+                    <constraint firstItem="msZ-A3-3eI" firstAttribute="top" secondItem="Ln5-lx-Srd" secondAttribute="bottom" constant="8" id="Bsb-yr-xEs"/>
+                    <constraint firstAttribute="centerX" secondItem="msZ-A3-3eI" secondAttribute="centerX" constant="0.5" id="L3R-dK-tDu"/>
+                    <constraint firstItem="Ln5-lx-Srd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="R4P-rm-uaz"/>
+                    <constraint firstAttribute="centerX" secondItem="Ln5-lx-Srd" secondAttribute="centerX" constant="0.5" id="hAR-in-TRZ"/>
+                </constraints>
             </tableViewCellContentView>
         </tableViewCell>
     </objects>

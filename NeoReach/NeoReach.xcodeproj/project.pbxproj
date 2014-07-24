@@ -214,18 +214,18 @@
 		22D84CF819819DC3008A16E7 /* DashboardCells */ = {
 			isa = PBXGroup;
 			children = (
-				22D84CF319817BA3008A16E7 /* NEODashboardStatsCell.h */,
-				22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */,
-				22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */,
 				22D84CF919819E0C008A16E7 /* NEODashboardProfileCell.h */,
 				22D84CFA19819E0C008A16E7 /* NEODashboardProfileCell.m */,
 				22D84CFB19819E0C008A16E7 /* NEODashboardProfileCell.xib */,
-				22D84CFE19819E41008A16E7 /* NEODashboardPostCell.h */,
-				22D84CFF19819E41008A16E7 /* NEODashboardPostCell.m */,
-				22D84D0019819E41008A16E7 /* NEODashboardPostCell.xib */,
 				22D84D031981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.h */,
 				22D84D041981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.m */,
 				22D84D051981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.xib */,
+				22D84CF319817BA3008A16E7 /* NEODashboardStatsCell.h */,
+				22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */,
+				22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */,
+				22D84CFE19819E41008A16E7 /* NEODashboardPostCell.h */,
+				22D84CFF19819E41008A16E7 /* NEODashboardPostCell.m */,
+				22D84D0019819E41008A16E7 /* NEODashboardPostCell.xib */,
 			);
 			name = DashboardCells;
 			sourceTree = "<group>";
