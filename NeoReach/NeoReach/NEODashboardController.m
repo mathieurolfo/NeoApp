@@ -82,4 +82,21 @@
     [[self navigationController] pushViewController:bcc animated:YES];
 }
 
+#pragma mark TableViewDelegate Methods
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3; //Stats, profile, (one) post
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
+
 @end

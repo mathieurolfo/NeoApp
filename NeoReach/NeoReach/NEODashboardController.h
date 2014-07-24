@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEODashboardController : UIViewController
+@interface NEODashboardController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end
