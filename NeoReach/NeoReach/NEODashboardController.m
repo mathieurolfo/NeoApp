@@ -9,6 +9,7 @@
 #import "NEODashboardController.h"
 #import <MMDrawerBarButtonItem.h>
 #import "NEOAppDelegate.h"
+#import "NEOBrowseCampaignsController.h"
 
 @interface NEODashboardController ()
 
@@ -59,6 +60,16 @@
     }
     
     return self;
+}
+
+
+#pragma mark Dashboard Methods
+
+- (IBAction)browseCampaigns:(id)sender {
+    NEOBrowseCampaignsController *bcc = [[NEOBrowseCampaignsController alloc] init];
+    
+    [[self navigationController] pushViewController:bcc animated:YES];
+    
 }
 
 @end
