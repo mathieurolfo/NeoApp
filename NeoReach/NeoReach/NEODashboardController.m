@@ -9,8 +9,14 @@
 #import "NEODashboardController.h"
 #import <MMDrawerBarButtonItem.h>
 #import "NEOAppDelegate.h"
-#import "NEODashboardBrowseCampaignsCell.h"
 #import "NEOBrowseCampaignsController.h"
+
+#import "NEODashboardProfileCell.h"
+#import "NEODashboardBrowseCampaignsCell.h"
+#import "NEODashboardStatsCell.h"
+#import "NEODashboardPostCell.h"
+
+
 
 @interface NEODashboardController ()
 
@@ -41,8 +47,18 @@
     
 
     // Register the NIB files for the dashboard cells
-    UINib *nib = [UINib nibWithNibName:@"NEODashboardBrowseCampaignsCell" bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:@"NEODashboardBrowseCampaignsCell"];
+    UINib *bccNib = [UINib nibWithNibName:@"NEODashboardBrowseCampaignsCell" bundle:nil];
+    UINib *scNib = [UINib nibWithNibName:@"NEODashboardStatsCell" bundle:nil];
+    UINib *prcNib = [UINib nibWithNibName:@"NEODashboardProfileCell" bundle:nil];
+    UINib *pocNib = [UINib nibWithNibName:@"NEODashboardPostCell" bundle:nil];
+
+    [self.tableView registerNib:bccNib forCellReuseIdentifier:@"NEODashboardBrowseCampaignsCell"];
+    [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
+    [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardProfileCell"];
+    [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
+
+    
+
 
 }
 
@@ -102,11 +118,42 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NEODashboardBrowseCampaignsCell *bcc = [tableView
-                         dequeueReusableCellWithIdentifier:@"NEODashboardBrowseCampaignsCell" forIndexPath:indexPath];
+ 
+    UITableViewCell *cell = nil;
+    switch (indexPath.row) {
+        case 0:
+        {
+            NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
+            cell = (UITableViewCell *)prc;
+            break;
+        }
+        case 1:
+        {
+            NEODashboardBrowseCampaignsCell *bcc = [tableView
+                                                    dequeueReusableCellWithIdentifier:@"NEODashboardBrowseCampaignsCell" forIndexPath:indexPath];
+            
+            [bcc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
+            cell = (UITableViewCell *)bcc;
+            break;
+        }
+        case 2:
+        {
+            NEODashboardStatsCell *sc = [tableView
+                                                    dequeueReusableCellWithIdentifier:@"NEODashboardStatsCell" forIndexPath:indexPath];
+            cell = (UITableViewCell *)sc;
+            break;
+        }
+        default:
+        {
+            NEODashboardPostCell *poc = [tableView
+                                         dequeueReusableCellWithIdentifier:@"NEODashboardPostCell" forIndexPath:indexPath];
+            cell = (UITableViewCell *)poc;
+            break;
+        }
+            
+    }
 
-    [bcc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
-    return bcc;
+    return cell;
 }
 
 
