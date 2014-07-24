@@ -7,12 +7,43 @@
 //
 
 #import "NEODashboardController.h"
+#import <MMDrawerBarButtonItem.h>
+#import "NEOAppDelegate.h"
 
 @interface NEODashboardController ()
 
 @end
 
 @implementation NEODashboardController
+
+
+#pragma mark NavBar Methods
+
+- (void)toggleDrawer
+{
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if ([delegate.drawer openSide] == MMDrawerSideLeft) {
+        NSLog(@"%d %d", [delegate.drawer openSide], MMDrawerSideLeft);
+        [delegate.drawer closeDrawerAnimated:YES completion:nil];
+    } else if ([delegate.drawer openSide] == MMDrawerSideNone) {
+        [delegate.drawer openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    }
+}
+
+#pragma mark Default Methods
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -22,37 +53,12 @@
         navItem.title = @"Dashboard";
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
+        MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
-        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
-        navItem.rightBarButtonItem = bbi;
-        navItem.leftBarButtonItem = self.editButtonItem;
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self selector:@selector(updateTableViewForDynamicTypeSize:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+        navItem.leftBarButtonItem = lbbi;
     }
     
     return self;
-}
-
-- (IBAction)addNewItem:(id)sender
-{
-    
-}
-
-- (IBAction)updateTableViewForDynamicTypeSize:(id)sender
-{
-    
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

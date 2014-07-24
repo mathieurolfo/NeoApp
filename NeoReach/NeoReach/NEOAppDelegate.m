@@ -22,18 +22,13 @@
 {
     
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
-
+    self.login = loginController;
 
     
     NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
     
     self.drawer = [[MMDrawerController alloc] initWithCenterViewController:loginController
                                                                  leftDrawerViewController:sideMenu];
-    /*
-
-     */
-     
-    
     
     self.window.rootViewController = self.drawer;
     [self.window makeKeyAndVisible];

@@ -8,6 +8,7 @@
 //
 
 #import "NEOSideMenuController.h"
+#import "NEOAppDelegate.h"
 
 @interface NEOSideMenuController ()
 @end
@@ -23,10 +24,7 @@
             return 2;
             break;
         case 1:
-            return 2;
-            break;
-        case 2:
-            return 3;
+            return 4;
             break;
     }
     return 0;
@@ -34,7 +32,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
@@ -46,16 +44,6 @@
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"Dashboard";
-                    break;
-                case 1:
-                    cell.textLabel.text = @"Browse New Posts";
-                    break;
-            }
-            break;
-        case 1:
-            switch (indexPath.row) {
-                case 0:
                     cell.textLabel.text = @"Payment";
                     break;
                 case 1:
@@ -63,7 +51,7 @@
                     break;
             }
             break;
-        case 2:
+        case 1:
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = @"Profile Information";
@@ -74,10 +62,10 @@
                 case 2:
                     cell.textLabel.text = @"Tags";
                     break;
+                case 3:
+                    cell.textLabel.text = @"Log Out";
+                    break;
             }
-            break;
-        default:
-            break;
         }
     return cell;
 }
@@ -86,14 +74,54 @@
 {
     switch (section) {
         case 0:
-            return @"DASHBOARD";
-            break;
+            return @"    FINANCIAL INFORMATION";
         case 1:
-            return @"MONEY AND OTHA THANG";
-        case 2:
-            return @"PERSONAL DETAILS";
+            return @"    PERSONAL DETAILS";
         }
     return @"";
+}
+
+/*
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30.0;
+}
+*/
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(0, 0, 320, 22);
+    myLabel.font = [UIFont boldSystemFontOfSize:12];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    myLabel.backgroundColor = [UIColor lightGrayColor];
+    
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:myLabel];
+    
+    return headerView;
+}
+
+#pragma mark - Table View Cells Clicked
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    
+    
+    //clicking logout button returns to login screen
+    if (indexPath.section == 1 && indexPath.row == 3) {
+        //[delegate.rootNav pushViewController:delegate.login animated:YES];
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+            
+        }];
+        delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
+        delegate.drawer.centerViewController = delegate.login;
+        
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Other Methods
