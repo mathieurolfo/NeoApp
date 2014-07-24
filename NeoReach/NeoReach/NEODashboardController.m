@@ -24,7 +24,7 @@
 {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     if ([delegate.drawer openSide] == MMDrawerSideLeft) {
-        NSLog(@"%d %d", [delegate.drawer openSide], MMDrawerSideLeft);
+        NSLog(@"%d %ld", (int)[delegate.drawer openSide], (long) MMDrawerSideLeft);
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     } else if ([delegate.drawer openSide] == MMDrawerSideNone) {
         [delegate.drawer openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
@@ -37,15 +37,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
-
 }
 
 
@@ -81,8 +80,6 @@
     [delegate disableDrawerAccess];
     
     [[self navigationController] pushViewController:bcc animated:YES];
-    
-
 }
 
 @end
