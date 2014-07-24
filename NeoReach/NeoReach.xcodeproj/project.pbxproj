@@ -28,6 +28,8 @@
 		22A9D407196F56B900AF6DEB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22A9D405196F56B900AF6DEB /* InfoPlist.strings */; };
 		22A9D409196F56B900AF6DEB /* NeoReachTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A9D408196F56B900AF6DEB /* NeoReachTests.m */; };
 		22A9D4151974385200AF6DEB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A9D4141974385200AF6DEB /* FacebookSDK.framework */; };
+		22D84CF619817BA3008A16E7 /* NEODashboardStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */; };
+		22D84CF719817BA3008A16E7 /* NEODashboardStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */; };
 		4ECEF3CA198053300054B2B8 /* NEOProfileInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEF3C8198053300054B2B8 /* NEOProfileInfoController.m */; };
 		4ECEF3CB198053300054B2B8 /* NEOProfileInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECEF3C9198053300054B2B8 /* NEOProfileInfoController.xib */; };
 		C90E4AAD95664C0A8BD74538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6613254EDF4F968B36F2CF /* libPods.a */; };
@@ -74,6 +76,9 @@
 		22A9D406196F56B900AF6DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22A9D408196F56B900AF6DEB /* NeoReachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NeoReachTests.m; sourceTree = "<group>"; };
 		22A9D4141974385200AF6DEB /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		22D84CF319817BA3008A16E7 /* NEODashboardStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardStatsCell.h; sourceTree = "<group>"; };
+		22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardStatsCell.m; sourceTree = "<group>"; };
+		22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardStatsCell.xib; sourceTree = "<group>"; };
 		2B6613254EDF4F968B36F2CF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ECEF3C7198053300054B2B8 /* NEOProfileInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOProfileInfoController.h; sourceTree = "<group>"; };
 		4ECEF3C8198053300054B2B8 /* NEOProfileInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOProfileInfoController.m; sourceTree = "<group>"; };
@@ -161,6 +166,9 @@
 				22A22D1D197D6B5700D4560A /* NEODashboardController.h */,
 				22A22D1E197D6B5700D4560A /* NEODashboardController.m */,
 				22A22D1F197D6B5700D4560A /* NEODashboardController.xib */,
+				22D84CF319817BA3008A16E7 /* NEODashboardStatsCell.h */,
+				22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */,
+				22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */,
 			);
 			path = NeoReach;
 			sourceTree = "<group>";
@@ -275,6 +283,7 @@
 				22A9D3EE196F56B900AF6DEB /* InfoPlist.strings in Resources */,
 				22A22D21197D6B5700D4560A /* NEODashboardController.xib in Resources */,
 				4ECEF3CB198053300054B2B8 /* NEOProfileInfoController.xib in Resources */,
+				22D84CF719817BA3008A16E7 /* NEODashboardStatsCell.xib in Resources */,
 				22A22D29197D6B7A00D4560A /* NEOBrowseCampaignsController.xib in Resources */,
 				22A22D1C197D6B4200D4560A /* NEOLoginController.xib in Resources */,
 				22A22D2E197D6C8400D4560A /* NEOSideMenuController.xib in Resources */,
@@ -333,6 +342,7 @@
 				22A22D1B197D6B4200D4560A /* NEOLoginController.m in Sources */,
 				22A22D20197D6B5700D4560A /* NEODashboardController.m in Sources */,
 				22A22D2D197D6C8400D4560A /* NEOSideMenuController.m in Sources */,
+				22D84CF619817BA3008A16E7 /* NEODashboardStatsCell.m in Sources */,
 				22A22D28197D6B7A00D4560A /* NEOBrowseCampaignsController.m in Sources */,
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
 				4ECEF3CA198053300054B2B8 /* NEOProfileInfoController.m in Sources */,
