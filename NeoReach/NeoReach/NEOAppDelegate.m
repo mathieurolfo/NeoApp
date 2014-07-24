@@ -10,7 +10,6 @@
 #import "NEOLoginController.h"
 #import "NEOSideMenuController.h"
 #import <MMDrawerController/MMDrawerController.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOAppDelegate ()
 
@@ -31,6 +30,7 @@
                                                                  leftDrawerViewController:sideMenu];
     [self.drawer setShowsShadow:NO];
     
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.drawer;
     [self.window makeKeyAndVisible];
     
@@ -59,7 +59,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [FBAppCall handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
