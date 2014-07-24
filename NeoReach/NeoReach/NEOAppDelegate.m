@@ -36,10 +36,6 @@
     return YES;
 }
 
-- (void)showMessage:(NSString *)text withTitle:(NSString *)alertTitle
-{
-    
-}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -70,17 +66,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
-/* For facebook login. */
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    // Call FBAppCall's handleOpenURL:sourceApplication to handle Facebook app responses
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    
-    // App-specific url handling here if needed
-    
-    return wasHandled;
-}
 
 
 @end
