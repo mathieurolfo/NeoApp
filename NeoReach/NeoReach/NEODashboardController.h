@@ -10,4 +10,7 @@
 
 @interface NEODashboardController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+- (IBAction)browseCampaigns:(id)sender;
 @end

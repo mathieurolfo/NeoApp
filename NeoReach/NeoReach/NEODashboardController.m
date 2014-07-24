@@ -9,6 +9,7 @@
 #import "NEODashboardController.h"
 #import <MMDrawerBarButtonItem.h>
 #import "NEOAppDelegate.h"
+#import "NEODashboardBrowseCampaignsCell.h"
 #import "NEOBrowseCampaignsController.h"
 
 @interface NEODashboardController ()
@@ -37,6 +38,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+
+    // Register the NIB files for the dashboard cells
+    UINib *nib = [UINib nibWithNibName:@"NEODashboardBrowseCampaignsCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"NEODashboardBrowseCampaignsCell"];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -95,7 +102,11 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    NEODashboardBrowseCampaignsCell *bcc = [tableView
+                         dequeueReusableCellWithIdentifier:@"NEODashboardBrowseCampaignsCell" forIndexPath:indexPath];
+
+    [bcc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
+    return bcc;
 }
 
 
