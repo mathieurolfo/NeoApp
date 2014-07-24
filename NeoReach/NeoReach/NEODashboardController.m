@@ -56,10 +56,6 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
     [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardProfileCell"];
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
-
-    
-
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
