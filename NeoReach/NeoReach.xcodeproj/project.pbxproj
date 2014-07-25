@@ -32,6 +32,8 @@
 		22C8A7D11982F3A6007B16CA /* NEOBrowseLogosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C8A7CF1982F3A6007B16CA /* NEOBrowseLogosCell.xib */; };
 		22C8A7D81982F3CE007B16CA /* NEOBrowseDetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C8A7D61982F3CE007B16CA /* NEOBrowseDetailsCell.m */; };
 		22C8A7D91982F3CE007B16CA /* NEOBrowseDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C8A7D71982F3CE007B16CA /* NEOBrowseDetailsCell.xib */; };
+		22C8A7DD19830A67007B16CA /* NEOBrowseGenLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C8A7DB19830A67007B16CA /* NEOBrowseGenLinkCell.m */; };
+		22C8A7DE19830A67007B16CA /* NEOBrowseGenLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C8A7DC19830A67007B16CA /* NEOBrowseGenLinkCell.xib */; };
 		22D84CF619817BA3008A16E7 /* NEODashboardStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */; };
 		22D84CF719817BA3008A16E7 /* NEODashboardStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */; };
 		22D84CFC19819E0C008A16E7 /* NEODashboardProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CFA19819E0C008A16E7 /* NEODashboardProfileCell.m */; };
@@ -93,6 +95,9 @@
 		22C8A7D51982F3CE007B16CA /* NEOBrowseDetailsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOBrowseDetailsCell.h; sourceTree = "<group>"; };
 		22C8A7D61982F3CE007B16CA /* NEOBrowseDetailsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOBrowseDetailsCell.m; sourceTree = "<group>"; };
 		22C8A7D71982F3CE007B16CA /* NEOBrowseDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOBrowseDetailsCell.xib; sourceTree = "<group>"; };
+		22C8A7DA19830A67007B16CA /* NEOBrowseGenLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOBrowseGenLinkCell.h; sourceTree = "<group>"; };
+		22C8A7DB19830A67007B16CA /* NEOBrowseGenLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOBrowseGenLinkCell.m; sourceTree = "<group>"; };
+		22C8A7DC19830A67007B16CA /* NEOBrowseGenLinkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOBrowseGenLinkCell.xib; sourceTree = "<group>"; };
 		22D84CF319817BA3008A16E7 /* NEODashboardStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardStatsCell.h; sourceTree = "<group>"; };
 		22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardStatsCell.m; sourceTree = "<group>"; };
 		22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardStatsCell.xib; sourceTree = "<group>"; };
@@ -236,6 +241,9 @@
 				22C8A7D51982F3CE007B16CA /* NEOBrowseDetailsCell.h */,
 				22C8A7D61982F3CE007B16CA /* NEOBrowseDetailsCell.m */,
 				22C8A7D71982F3CE007B16CA /* NEOBrowseDetailsCell.xib */,
+				22C8A7DA19830A67007B16CA /* NEOBrowseGenLinkCell.h */,
+				22C8A7DB19830A67007B16CA /* NEOBrowseGenLinkCell.m */,
+				22C8A7DC19830A67007B16CA /* NEOBrowseGenLinkCell.xib */,
 			);
 			name = BrowseCells;
 			sourceTree = "<group>";
@@ -350,6 +358,7 @@
 				22C8A7D91982F3CE007B16CA /* NEOBrowseDetailsCell.xib in Resources */,
 				22D84CFD19819E0C008A16E7 /* NEODashboardProfileCell.xib in Resources */,
 				22C8A7D11982F3A6007B16CA /* NEOBrowseLogosCell.xib in Resources */,
+				22C8A7DE19830A67007B16CA /* NEOBrowseGenLinkCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +420,7 @@
 				22C8A7D01982F3A6007B16CA /* NEOBrowseLogosCell.m in Sources */,
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
 				22C8A7D81982F3CE007B16CA /* NEOBrowseDetailsCell.m in Sources */,
+				22C8A7DD19830A67007B16CA /* NEOBrowseGenLinkCell.m in Sources */,
 				22D84CFC19819E0C008A16E7 /* NEODashboardProfileCell.m in Sources */,
 				22698A8C1982C7D3007A7255 /* NEOCircleView.m in Sources */,
 				4ECEF3CA198053300054B2B8 /* NEOProfileInfoController.m in Sources */,
