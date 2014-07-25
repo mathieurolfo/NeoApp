@@ -2,11 +2,11 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NEOBrowseCampaignsController">
             <connections>
+                <outlet property="tableView" destination="emn-LX-yKH" id="SBi-M0-uI3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,54 +15,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="StB-tO-z5l">
-                    <rect key="frame" x="255" y="143" width="30" height="54"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                    <state key="normal" title=">">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Sv-zz-0Pm">
-                    <rect key="frame" x="36" y="143" width="30" height="54"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                    <state key="normal" title="&lt;">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DNr-bI-1wd">
-                    <rect key="frame" x="79" y="88" width="163" height="163"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="163" id="DTY-Xp-I3d"/>
-                        <constraint firstAttribute="height" constant="163" id="Lij-0Z-ziz"/>
-                        <constraint firstAttribute="width" secondItem="DNr-bI-1wd" secondAttribute="height" multiplier="1:1" id="Y7y-L7-Rue"/>
-                    </constraints>
-                </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Campaign Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9O-j6-HE0">
-                    <rect key="frame" x="96" y="273" width="129" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Campaign Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rA7-G9-2gK">
-                    <rect key="frame" x="36" y="329" width="249" height="160"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="emn-LX-yKH">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="XKg-se-WGX"/>
+                        <outlet property="delegate" destination="-1" id="tIL-bb-qry"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="DNr-bI-1wd" firstAttribute="leading" secondItem="7Sv-zz-0Pm" secondAttribute="trailing" constant="13" id="1uB-uH-eOe"/>
-                <constraint firstItem="DNr-bI-1wd" firstAttribute="centerY" secondItem="StB-tO-z5l" secondAttribute="centerY" id="4wz-fA-xGU"/>
-                <constraint firstItem="DNr-bI-1wd" firstAttribute="centerY" secondItem="7Sv-zz-0Pm" secondAttribute="centerY" id="6Qa-rb-ard"/>
-                <constraint firstItem="StB-tO-z5l" firstAttribute="leading" secondItem="DNr-bI-1wd" secondAttribute="trailing" constant="13" id="Tss-yT-ON1"/>
-                <constraint firstAttribute="centerX" secondItem="DNr-bI-1wd" secondAttribute="centerX" constant="-0.5" id="YC2-ez-RoA"/>
-                <constraint firstItem="DNr-bI-1wd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="88" id="ydv-sv-2xN"/>
+                <constraint firstItem="emn-LX-yKH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6oZ-0E-sew"/>
+                <constraint firstAttribute="bottom" secondItem="emn-LX-yKH" secondAttribute="bottom" id="Hgv-En-9jr"/>
+                <constraint firstAttribute="trailing" secondItem="emn-LX-yKH" secondAttribute="trailing" id="Jpm-1R-bHB"/>
+                <constraint firstItem="emn-LX-yKH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MG6-aM-ZN7"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>

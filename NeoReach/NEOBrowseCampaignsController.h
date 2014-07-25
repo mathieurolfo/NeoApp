@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOBrowseCampaignsController : UIViewController
+@interface NEOBrowseCampaignsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
