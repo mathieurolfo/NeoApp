@@ -122,7 +122,7 @@
             height = screenHeight / 4;
             break;
         case 1: // browse
-            height = screenHeight / 12;
+            height = screenHeight / 16;
             break;
         case 2: // stats
             height = screenHeight / 4;
