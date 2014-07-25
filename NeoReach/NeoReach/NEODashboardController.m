@@ -120,7 +120,7 @@
     
     switch (indexPath.row) {
         case 0: // profile
-            height = screenHeight / 4;
+            height = screenHeight / 2;
             break;
         case 1: // browse
             height = screenHeight / 12;

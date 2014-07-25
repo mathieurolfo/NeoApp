@@ -26,16 +26,12 @@
 }
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (void)drawRect:(CGRect)rect
 {
-    NEODashboardProfileCell *cell =
-    [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    
-    //make profile image circular
-    cell.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
-    cell.profileImage.layer.masksToBounds = YES;
-    cell.profileImage.layer.borderWidth = 0;
-    
-    return cell;
+    [super drawRect:rect];
+    self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+    self.profileImage.layer.masksToBounds = YES;
+    self.profileImage.layer.borderWidth = 0;
 }
+
 @end
