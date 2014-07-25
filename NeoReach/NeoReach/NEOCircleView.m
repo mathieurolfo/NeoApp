@@ -8,6 +8,13 @@
 
 #import "NEOCircleView.h"
 
+@interface NEOCircleView ()
+
+@property (strong, nonatomic) UIImageView *imgView;
+
+@end
+
+
 @implementation NEOCircleView
 
 - (id)initWithFrame:(CGRect)frame
@@ -25,22 +32,26 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
+    [_imgView setFrame:rect];
+
 
     // Make image circular
     self.layer.cornerRadius = self.frame.size.width / 2;
     self.layer.masksToBounds = YES;
     self.layer.borderWidth = 0;
+    
 }
 
 - (void)setImage:(UIImage *)image
 {
     _image = image;
     if (_image) {
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:self.image];
-        imgView.center = self.center;
-        [self addSubview:imgView];
+        _imgView = [[UIImageView alloc] initWithImage:_image];
+        [self addSubview:_imgView];
+        _imgView.contentMode = UIViewContentModeScaleAspectFill;
     }
     [self setNeedsDisplay];
 }
+
 
 @end
