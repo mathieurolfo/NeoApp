@@ -9,6 +9,7 @@
 
 #import "NEOSideMenuController.h"
 #import "NEOAppDelegate.h"
+#import "NEOProfileInfoController.h"
 
 @interface NEOSideMenuController ()
 @end
@@ -108,19 +109,30 @@
 {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    
+    //clicking profile information takes you to profile info
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
+        [delegate.rootNav pushViewController:profileController animated:YES];
+        NSLog(@"pushing profileController");
+        // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
+        UINavigationItem *navItem = profileController.navigationItem;
+        navItem.title = @"Profile Info";
+        
+    }
+
     
     //clicking logout button returns to login screen
     if (indexPath.section == 1 && indexPath.row == 3) {
         //[delegate.rootNav pushViewController:delegate.login animated:YES];
-        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
-            
-        }];
+        
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
         
     }
     
+    [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+        
+    }];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
