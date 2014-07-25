@@ -25,7 +25,7 @@
     // Configure the view for the selected state
 }
 
-
+/*
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
@@ -33,5 +33,6 @@
     self.profileImage.layer.masksToBounds = YES;
     self.profileImage.layer.borderWidth = 0;
 }
+ */
 
 @end

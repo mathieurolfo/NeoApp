@@ -31,7 +31,6 @@
 {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     if ([delegate.drawer openSide] == MMDrawerSideLeft) {
-        NSLog(@"%d %ld", (int)[delegate.drawer openSide], (long) MMDrawerSideLeft);
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     } else if ([delegate.drawer openSide] == MMDrawerSideNone) {
         [delegate.drawer openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
@@ -144,6 +143,7 @@
         {
             NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
             
+            prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
             cell = (UITableViewCell *)prc;
             break;
         }

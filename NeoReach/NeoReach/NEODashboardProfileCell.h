@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NEOCircleView.h"
 
 @interface NEODashboardProfileCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet NEOCircleView *profileImage;
 
 @end
