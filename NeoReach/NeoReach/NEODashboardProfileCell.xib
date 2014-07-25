@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="359" height="172"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ln5-lx-Srd">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ln5-lx-Srd">
                         <rect key="frame" x="118" y="10" width="123" height="123"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,6 +37,9 @@
                     <constraint firstAttribute="centerX" secondItem="Ln5-lx-Srd" secondAttribute="centerX" constant="0.5" id="hAR-in-TRZ"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="profileImage" destination="Ln5-lx-Srd" id="QWo-O5-lpi"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

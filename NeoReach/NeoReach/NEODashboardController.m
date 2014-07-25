@@ -143,6 +143,7 @@
         case 0:
         {
             NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
+            
             cell = (UITableViewCell *)prc;
             break;
         }

@@ -14,7 +14,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WO3-eX-tsT">
-                        <rect key="frame" x="97" y="7" width="134" height="30"/>
+                        <rect key="frame" x="0.0" y="7" width="320" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Browse Campaigns">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -22,8 +22,9 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="centerY" secondItem="WO3-eX-tsT" secondAttribute="centerY" constant="-0.5" id="5aG-11-Cbl"/>
-                    <constraint firstAttribute="centerX" secondItem="WO3-eX-tsT" secondAttribute="centerX" constant="-4" id="db7-y7-Bfk"/>
+                    <constraint firstItem="WO3-eX-tsT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ky7-Nf-tEl"/>
+                    <constraint firstAttribute="trailing" secondItem="WO3-eX-tsT" secondAttribute="trailing" id="QiE-Mn-Uz2"/>
+                    <constraint firstAttribute="centerY" secondItem="WO3-eX-tsT" secondAttribute="centerY" id="owY-sA-ygm"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
