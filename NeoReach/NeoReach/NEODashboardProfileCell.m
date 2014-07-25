@@ -24,15 +24,4 @@
 
     // Configure the view for the selected state
 }
-
-/*
-- (void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
-    self.profileImage.layer.masksToBounds = YES;
-    self.profileImage.layer.borderWidth = 0;
-}
- */
-
 @end
