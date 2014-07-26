@@ -12,7 +12,6 @@
 #import "NEOBrowseCampaignsController.h"
 
 #import "NEODashboardHeaderCell.h"
-#import "NEODashboardBrowseCampaignsCell.h"
 #import "NEODashboardStatsCell.h"
 #import "NEODashboardPostCell.h"
 
