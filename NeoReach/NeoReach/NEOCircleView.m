@@ -21,11 +21,21 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self privateInit];
     }
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self privateInit];
+}
+
+- (void)privateInit
+{
+    self.contentMode = UIViewContentModeRedraw;
+}
 
 
 
