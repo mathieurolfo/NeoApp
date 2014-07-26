@@ -7,38 +7,51 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="173" id="KGk-i7-Jjw" customClass="NEODashboardHeaderCell">
-            <rect key="frame" x="0.0" y="0.0" width="359" height="173"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="318" id="KGk-i7-Jjw" customClass="NEODashboardHeaderCell">
+            <rect key="frame" x="0.0" y="0.0" width="359" height="318"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="359" height="172"/>
+                <rect key="frame" x="0.0" y="0.0" width="359" height="317"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Juliana Wetmore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msZ-A3-3eI">
-                        <rect key="frame" x="0.0" y="141" width="359" height="21"/>
+                        <rect key="frame" x="0.0" y="245" width="359" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ezy-vG-tYw" customClass="NEOCircleView">
-                        <rect key="frame" x="118" y="10" width="123" height="123"/>
+                        <rect key="frame" x="66" y="10" width="227" height="227"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Ezy-vG-tYw" secondAttribute="height" multiplier="1:1" id="MyQ-Fl-r8D"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4fy-uY-q9G">
+                        <rect key="frame" x="0.0" y="277" width="359" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.4656385133" green="0.76339203919999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" title="Browse Campaigns">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="msZ-A3-3eI" secondAttribute="bottom" constant="10" id="7tR-71-qbh"/>
+                    <constraint firstAttribute="trailing" secondItem="4fy-uY-q9G" secondAttribute="trailing" id="7uG-fI-MhR"/>
                     <constraint firstItem="Ezy-vG-tYw" firstAttribute="centerX" secondItem="msZ-A3-3eI" secondAttribute="centerX" id="8sK-uu-HNh"/>
                     <constraint firstItem="msZ-A3-3eI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B6u-l5-qgM"/>
                     <constraint firstItem="msZ-A3-3eI" firstAttribute="top" secondItem="Ezy-vG-tYw" secondAttribute="bottom" constant="8" id="Nli-MV-sAa"/>
+                    <constraint firstAttribute="bottom" secondItem="4fy-uY-q9G" secondAttribute="bottom" constant="10" id="OPM-m2-9PJ"/>
+                    <constraint firstItem="4fy-uY-q9G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QtI-8S-1j1"/>
+                    <constraint firstItem="4fy-uY-q9G" firstAttribute="top" secondItem="msZ-A3-3eI" secondAttribute="bottom" constant="8" id="bBf-vd-FY5"/>
                     <constraint firstAttribute="trailing" secondItem="msZ-A3-3eI" secondAttribute="trailing" id="wGC-pv-ii0"/>
                     <constraint firstItem="Ezy-vG-tYw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yxL-K4-lt0"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="browseButton" destination="4fy-uY-q9G" id="LkT-Je-Kb3"/>
                 <outlet property="profileImage" destination="Ezy-vG-tYw" id="cio-MM-EzY"/>
             </connections>
         </tableViewCell>

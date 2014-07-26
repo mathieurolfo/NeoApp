@@ -46,14 +46,13 @@
     
 
     // Register the NIB files for the dashboard cells
-    UINib *bccNib = [UINib nibWithNibName:@"NEODashboardBrowseCampaignsCell" bundle:nil];
-    UINib *scNib = [UINib nibWithNibName:@"NEODashboardStatsCell" bundle:nil];
     UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
+    UINib *scNib = [UINib nibWithNibName:@"NEODashboardStatsCell" bundle:nil];
     UINib *pocNib = [UINib nibWithNibName:@"NEODashboardPostCell" bundle:nil];
 
-    [self.tableView registerNib:bccNib forCellReuseIdentifier:@"NEODashboardBrowseCampaignsCell"];
-    [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
     [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardHeaderCell"];
+    [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
+
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 }
 
@@ -108,7 +107,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 30; //Stats, profile, (28) posts
+    return 30; //Stats, (29) posts
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -120,6 +119,7 @@
     NEODashboardHeaderCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
     
     prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+    [prc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
     return prc;
 }
 
@@ -131,13 +131,7 @@
     CGFloat height = 0.0;
     
     switch (indexPath.row) {
-        case 0: // profile
-            height = screenHeight / 4;
-            break;
-        case 1: // browse
-            height = screenHeight / 16;
-            break;
-        case 2: // stats
+        case 0: // stats
             height = screenHeight / 4;
             break;
         default: // posts
@@ -152,25 +146,7 @@
  
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
-        case 0:
-        {
-            NEODashboardHeaderCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:indexPath];
-            
-            prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
-            cell = (UITableViewCell *)prc;
-            break;
-        }
-        case 1:
-        {
-            NEODashboardBrowseCampaignsCell *bcc = [tableView
-                                                    dequeueReusableCellWithIdentifier:@"NEODashboardBrowseCampaignsCell"
-                                                    forIndexPath:indexPath];
-            
-            [bcc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
-            cell = (UITableViewCell *)bcc;
-            break;
-        }
-        case 2:
+        case 0: //stats
         {
             NEODashboardStatsCell *sc = [tableView
                                          dequeueReusableCellWithIdentifier:@"NEODashboardStatsCell"

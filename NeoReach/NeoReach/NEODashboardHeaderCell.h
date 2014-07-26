@@ -11,5 +11,6 @@
 
 @interface NEODashboardHeaderCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NEOCircleView *profileImage;
+@property (weak, nonatomic) IBOutlet UIButton *browseButton;
 
 @end
