@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NEOCircleView.h"
 
-@interface NEODashboardProfileCell : UITableViewCell
+@interface NEODashboardHeaderCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NEOCircleView *profileImage;
 
 @end

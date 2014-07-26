@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 NeoReach. All rights reserved.
 //
 
-#import "NEODashboardProfileCell.h"
+#import "NEODashboardHeaderCell.h"
 
-@implementation NEODashboardProfileCell
+@implementation NEODashboardHeaderCell
 
 
 - (void)awakeFromNib

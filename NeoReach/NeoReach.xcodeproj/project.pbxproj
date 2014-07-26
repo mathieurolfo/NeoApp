@@ -36,8 +36,8 @@
 		22C8A7DE19830A67007B16CA /* NEOBrowseGenLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C8A7DC19830A67007B16CA /* NEOBrowseGenLinkCell.xib */; };
 		22D84CF619817BA3008A16E7 /* NEODashboardStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */; };
 		22D84CF719817BA3008A16E7 /* NEODashboardStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */; };
-		22D84CFC19819E0C008A16E7 /* NEODashboardProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CFA19819E0C008A16E7 /* NEODashboardProfileCell.m */; };
-		22D84CFD19819E0C008A16E7 /* NEODashboardProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84CFB19819E0C008A16E7 /* NEODashboardProfileCell.xib */; };
+		22D84CFC19819E0C008A16E7 /* NEODashboardHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CFA19819E0C008A16E7 /* NEODashboardHeaderCell.m */; };
+		22D84CFD19819E0C008A16E7 /* NEODashboardHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84CFB19819E0C008A16E7 /* NEODashboardHeaderCell.xib */; };
 		22D84D0119819E41008A16E7 /* NEODashboardPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CFF19819E41008A16E7 /* NEODashboardPostCell.m */; };
 		22D84D0219819E41008A16E7 /* NEODashboardPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84D0019819E41008A16E7 /* NEODashboardPostCell.xib */; };
 		22D84D061981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84D041981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.m */; };
@@ -101,9 +101,9 @@
 		22D84CF319817BA3008A16E7 /* NEODashboardStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardStatsCell.h; sourceTree = "<group>"; };
 		22D84CF419817BA3008A16E7 /* NEODashboardStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardStatsCell.m; sourceTree = "<group>"; };
 		22D84CF519817BA3008A16E7 /* NEODashboardStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardStatsCell.xib; sourceTree = "<group>"; };
-		22D84CF919819E0C008A16E7 /* NEODashboardProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardProfileCell.h; sourceTree = "<group>"; };
-		22D84CFA19819E0C008A16E7 /* NEODashboardProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardProfileCell.m; sourceTree = "<group>"; };
-		22D84CFB19819E0C008A16E7 /* NEODashboardProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardProfileCell.xib; sourceTree = "<group>"; };
+		22D84CF919819E0C008A16E7 /* NEODashboardHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardHeaderCell.h; sourceTree = "<group>"; };
+		22D84CFA19819E0C008A16E7 /* NEODashboardHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardHeaderCell.m; sourceTree = "<group>"; };
+		22D84CFB19819E0C008A16E7 /* NEODashboardHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardHeaderCell.xib; sourceTree = "<group>"; };
 		22D84CFE19819E41008A16E7 /* NEODashboardPostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEODashboardPostCell.h; sourceTree = "<group>"; };
 		22D84CFF19819E41008A16E7 /* NEODashboardPostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardPostCell.m; sourceTree = "<group>"; };
 		22D84D0019819E41008A16E7 /* NEODashboardPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardPostCell.xib; sourceTree = "<group>"; };
@@ -251,9 +251,9 @@
 		22D84CF819819DC3008A16E7 /* DashboardCells */ = {
 			isa = PBXGroup;
 			children = (
-				22D84CF919819E0C008A16E7 /* NEODashboardProfileCell.h */,
-				22D84CFA19819E0C008A16E7 /* NEODashboardProfileCell.m */,
-				22D84CFB19819E0C008A16E7 /* NEODashboardProfileCell.xib */,
+				22D84CF919819E0C008A16E7 /* NEODashboardHeaderCell.h */,
+				22D84CFA19819E0C008A16E7 /* NEODashboardHeaderCell.m */,
+				22D84CFB19819E0C008A16E7 /* NEODashboardHeaderCell.xib */,
 				22D84D031981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.h */,
 				22D84D041981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.m */,
 				22D84D051981ADC8008A16E7 /* NEODashboardBrowseCampaignsCell.xib */,
@@ -356,7 +356,7 @@
 				22A22D2E197D6C8400D4560A /* NEOSideMenuController.xib in Resources */,
 				22A9D3F6196F56B900AF6DEB /* Images.xcassets in Resources */,
 				22C8A7D91982F3CE007B16CA /* NEOBrowseDetailsCell.xib in Resources */,
-				22D84CFD19819E0C008A16E7 /* NEODashboardProfileCell.xib in Resources */,
+				22D84CFD19819E0C008A16E7 /* NEODashboardHeaderCell.xib in Resources */,
 				22C8A7D11982F3A6007B16CA /* NEOBrowseLogosCell.xib in Resources */,
 				22C8A7DE19830A67007B16CA /* NEOBrowseGenLinkCell.xib in Resources */,
 			);
@@ -421,7 +421,7 @@
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
 				22C8A7D81982F3CE007B16CA /* NEOBrowseDetailsCell.m in Sources */,
 				22C8A7DD19830A67007B16CA /* NEOBrowseGenLinkCell.m in Sources */,
-				22D84CFC19819E0C008A16E7 /* NEODashboardProfileCell.m in Sources */,
+				22D84CFC19819E0C008A16E7 /* NEODashboardHeaderCell.m in Sources */,
 				22698A8C1982C7D3007A7255 /* NEOCircleView.m in Sources */,
 				4ECEF3CA198053300054B2B8 /* NEOProfileInfoController.m in Sources */,
 				22A9D3F4196F56B900AF6DEB /* NEOAppDelegate.m in Sources */,

@@ -11,7 +11,7 @@
 #import "NEOAppDelegate.h"
 #import "NEOBrowseCampaignsController.h"
 
-#import "NEODashboardProfileCell.h"
+#import "NEODashboardHeaderCell.h"
 #import "NEODashboardBrowseCampaignsCell.h"
 #import "NEODashboardStatsCell.h"
 #import "NEODashboardPostCell.h"
@@ -48,12 +48,12 @@
     // Register the NIB files for the dashboard cells
     UINib *bccNib = [UINib nibWithNibName:@"NEODashboardBrowseCampaignsCell" bundle:nil];
     UINib *scNib = [UINib nibWithNibName:@"NEODashboardStatsCell" bundle:nil];
-    UINib *prcNib = [UINib nibWithNibName:@"NEODashboardProfileCell" bundle:nil];
+    UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
     UINib *pocNib = [UINib nibWithNibName:@"NEODashboardPostCell" bundle:nil];
 
     [self.tableView registerNib:bccNib forCellReuseIdentifier:@"NEODashboardBrowseCampaignsCell"];
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
-    [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardProfileCell"];
+    [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardHeaderCell"];
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 }
 
@@ -111,6 +111,19 @@
     return 30; //Stats, profile, (28) posts
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 200.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NEODashboardHeaderCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
+    
+    prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+    return prc;
+}
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -141,7 +154,7 @@
     switch (indexPath.row) {
         case 0:
         {
-            NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
+            NEODashboardHeaderCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:indexPath];
             
             prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
             cell = (UITableViewCell *)prc;
