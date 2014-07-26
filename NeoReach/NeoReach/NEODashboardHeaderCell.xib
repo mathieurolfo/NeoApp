@@ -15,13 +15,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Juliana Wetmore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msZ-A3-3eI">
-                        <rect key="frame" x="0.0" y="245" width="359" height="24"/>
+                        <rect key="frame" x="0.0" y="250" width="359" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ezy-vG-tYw" customClass="NEOCircleView">
-                        <rect key="frame" x="66" y="10" width="227" height="227"/>
+                        <rect key="frame" x="64" y="10" width="232" height="232"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -29,7 +29,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4fy-uY-q9G">
-                        <rect key="frame" x="0.0" y="277" width="359" height="30"/>
+                        <rect key="frame" x="0.0" y="282" width="359" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.4656385133" green="0.76339203919999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <state key="normal" title="Browse Campaigns">
@@ -43,7 +43,7 @@
                     <constraint firstItem="Ezy-vG-tYw" firstAttribute="centerX" secondItem="msZ-A3-3eI" secondAttribute="centerX" id="8sK-uu-HNh"/>
                     <constraint firstItem="msZ-A3-3eI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="B6u-l5-qgM"/>
                     <constraint firstItem="msZ-A3-3eI" firstAttribute="top" secondItem="Ezy-vG-tYw" secondAttribute="bottom" constant="8" id="Nli-MV-sAa"/>
-                    <constraint firstAttribute="bottom" secondItem="4fy-uY-q9G" secondAttribute="bottom" constant="10" id="OPM-m2-9PJ"/>
+                    <constraint firstAttribute="bottom" secondItem="4fy-uY-q9G" secondAttribute="bottom" constant="5" id="OPM-m2-9PJ"/>
                     <constraint firstItem="4fy-uY-q9G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QtI-8S-1j1"/>
                     <constraint firstItem="4fy-uY-q9G" firstAttribute="top" secondItem="msZ-A3-3eI" secondAttribute="bottom" constant="8" id="bBf-vd-FY5"/>
                     <constraint firstAttribute="trailing" secondItem="msZ-A3-3eI" secondAttribute="trailing" id="wGC-pv-ii0"/>
