@@ -33,6 +33,7 @@
     [self.drawer setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:4.0]];
 
     [self.drawer setShowsShadow:NO];
+    self.drawer.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width * 2.0 / 3;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.drawer;
