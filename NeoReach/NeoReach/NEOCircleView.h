@@ -11,4 +11,6 @@
 @interface NEOCircleView : UIView
 
 @property (weak, nonatomic) UIImage *image;
+@property (strong, nonatomic) UIColor *borderColor;
+@property (nonatomic) CGFloat borderWidth;
 @end

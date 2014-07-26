@@ -18,7 +18,7 @@
 
 
 @interface NEODashboardController ()
-
+@property (strong, nonatomic) NEODashboardHeaderCell *tableHeader;
 @end
 
 @implementation NEODashboardController
@@ -115,11 +115,12 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    NEODashboardHeaderCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
+    NEODashboardHeaderCell *hc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
     
-    prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
-    [prc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
-    return prc;
+    hc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+    [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
+    _tableHeader = hc;
+    return hc;
 }
 
 
@@ -166,4 +167,5 @@
 
     return cell;
 }
+
 @end

@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) UIImageView *imgView;
 
+
 @end
 
 
@@ -62,6 +63,20 @@
     }
     [self setNeedsDisplay];
 }
+
+
+- (void)setBorderColor:(UIColor *)borderColor
+{
+    self.layer.borderColor = borderColor.CGColor;
+    
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth
+{
+    self.layer.borderWidth = borderWidth;
+    
+}
+
 
 
 @end
