@@ -10,6 +10,7 @@
 #import "NEOLoginController.h"
 #import "NEOSideMenuController.h"
 #import <MMDrawerController/MMDrawerController.h>
+#import <MMDrawerController/MMDrawerVisualState.h> //for sidebar animations
 
 @interface NEOAppDelegate ()
 
@@ -28,6 +29,9 @@
     
     self.drawer = [[MMDrawerController alloc] initWithCenterViewController:loginController
                                                                  leftDrawerViewController:sideMenu];
+    
+    [self.drawer setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:4.0]];
+
     [self.drawer setShowsShadow:NO];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
