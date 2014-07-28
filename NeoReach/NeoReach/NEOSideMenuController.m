@@ -10,6 +10,7 @@
 #import "NEOSideMenuController.h"
 #import "NEOAppDelegate.h"
 #import "NEOProfileInfoController.h"
+#import "NEOTagsController.h"
 
 @interface NEOSideMenuController ()
 @end
@@ -39,8 +40,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    NSLog(@"%@", indexPath);
-    
+    //NSLog(@"%@", indexPath);
+    NSLog(@"Filling cells");
     switch (indexPath.section) {
         case 0:
             switch (indexPath.row) {
@@ -117,7 +118,35 @@
         // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
         UINavigationItem *navItem = profileController.navigationItem;
         navItem.title = @"Profile Info";
-        
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+            
+        }];
+    }
+
+    //clicking link accounts brings you to link accounts page (?)
+    /* if (indexPath.section == 1 && indexPath.row == 1) {
+        NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
+        [delegate.rootNav pushViewController:profileController animated:YES];
+        NSLog(@"pushing profileController");
+        // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
+        UINavigationItem *navItem = profileController.navigationItem;
+        navItem.title = @"Profile Info";
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+            
+        }];
+    } */
+
+    //clicking tags brings you to display of tags
+    if (indexPath.section == 1 && indexPath.row == 2) {
+        NEOTagsController *tagsController = [[NEOTagsController alloc] init];
+        [delegate.rootNav pushViewController:tagsController animated:YES];
+        NSLog(@"pushing tagsController");
+        // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
+        UINavigationItem *navItem = tagsController.navigationItem;
+        navItem.title = @"Tags";
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+            
+        }];
     }
 
     
@@ -127,12 +156,12 @@
         
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
-        
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+            
+        }];
     }
     
-    [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
-        
-    }];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
