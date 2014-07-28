@@ -115,10 +115,8 @@
         NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
         [delegate.rootNav pushViewController:profileController animated:YES];
         NSLog(@"pushing profileController");
-        // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
-        UINavigationItem *navItem = profileController.navigationItem;
-        navItem.title = @"Profile Info";
-        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+       
+                [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
     }
@@ -141,9 +139,6 @@
         NEOTagsController *tagsController = [[NEOTagsController alloc] init];
         [delegate.rootNav pushViewController:tagsController animated:YES];
         NSLog(@"pushing tagsController");
-        // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
-        UINavigationItem *navItem = tagsController.navigationItem;
-        navItem.title = @"Tags";
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];

@@ -18,7 +18,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Profile Info";
     }
     return self;
 }
