@@ -7,12 +7,68 @@
 //
 
 #import "NEOProfileInfoController.h"
+#import "NEODashboardProfileCell.h"
 
 @interface NEOProfileInfoController ()
 
 @end
 
 @implementation NEOProfileInfoController
+
+
+#pragma mark TableViewDelegate Protocol Methods
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    switch (indexPath.row) {
+        case 0:
+        {
+            NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
+            
+            prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+            cell = (UITableViewCell *)prc;
+            break;
+        }
+        default:
+            cell = [[UITableViewCell alloc] init];
+    }
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGFloat height = 0.0;
+    
+    switch (indexPath.row) {
+        case 0: // picture
+            height = screenHeight / 3;
+            break;
+        /*case 1: // browse
+            height = screenHeight / 16;
+            break;
+        case 2: // stats
+            height = screenHeight / 4;
+            break; */
+        default: // posts
+            height = screenHeight / 12;
+    }
+    
+    return height;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,7 +83,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    UINib *prcNib = [UINib nibWithNibName:@"NEODashboardProfileCell" bundle:nil];
+    
+    [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardProfileCell"];
 }
 
 - (void)didReceiveMemoryWarning
