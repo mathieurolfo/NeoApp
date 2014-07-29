@@ -10,5 +10,8 @@
 
 @interface NEOLoginController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *logInOutInfoLabel;
+@property (nonatomic) NSURLSession *session;
+@property (weak, nonatomic) IBOutlet UIImageView *splashImage;
+
 
 @end
