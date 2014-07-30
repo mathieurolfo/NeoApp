@@ -41,7 +41,7 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     //NSLog(@"%@", indexPath);
-    NSLog(@"Filling cells");
+
     switch (indexPath.section) {
         case 0:
             switch (indexPath.row) {

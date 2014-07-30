@@ -31,6 +31,7 @@
     self.logInOutInfoLabel.text = @"";
     // Do any additional setup after loading the view from its nib.
     self.splashImage.image = [UIImage imageNamed:@"splash.png"];
+    [self.neoReachLabel setFont:[UIFont fontWithName:@"Lato-Black" size:40.0]];
 }
 
 - (void)didReceiveMemoryWarning
