@@ -31,7 +31,7 @@
     self.logInOutInfoLabel.text = @"";
     // Do any additional setup after loading the view from its nib.
     self.splashImage.image = [UIImage imageNamed:@"splash.png"];
-    [self.neoReachLabel setFont:[UIFont fontWithName:@"Lato-Black" size:40.0]];
+    [self.neoReachLabel setFont:[UIFont fontWithName:@"Lato-Black" size:42.0]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,23 +61,35 @@
 {
     //initialize session configuration: could be done in controller init but keeping code together for now
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     //configuring the header for the session to conform to NeoReach API protocol
-    NSString *testXAuth = @"53c841122a2e5e485704f085";
-    NSString *testXDigest = @"UW0ZMNigEhTxGWrm17oMZWLY91NES7rH";
-    config.HTTPAdditionalHeaders = @{@"X-Auth": testXAuth,
-                                     @"X-Digest": testXDigest};
+    NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
+    NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
+    config.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
+                                     @"X-Digest":testXDigest};
+    
+    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     //creating URL for the actual request
     NSString *requestString = @"https://api.neoreach.com/account";
+    //NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", json);
+        
+        NSError *jsonError;
+        
+        //load response into a dictionary
+        NSDictionary *profileJSON =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingAllowFragments
+                                          error:&jsonError];
+        NSLog(@"%@", [profileJSON valueForKeyPath:@"data.profile"]);
+        NSLog(@"%@", [profileJSON allKeys]);
     }];
     [dataTask resume];
+    
+    
 }
 
 
