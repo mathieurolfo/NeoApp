@@ -44,7 +44,7 @@
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     //access NeoReach API
-    [self callNeoReachAPI];
+    [self callNeoReachAPI:delegate];
     
     if (!delegate.rootNav) {
         NEODashboardController *dashboard = [[NEODashboardController alloc] init];
@@ -57,7 +57,7 @@
 
 /* this method will currently initialize the session and get the basic NeoReach account information. This information will be put into a dictionary that is a property of the app delegate for now, until we set up dedicated model classes.
  */
--(void)callNeoReachAPI
+-(void)callNeoReachAPI:(NEOAppDelegate *)delegate
 {
     //initialize session configuration: could be done in controller init but keeping code together for now
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -82,10 +82,12 @@
         //load response into a dictionary
         NSDictionary *profileJSON =
         [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingAllowFragments
+                                        options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@", [profileJSON valueForKeyPath:@"data.profile"]);
-        NSLog(@"%@", [profileJSON allKeys]);
+        delegate.userProfileDictionary = profileJSON;
+        
+        //NSLog(@"%@", profileJSON);
+        NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
     }];
     [dataTask resume];
     
