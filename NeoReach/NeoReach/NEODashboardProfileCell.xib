@@ -39,6 +39,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="nameLabel" destination="msZ-A3-3eI" id="Zq5-cu-fO9"/>
                 <outlet property="profileImage" destination="Ezy-vG-tYw" id="cio-MM-EzY"/>
             </connections>
         </tableViewCell>

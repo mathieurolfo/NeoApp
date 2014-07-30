@@ -11,5 +11,6 @@
 
 @interface NEODashboardProfileCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NEOCircleView *profileImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

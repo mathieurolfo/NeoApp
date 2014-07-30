@@ -63,6 +63,7 @@
     
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
+    
 }
 
 
@@ -137,14 +138,29 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
+    
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
         case 0:
         {
             NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
-            
             prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
             cell = (UITableViewCell *)prc;
+            
+            
+            NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+            
+            NSLog(@"inside dashboard");
+            
+            NSString *string = [delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"];
+            NSLog(@"onamae wa %@", string);
+
+            
+            //NSString *username = [NSString stringWithFormat:@"%@ %@", (NSString *)[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"], (NSString *)[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"]];
+            
+            prc.nameLabel.text = string;
+            
+            
             break;
         }
         case 1:

@@ -17,7 +17,7 @@
 @property (strong, nonatomic) MMDrawerController *drawer;
 @property (strong, nonatomic) UINavigationController *rootNav;
 @property (strong, nonatomic) NEOLoginController *login;
-@property (strong, nonatomic) NSDictionary *userProfileDictionary;
+@property (strong, nonatomic) NSMutableDictionary *userProfileDictionary;
 
 
 -(void)enableDrawerAccess;

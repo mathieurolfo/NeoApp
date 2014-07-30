@@ -43,14 +43,16 @@
 - (IBAction)logInPressed:(id)sender {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    //access NeoReach API
+    //access NeoReach API; load information first
+    //[self performSelectorOnMainThread:@selector(callNeoReachAPI:) withObject:delegate waitUntilDone:YES];
     [self callNeoReachAPI:delegate];
+    
+    NSLog(@"after main thread %@", delegate.userProfileDictionary);
     
     if (!delegate.rootNav) {
         NEODashboardController *dashboard = [[NEODashboardController alloc] init];
         delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
     }
-    
     delegate.drawer.centerViewController = delegate.rootNav;
     
 }
@@ -68,6 +70,7 @@
     config.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
                                      @"X-Digest":testXDigest};
     
+    //should there be a delegate for this?
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     //creating URL for the actual request
@@ -75,24 +78,28 @@
     //NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            NSError *jsonError;
+            
+            //load response into a dictionary
+            NSDictionary *profileJSON =
+            [NSJSONSerialization JSONObjectWithData:data
+                                            options:NSJSONReadingMutableContainers
+                                              error:&jsonError];
+            delegate.userProfileDictionary = [[NSMutableDictionary alloc] initWithDictionary:profileJSON copyItems:YES];
+            
+            NSLog(@"%@", delegate.userProfileDictionary);
+            //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
+        }];
+        [dataTask resume];
         
-        NSError *jsonError;
         
-        //load response into a dictionary
-        NSDictionary *profileJSON =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        delegate.userProfileDictionary = profileJSON;
         
-        //NSLog(@"%@", profileJSON);
-        NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
-    }];
-    [dataTask resume];
-    
-    
+    });
+   
 }
-
+    
 
 @end
