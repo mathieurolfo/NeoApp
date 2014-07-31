@@ -55,6 +55,7 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
     [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardProfileCell"];
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -63,7 +64,7 @@
     
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
-    
+
 }
 
 
@@ -152,13 +153,13 @@
             
             NSLog(@"inside dashboard");
             
-            NSString *string = [delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"];
+            NSString *string = [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0];
             NSLog(@"onamae wa %@", string);
 
             
-            //NSString *username = [NSString stringWithFormat:@"%@ %@", (NSString *)[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"], (NSString *)[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"]];
+            NSString *username = [NSString stringWithFormat:@"%@ %@", [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0], [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"] objectAtIndex:0]];
             
-            prc.nameLabel.text = string;
+            prc.nameLabel.text = username;
             
             
             break;
@@ -197,7 +198,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView reloadData];
 }
 
 

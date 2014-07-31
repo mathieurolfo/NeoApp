@@ -52,9 +52,12 @@
     if (!delegate.rootNav) {
         NEODashboardController *dashboard = [[NEODashboardController alloc] init];
         delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+        
     }
     delegate.drawer.centerViewController = delegate.rootNav;
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [((NEODashboardController *)delegate.rootNav.presentedViewController).tableView reloadData];
+    });
 }
 
 /* this method will currently initialize the session and get the basic NeoReach account information. This information will be put into a dictionary that is a property of the app delegate for now, until we set up dedicated model classes.
@@ -63,6 +66,16 @@
 {
     //initialize session configuration: could be done in controller init but keeping code together for now
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    
+    //THIS CODE DEALS WITH FACEBOOK AUTHENTICATION IN ORDER TO GET XAUTH AND XDIGEST
+    
+    
+    
+    
+    
+    
+    //THE BELOW CODE DEALS WITH GET REQUEST AFTER SUCCESSFULLY RECEIVING XAUTH AND XDIGEST
     
     //configuring the header for the session to conform to NeoReach API protocol
     NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
@@ -74,8 +87,8 @@
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     //creating URL for the actual request
-    NSString *requestString = @"https://api.neoreach.com/account";
-    //NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
+    //NSString *requestString = @"https://api.neoreach.com/account";
+    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -94,7 +107,6 @@
             //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
         }];
         [dataTask resume];
-        
         
         
     });

@@ -8,6 +8,7 @@
 
 #import "NEOProfileInfoController.h"
 #import "NEODashboardProfileCell.h"
+#import "NEOAppDelegate.h"
 
 @interface NEOProfileInfoController ()
 
@@ -29,9 +30,14 @@
     switch (indexPath.row) {
         case 0:
         {
+            NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
             NEODashboardProfileCell *prc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardProfileCell" forIndexPath:indexPath];
             
             prc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+            
+            NSString *username = [NSString stringWithFormat:@"%@ %@", [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0], [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"] objectAtIndex:0]];
+            prc.nameLabel.text = username;
+
             cell = (UITableViewCell *)prc;
             break;
         }
