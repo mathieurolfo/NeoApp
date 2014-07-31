@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>E346BEB4-02CF-410D-A6BA-79CDCCAA8C90</string>
+	<string>3BCDB023-E052-41D9-8454-0053BE3960DB</string>
 	<key>IDESourceControlProjectName</key>
 	<string>NeoReach</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C129FCDC-3AB4-420A-9F2B-07082F9DBC64</key>
-		<string>https://github.com/RankExecutives/NeoReach_iOS</string>
+		<key>EA4C9542-072B-4D1F-B13B-7D547256368D</key>
+		<string>https://github.com/RankExecutives/NeoReach_iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>NeoReach/NeoReach.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C129FCDC-3AB4-420A-9F2B-07082F9DBC64</key>
+		<key>EA4C9542-072B-4D1F-B13B-7D547256368D</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/RankExecutives/NeoReach_iOS</string>
+	<string>https://github.com/RankExecutives/NeoReach_iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C129FCDC-3AB4-420A-9F2B-07082F9DBC64</string>
+	<string>EA4C9542-072B-4D1F-B13B-7D547256368D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C129FCDC-3AB4-420A-9F2B-07082F9DBC64</string>
+			<string>EA4C9542-072B-4D1F-B13B-7D547256368D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>NeoReach_iOS</string>
 		</dict>

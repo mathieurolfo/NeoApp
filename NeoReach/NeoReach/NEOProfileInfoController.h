@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOProfileInfoController : UIViewController
+@interface NEOProfileInfoController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

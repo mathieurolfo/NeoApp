@@ -53,6 +53,7 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,6 +62,7 @@
     
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
+
 }
 
 
@@ -118,6 +120,21 @@
     NEODashboardHeaderCell *hc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
     
     hc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+
+  	NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+  	NSLog(@"inside dashboard");
+	
+  	NSString *string = [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0];
+	NSLog(@"onamae wa %@", string);
+
+	
+  	NSString *username = [NSString stringWithFormat:@"%@ %@", [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0], [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"] objectAtIndex:0]];
+            
+            hc.nameLabel.text = username;
+
+
+
     [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
     _tableHeader = hc;
     return hc;
@@ -144,6 +161,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
+    
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
         case 0: //stats
@@ -166,6 +184,11 @@
     }
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView reloadData];
 }
 
 @end
