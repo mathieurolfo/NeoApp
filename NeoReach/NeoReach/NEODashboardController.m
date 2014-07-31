@@ -97,7 +97,9 @@
         
         NSLog(@"%@", delegate.userProfileDictionary);
         //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }];
     [dataTask resume];
     
