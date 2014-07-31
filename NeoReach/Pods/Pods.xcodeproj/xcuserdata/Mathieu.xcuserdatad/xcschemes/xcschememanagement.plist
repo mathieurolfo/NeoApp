@@ -8,57 +8,81 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
-		<key>Pods-Canvas.xcscheme</key>
+		<key>Pods-ISO8601DateFormatterValueTransformer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods-MMDrawerController.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-RKValueTransformers.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-RestKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SOCKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-TransitionKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>61268E91198A4324B00B3BC6</key>
+		<key>27DDAF080B0543CD98C035CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>915978CB790741DF96F45E96</key>
+		<key>30DF83953A7B41D1939DE8D4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BF0B1D0B59FC4F42BC275123</key>
+		<key>3404520E000B46E990E98536</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CFE7269D12F8457498AA6D5D</key>
+		<key>5730866A758542C78F625245</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D8B463CA0862462FAFC649CB</key>
+		<key>83139AC0F52F4C7187AE037D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DD2F8DB525AD4DF28A81BB78</key>
+		<key>92820AACA86F44728254B784</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C0F3800C558649A18903FBB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF539350FB3F414D9B10B408</key>
 		<dict>
 			<key>primary</key>
 			<true/>

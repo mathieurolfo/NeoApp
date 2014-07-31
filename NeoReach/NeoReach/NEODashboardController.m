@@ -54,7 +54,16 @@
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 
+    [self loadProfileInformation];
+    /*
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    }); */
     
+    }
+
+-(void)loadProfileInformation
+{
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     
@@ -73,6 +82,7 @@
     
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSLog(@"making call to NeoReach server");
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -87,12 +97,12 @@
         
         NSLog(@"%@", delegate.userProfileDictionary);
         //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
+        [self.tableView reloadData];
     }];
     [dataTask resume];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-     });
     
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated

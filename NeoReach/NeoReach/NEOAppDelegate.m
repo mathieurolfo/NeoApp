@@ -11,6 +11,8 @@
 #import "NEOSideMenuController.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import <MMDrawerController/MMDrawerVisualState.h> //for sidebar animations
+//#import <RestKit/RestKit.h>
+//#import <RestKit/CoreData/CoreData.h>
 
 @interface NEOAppDelegate ()
 
@@ -39,6 +41,7 @@
     self.window.rootViewController = self.drawer;
     [self.window makeKeyAndVisible];
     
+                        
     return YES;
 }
 

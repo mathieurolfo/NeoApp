@@ -48,7 +48,7 @@
     
     //[self callNeoReachAPI:delegate];
     
-    NSLog(@"after main thread %@", delegate.userProfileDictionary);
+    NSLog(@"pressed login button");
     
     if (!delegate.rootNav) {
         NEODashboardController *dashboard = [[NEODashboardController alloc] init];
