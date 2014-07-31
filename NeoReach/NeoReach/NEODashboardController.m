@@ -49,18 +49,15 @@
     UINib *scNib = [UINib nibWithNibName:@"NEODashboardStatsCell" bundle:nil];
     UINib *pocNib = [UINib nibWithNibName:@"NEODashboardPostCell" bundle:nil];
 
+    
     [self.tableView registerNib:prcNib forCellReuseIdentifier:@"NEODashboardHeaderCell"];
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 
-    [self loadProfileInformation];
-    /*
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    }); */
-    
-    }
+//    [self loadProfileInformation];
+}
+
 
 -(void)loadProfileInformation
 {
@@ -102,8 +99,6 @@
         });
     }];
     [dataTask resume];
-    
-    
 
 }
 
@@ -134,6 +129,7 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
+        [self loadProfileInformation];
     }
     
     return self;
@@ -182,8 +178,13 @@
 	
   	NSString *username = [NSString stringWithFormat:@"%@ %@", [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0], [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"] objectAtIndex:0]];
             
-            hc.nameLabel.text = username;
+    if (string.length == 0) {
+        hc.nameLabel.text = @"Loading name...";
+    } else {
+        hc.nameLabel.text = username;
 
+    }
+    
 
 
     [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
