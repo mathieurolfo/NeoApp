@@ -53,6 +53,45 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
+
+    
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    //NeoReach API protocol
+    NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
+    NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
+    config.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
+                                     @"X-Digest":testXDigest};
+    
+    //should there be a delegate for this?
+    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    //creating URL for the actual request
+    //NSString *requestString = @"https://api.neoreach.com/account";
+    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
+    
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        //load response into a dictionary
+        NSDictionary *profileJSON =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+        delegate.userProfileDictionary = [[NSMutableDictionary alloc] initWithDictionary:profileJSON copyItems:YES];
+        
+        NSLog(@"%@", delegate.userProfileDictionary);
+        //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
+    }];
+    [dataTask resume];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+     });
     
 }
 
