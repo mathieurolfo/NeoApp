@@ -15,7 +15,7 @@
 @property (strong, nonatomic) UIImage *profilePicture;
 
 
-@property (strong, nonatomic) NSString *XAuth;
-@property (strong, nonatomic) NSString *XDigest;
+@property (strong, nonatomic) NSString *fbXAuth;
+@property (strong, nonatomic) NSString *fbXDigest;
 
 @end
