@@ -62,7 +62,7 @@
 -(void)loadProfileInformation
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     
     //should there be a delegate for this?
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
