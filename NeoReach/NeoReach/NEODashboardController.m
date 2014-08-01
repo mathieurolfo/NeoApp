@@ -73,7 +73,7 @@
     
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"making call to NeoReach server");
+    NSLog(@"loading profile information");
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -89,7 +89,7 @@
         NSLog(@"%@", delegate.userProfileDictionary);
         //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
+           [self.tableView reloadData];
         });
     }];
     [dataTask resume];
@@ -167,8 +167,6 @@
   	NSLog(@"inside dashboard");
 	
   	NSString *string = [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0];
-	NSLog(@"onamae wa %@", string);
-
 	
   	NSString *username = [NSString stringWithFormat:@"%@ %@", [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0], [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"] objectAtIndex:0]];
             

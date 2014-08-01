@@ -12,6 +12,8 @@
 
 @interface NEOLoginController ()
 
+@property (nonatomic, strong) NSURL *redirectURL;
+@property (nonatomic, strong) NSString *loginAddress;
 @end
 
 @implementation NEOLoginController
@@ -41,19 +43,14 @@
 }
 
 - (IBAction)logInPressed:(id)sender {
-    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     
     [self getTokensForAPI];
     
     NSLog(@"pressed login button");
     
-    if (!delegate.rootNav) {
-        NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-        delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-        
-    }
-    delegate.drawer.centerViewController = delegate.rootNav;
+    
     
     
 }
@@ -70,12 +67,24 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
-    //NeoReach API protocol
-    NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
-    NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
-    delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
-                                     @"X-Digest":testXDigest};
     
+    self.loginAddress = @"https://api.neoreach.com/auth/facebook";
+    NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
+    UIWebView *webView = [[UIWebView alloc] init];
+    webView.scalesPageToFit = YES;
+    //[self.view addSubview: webView];
+    self.view = webView;
+    webView.delegate = self;
+    NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
+    [(UIWebView *)self.view loadRequest:request];
+    
+   
+    
+    //NeoReach API protocol
+    //NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
+    //NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
+   // delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
+       //                              @"X-Digest":testXDigest};
     
     
     
@@ -86,6 +95,82 @@
     
    
 }
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+   
+
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSURL *redirect = [request mainDocumentURL];
+    NSString *redirectAddress = [redirect absoluteString];
     
+    if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) {
+        self.redirectURL = redirect;
+        [self getAuthHeader];
+        return NO;
+    }
+    return YES;
+}
+
+-(void)getAuthHeader
+{
+        //NSURL *redirectURL = webView.request.URL;
+    
+    //NSLog(@"redirect url %@", redirectURL);
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        //load response into a dictionary
+        NSDictionary *headerJSON =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        NSLog(@"%@", headerJSON);
+        NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
+        NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
+        NSLog(@"%@ %@", xAuth, xDigest);
+        
+        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
+                                                         @"X-Digest":xDigest};
+        if (!delegate.rootNav) {
+            NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+            delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+            
+            NSLog(@"initialized dashboard");
+            delegate.drawer.centerViewController = delegate.rootNav;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [dashboard.tableView reloadData];
+            });
+        }
+
+            }];
+    [dataTask resume];
+
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
