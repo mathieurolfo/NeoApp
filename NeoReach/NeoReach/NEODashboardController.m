@@ -74,8 +74,8 @@
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     //creating URL for the actual request
-    //NSString *requestString = @"https://api.neoreach.com/account";
-    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
+    NSString *requestString = @"https://api.neoreach.com/account";
+    //NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
     
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

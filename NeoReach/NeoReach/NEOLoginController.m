@@ -46,7 +46,7 @@
     //access NeoReach API; load information first
     //[self performSelectorOnMainThread:@selector(callNeoReachAPI:) withObject:delegate waitUntilDone:YES];
     
-    //[self callNeoReachAPI:delegate];
+    [self getTokensForAPI];
     
     NSLog(@"pressed login button");
     
@@ -62,7 +62,7 @@
 
 /* this method will currently initialize the session and get the basic NeoReach account information. This information will be put into a dictionary that is a property of the app delegate for now, until we set up dedicated model classes.
  */
--(void)callNeoReachAPI:(NEOAppDelegate *)delegate
+-(void)getTokensForAPI
 {
     //initialize session configuration: could be done in controller init but keeping code together for now
    
