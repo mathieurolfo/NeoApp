@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MMDrawerController/MMDrawerController.h>
 #import "NEOLoginController.h"
-
+#import "NEOUser.h"
 
 @interface NEOAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UINavigationController *rootNav;
 @property (strong, nonatomic) NEOLoginController *login;
 @property (strong, nonatomic) NSMutableDictionary *userProfileDictionary;
+@property (strong, nonatomic) NEOUser *user;
 
 
 -(void)enableDrawerAccess;
