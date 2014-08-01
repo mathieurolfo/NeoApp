@@ -43,8 +43,6 @@
 - (IBAction)logInPressed:(id)sender {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    //access NeoReach API; load information first
-    //[self performSelectorOnMainThread:@selector(callNeoReachAPI:) withObject:delegate waitUntilDone:YES];
     
     [self getTokensForAPI];
     
@@ -69,7 +67,14 @@
     
     
     //THIS CODE DEALS WITH FACEBOOK AUTHENTICATION IN ORDER TO GET XAUTH AND XDIGEST
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
+    //NeoReach API protocol
+    NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
+    NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
+    delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
+                                     @"X-Digest":testXDigest};
     
     
     

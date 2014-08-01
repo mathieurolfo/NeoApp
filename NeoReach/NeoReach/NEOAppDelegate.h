@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NEOLoginController *login;
 @property (strong, nonatomic) NSMutableDictionary *userProfileDictionary;
 @property (strong, nonatomic) NEOUser *user;
+@property (strong, nonatomic) NSURLSessionConfiguration *sessionConfig;
 
 
 -(void)enableDrawerAccess;

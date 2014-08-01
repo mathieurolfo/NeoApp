@@ -64,12 +64,6 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     
-    //NeoReach API protocol
-    NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
-    NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
-    config.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
-                                     @"X-Digest":testXDigest};
-    
     //should there be a delegate for this?
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
