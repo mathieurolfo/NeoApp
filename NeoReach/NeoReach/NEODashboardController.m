@@ -89,8 +89,8 @@
         });
     }];
     [dataTask resume];
-
 }
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -98,7 +98,6 @@
     
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
-
 }
 
 
@@ -170,9 +169,6 @@
         // What to display before profile picture is loaded?
     }
 
-    
-
-
     [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
     _tableHeader = hc;
     return hc;
@@ -239,19 +235,19 @@
     user.firstName = [profileDict valueForKeyPath:@"name.first"];
     user.lastName = [profileDict valueForKeyPath:@"name.last"];
 
+    
     //Profile picture URL is in the 'facebook.com' entry of data.Publishers
     NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
+    
     for (int i=0; i < [publishers count]; i++) {
         NSDictionary *publisher = [publishers objectAtIndex:i];
         NSString *publisherName = [publisher valueForKeyPath:@"name"];
         if ([publisherName isEqualToString:@"facebook.com"]) {
             user.profilePictureURL = [publisher valueForKeyPath:@"pic"];
             user.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.profilePictureURL]]];
+            break;
         }
     }
-    
-    
-    NSLog(@"%@",user.profilePicture);
 }
 
 @end
