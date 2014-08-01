@@ -152,20 +152,24 @@
     return 200.0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     NEODashboardHeaderCell *hc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
-    
-    hc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
-
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
-    if (!(user.firstName && user.lastName)) {
-        hc.nameLabel.text = @"Loading name...";
-    } else {
+    if (user.firstName && user.lastName) {
         hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                              user.firstName, user.lastName];
-
+    } else {
+        hc.nameLabel.text = @"Loading name...";
     }
+    
+    if (user.profilePicture) {
+        hc.profileImage.image = user.profilePicture;
+    } else {
+        // What to display before profile picture is loaded?
+    }
+
     
 
 
@@ -232,10 +236,22 @@
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = [[[dict objectForKey:@"data"] objectForKey:@"Profile"] objectAtIndex:0];
     
-    user.firstName =[profileDict valueForKeyPath:@"name.first"];
+    user.firstName = [profileDict valueForKeyPath:@"name.first"];
     user.lastName = [profileDict valueForKeyPath:@"name.last"];
 
-    //TODO user.profilePictureURL and user.profilePicture
+    //Profile picture URL is in the 'facebook.com' entry of data.Publishers
+    NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
+    for (int i=0; i < [publishers count]; i++) {
+        NSDictionary *publisher = [publishers objectAtIndex:i];
+        NSString *publisherName = [publisher valueForKeyPath:@"name"];
+        if ([publisherName isEqualToString:@"facebook.com"]) {
+            user.profilePictureURL = [publisher valueForKeyPath:@"pic"];
+            user.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.profilePictureURL]]];
+        }
+    }
+    
+    
+    NSLog(@"%@",user.profilePicture);
 }
 
 @end
