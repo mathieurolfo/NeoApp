@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NEOBrowseDetailsCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *promotionLabel;
 
 @end

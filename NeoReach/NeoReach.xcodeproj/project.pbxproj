@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22698A8C1982C7D3007A7255 /* NEOCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22698A8B1982C7D3007A7255 /* NEOCircleView.m */; };
 		227F2E39198C136D009E66BC /* NEOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F2E38198C136D009E66BC /* NEOUser.m */; };
+		227F2E3C198C4167009E66BC /* NEOCampaign.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F2E3B198C4167009E66BC /* NEOCampaign.m */; };
 		22A22D1B197D6B4200D4560A /* NEOLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D19197D6B4200D4560A /* NEOLoginController.m */; };
 		22A22D1C197D6B4200D4560A /* NEOLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A22D1A197D6B4200D4560A /* NEOLoginController.xib */; };
 		22A22D20197D6B5700D4560A /* NEODashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A22D1E197D6B5700D4560A /* NEODashboardController.m */; };
@@ -85,6 +86,8 @@
 		22698A8B1982C7D3007A7255 /* NEOCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOCircleView.m; sourceTree = "<group>"; };
 		227F2E37198C136D009E66BC /* NEOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOUser.h; sourceTree = "<group>"; };
 		227F2E38198C136D009E66BC /* NEOUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOUser.m; sourceTree = "<group>"; };
+		227F2E3A198C4167009E66BC /* NEOCampaign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOCampaign.h; sourceTree = "<group>"; };
+		227F2E3B198C4167009E66BC /* NEOCampaign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOCampaign.m; sourceTree = "<group>"; };
 		22A22D18197D6B4200D4560A /* NEOLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOLoginController.h; sourceTree = "<group>"; };
 		22A22D19197D6B4200D4560A /* NEOLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOLoginController.m; sourceTree = "<group>"; };
 		22A22D1A197D6B4200D4560A /* NEOLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOLoginController.xib; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 				22A9D3F3196F56B900AF6DEB /* NEOAppDelegate.m */,
 				227F2E37198C136D009E66BC /* NEOUser.h */,
 				227F2E38198C136D009E66BC /* NEOUser.m */,
+				227F2E3A198C4167009E66BC /* NEOCampaign.h */,
+				227F2E3B198C4167009E66BC /* NEOCampaign.m */,
 				22A9D3F5196F56B900AF6DEB /* Images.xcassets */,
 				22698A8A1982C7D3007A7255 /* NEOCircleView.h */,
 				22698A8B1982C7D3007A7255 /* NEOCircleView.m */,
@@ -520,6 +525,7 @@
 				22A22D2D197D6C8400D4560A /* NEOSideMenuController.m in Sources */,
 				227F2E39198C136D009E66BC /* NEOUser.m in Sources */,
 				22D84CF619817BA3008A16E7 /* NEODashboardStatsCell.m in Sources */,
+				227F2E3C198C4167009E66BC /* NEOCampaign.m in Sources */,
 				22A22D28197D6B7A00D4560A /* NEOBrowseCampaignsController.m in Sources */,
 				22C8A7D01982F3A6007B16CA /* NEOBrowseLogosCell.m in Sources */,
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,

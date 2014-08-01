@@ -58,6 +58,12 @@
                     <constraint firstAttribute="bottom" secondItem="icC-eq-68B" secondAttribute="bottom" constant="10" id="dzY-bB-oAT"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="backButton" destination="KuF-QP-WwU" id="Mz3-yI-qsl"/>
+                <outlet property="campaignCircleView" destination="fPO-KL-zbb" id="ByZ-3y-JbR"/>
+                <outlet property="nameLabel" destination="icC-eq-68B" id="rfJ-zc-cvr"/>
+                <outlet property="nextButton" destination="5tZ-M2-JmP" id="iem-6T-Ym3"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

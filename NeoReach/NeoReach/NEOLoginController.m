@@ -71,8 +71,8 @@
     delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
     //NeoReach API protocol
-    NSString *testXAuth = @"53a8b82105de5ab91cc11df9";
-    NSString *testXDigest = @"RInB5Qz0jUweQsL3gTkbMCEXFF8AhQmj";
+    NSString *testXAuth = @"53dc02556c97f8081ed9e62d";
+    NSString *testXDigest = @"f05PXY2tH0j0oEyko6QWM8LNj0a8F6HI";
 
     delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
                                      @"X-Digest":testXDigest};
