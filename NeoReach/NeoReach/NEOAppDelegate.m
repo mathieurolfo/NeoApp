@@ -24,7 +24,6 @@
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
     self.login = loginController;
 
-    
     NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
     
     self.drawer = [[MMDrawerController alloc] initWithCenterViewController:loginController
@@ -34,6 +33,8 @@
 
     [self.drawer setShowsShadow:NO];
     self.drawer.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width * 2.0 / 3;
+    
+    self.user = [[NEOUser alloc] init];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.drawer;
@@ -94,6 +95,7 @@
     self.drawer.closeDrawerGestureModeMask = 0;
     
 }
+
 
 
 @end

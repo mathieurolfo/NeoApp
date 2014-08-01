@@ -15,6 +15,7 @@
 #import "NEODashboardStatsCell.h"
 #import "NEODashboardPostCell.h"
 
+#import "NEOUser.h"
 
 
 @interface NEODashboardController ()
@@ -55,7 +56,7 @@
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 
-//    [self loadProfileInformation];
+    [self loadProfileInformation];
 }
 
 
@@ -63,17 +64,12 @@
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
-    
-    //should there be a delegate for this?
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
-    //creating URL for the actual request
     NSString *requestString = @"https://api.neoreach.com/account";
-    //NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=10";
-    
     NSURL *url = [NSURL URLWithString:requestString];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"loading profile information");
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -84,17 +80,16 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-        delegate.userProfileDictionary = [[NSMutableDictionary alloc] initWithDictionary:profileJSON copyItems:YES];
+
+        [self populateUserProfileWithDictionary:profileJSON];
         
-        NSLog(@"%@", delegate.userProfileDictionary);
-        //NSLog(@"%@", [profileJSON valueForKeyPath:@"data.Profile.name"]);
         dispatch_async(dispatch_get_main_queue(), ^{
            [self.tableView reloadData];
         });
     }];
     [dataTask resume];
-
 }
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -102,7 +97,6 @@
     
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
-
 }
 
 
@@ -123,7 +117,6 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
-        [self loadProfileInformation];
     }
     
     return self;
@@ -157,27 +150,25 @@
     return 200.0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
     NEODashboardHeaderCell *hc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
-    hc.profileImage.image = [UIImage imageNamed:@"juliana.png"];
+    
+    if (user.firstName && user.lastName) {
+        hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
+                             user.firstName, user.lastName];
 
-  	NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
-	
-  	NSLog(@"inside dashboard");
-	
-  	NSString *string = [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0];
-	
-  	NSString *username = [NSString stringWithFormat:@"%@ %@", [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.first"] objectAtIndex:0], [[delegate.userProfileDictionary valueForKeyPath:@"data.Profile.name.last"] objectAtIndex:0]];
-            
-    if (string.length == 0) {
-        hc.nameLabel.text = @"Loading name...";
     } else {
-        hc.nameLabel.text = username;
-
+        hc.nameLabel.text = @"Loading name...";
     }
-    
-
+        
+    if (user.profilePicture) {
+        hc.profileImage.image = user.profilePicture;
+    } else {
+        // What to display before profile picture is loaded?
+    }
 
     [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
     _tableHeader = hc;
@@ -233,6 +224,31 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView reloadData];
+}
+
+-(void)populateUserProfileWithDictionary:(NSDictionary *)dict
+{
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    
+    //Most profile information is in data.Profile[0]
+    NSDictionary *profileDict = [[[dict objectForKey:@"data"] objectForKey:@"Profile"] objectAtIndex:0];
+    
+    user.firstName = [profileDict valueForKeyPath:@"name.first"];
+    user.lastName = [profileDict valueForKeyPath:@"name.last"];
+
+    
+    //Profile picture URL is in the 'facebook.com' entry of data.Publishers
+    NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
+    
+    for (int i=0; i < [publishers count]; i++) {
+        NSDictionary *publisher = [publishers objectAtIndex:i];
+        NSString *publisherName = [publisher valueForKeyPath:@"name"];
+        if ([publisherName isEqualToString:@"facebook.com"]) {
+            user.profilePictureURL = [publisher valueForKeyPath:@"pic"];
+            user.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.profilePictureURL]]];
+            break;
+        }
+    }
 }
 
 @end
