@@ -9,6 +9,7 @@
 #import "NEOLoginController.h"
 #import "NEODashboardController.h"
 #import "NEOAppDelegate.h"
+#import "NEOWebViewController.h"
 
 @interface NEOLoginController ()
 
@@ -43,13 +44,16 @@
 }
 
 - (IBAction)logInPressed:(id)sender {
-    //NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     
     [self getTokensForAPI];
     
     NSLog(@"pressed login button");
     
+    NEOWebViewController *webView = [[NEOWebViewController alloc] init];
+    delegate.webView = webView;
+    delegate.window.rootViewController = delegate.webView;
     
 }
 
@@ -71,19 +75,15 @@
     //[self.view addSubview: webView];
     self.view = webView;
     webView.delegate = self;
-    self.title = @"Log in";
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
-    [(UIWebView *)self.view loadRequest:request];
-    
-   
-    
-       
+    [webView loadRequest:request];
    
 }
 
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-   
+
 
 }
 

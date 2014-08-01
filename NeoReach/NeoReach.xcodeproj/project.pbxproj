@@ -42,6 +42,8 @@
 		22D84D0119819E41008A16E7 /* NEODashboardPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D84CFF19819E41008A16E7 /* NEODashboardPostCell.m */; };
 		22D84D0219819E41008A16E7 /* NEODashboardPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D84D0019819E41008A16E7 /* NEODashboardPostCell.xib */; };
 		22D84D071981ADC8008A16E7 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		4E44CFCF198C592C00743FDD /* NEOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E44CFCD198C592C00743FDD /* NEOWebViewController.m */; };
+		4E44CFD0198C592C00743FDD /* NEOWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E44CFCE198C592C00743FDD /* NEOWebViewController.xib */; };
 		4E6368881986C37400FFF5A1 /* NEOTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6368861986C37400FFF5A1 /* NEOTagsController.m */; };
 		4E6368891986C37400FFF5A1 /* NEOTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E6368871986C37400FFF5A1 /* NEOTagsController.xib */; };
 		4E7AF52C1988826C00FD1022 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5181988826C00FD1022 /* Lato-Black.ttf */; };
@@ -132,6 +134,9 @@
 		22D84CFF19819E41008A16E7 /* NEODashboardPostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEODashboardPostCell.m; sourceTree = "<group>"; };
 		22D84D0019819E41008A16E7 /* NEODashboardPostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEODashboardPostCell.xib; sourceTree = "<group>"; };
 		2B6613254EDF4F968B36F2CF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E44CFCC198C592C00743FDD /* NEOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOWebViewController.h; sourceTree = "<group>"; };
+		4E44CFCD198C592C00743FDD /* NEOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOWebViewController.m; sourceTree = "<group>"; };
+		4E44CFCE198C592C00743FDD /* NEOWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOWebViewController.xib; sourceTree = "<group>"; };
 		4E6368851986C37400FFF5A1 /* NEOTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOTagsController.h; sourceTree = "<group>"; };
 		4E6368861986C37400FFF5A1 /* NEOTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOTagsController.m; sourceTree = "<group>"; };
 		4E6368871986C37400FFF5A1 /* NEOTagsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOTagsController.xib; sourceTree = "<group>"; };
@@ -229,6 +234,9 @@
 				22A9D3F5196F56B900AF6DEB /* Images.xcassets */,
 				22698A8A1982C7D3007A7255 /* NEOCircleView.h */,
 				22698A8B1982C7D3007A7255 /* NEOCircleView.m */,
+				4E44CFCC198C592C00743FDD /* NEOWebViewController.h */,
+				4E44CFCD198C592C00743FDD /* NEOWebViewController.m */,
+				4E44CFCE198C592C00743FDD /* NEOWebViewController.xib */,
 				22A22D25197D6B7A00D4560A /* NEOBrowseCampaignsController.h */,
 				22A22D26197D6B7A00D4560A /* NEOBrowseCampaignsController.m */,
 				22A22D27197D6B7A00D4560A /* NEOBrowseCampaignsController.xib */,
@@ -451,6 +459,7 @@
 				4E7AF5351988826C00FD1022 /* Lato-Light.ttf in Resources */,
 				4E7AF5361988826C00FD1022 /* Lato-LightItalic.ttf in Resources */,
 				4E7AF53D1988826C00FD1022 /* Lato-ThinItalic.ttf in Resources */,
+				4E44CFD0198C592C00743FDD /* NEOWebViewController.xib in Resources */,
 				4E7AF5381988826C00FD1022 /* Lato-MediumItalic.ttf in Resources */,
 				22A22D2E197D6C8400D4560A /* NEOSideMenuController.xib in Resources */,
 				4E7AF52E1988826C00FD1022 /* Lato-Bold.ttf in Resources */,
@@ -513,6 +522,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E44CFCF198C592C00743FDD /* NEOWebViewController.m in Sources */,
 				22A22D1B197D6B4200D4560A /* NEOLoginController.m in Sources */,
 				22D84D0119819E41008A16E7 /* NEODashboardPostCell.m in Sources */,
 				4E6368881986C37400FFF5A1 /* NEOTagsController.m in Sources */,

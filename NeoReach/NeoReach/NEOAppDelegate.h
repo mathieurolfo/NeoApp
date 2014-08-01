@@ -10,6 +10,7 @@
 #import <MMDrawerController/MMDrawerController.h>
 #import "NEOLoginController.h"
 #import "NEOUser.h"
+#import "NEOWebViewController.h"
 
 @interface NEOAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) MMDrawerController *drawer;
 @property (strong, nonatomic) UINavigationController *rootNav;
 @property (strong, nonatomic) NEOLoginController *login;
+@property (strong, nonatomic) NEOWebViewController *webView;
 @property (strong, nonatomic) NEOUser *user;
 @property (strong, nonatomic) NSURLSessionConfiguration *sessionConfig;
 
