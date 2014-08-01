@@ -51,22 +51,18 @@
     NSLog(@"pressed login button");
     
     
-    
-    
 }
 
 /* this method will currently initialize the session and get the basic NeoReach account information. This information will be put into a dictionary that is a property of the app delegate for now, until we set up dedicated model classes.
  */
 -(void)getTokensForAPI
 {
-    //initialize session configuration: could be done in controller init but keeping code together for now
-   
-    
     
     //THIS CODE DEALS WITH FACEBOOK AUTHENTICATION IN ORDER TO GET XAUTH AND XDIGEST
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
+   
     
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
@@ -75,24 +71,13 @@
     //[self.view addSubview: webView];
     self.view = webView;
     webView.delegate = self;
+    self.title = @"Log in";
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     [(UIWebView *)self.view loadRequest:request];
     
    
     
-    //NeoReach API protocol
-    //NSString *testXAuth = @"53d6b32fbedda4bd15649f59";
-    //NSString *testXDigest = @"BbgtaMoTDepnHFahq3YVGZ3Kjmjda96q";
-   // delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
-       //                              @"X-Digest":testXDigest};
-    
-    
-    
-    
-    //THE BELOW CODE DEALS WITH GET REQUEST AFTER SUCCESSFULLY RECEIVING XAUTH AND XDIGEST
-    
-    //configuring the header for the session to conform to
-    
+       
    
 }
 
@@ -146,9 +131,9 @@
             
             NSLog(@"initialized dashboard");
             delegate.drawer.centerViewController = delegate.rootNav;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [dashboard.tableView reloadData];
-            });
+            /*dispatch_async(dispatch_get_main_queue(), ^{
+                //[dashboard.tableView reloadData];
+            }); */
         }
 
             }];

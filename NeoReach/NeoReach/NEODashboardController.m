@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    NSLog(@"view did load");
 
     // Register the NIB files for the dashboard cells
     UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
@@ -55,8 +55,8 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
-
     [self loadProfileInformation];
+
 }
 
 
@@ -68,7 +68,7 @@
     
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
-    
+    NSLog(@"making profile info request");
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -80,7 +80,7 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-
+        NSLog(@"populating user profile dick");
         [self populateUserProfileWithDictionary:profileJSON];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -94,7 +94,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    NSLog(@"view did appear");
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
 }
@@ -109,6 +109,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSLog(@"view did init");
     if (self) {
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
@@ -117,7 +118,7 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
-    }
+        }
     
     return self;
 }
