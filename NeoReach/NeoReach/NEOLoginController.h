@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOLoginController : UIViewController <UIWebViewDelegate>
+@interface NEOLoginController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *logInOutInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *splashImage;

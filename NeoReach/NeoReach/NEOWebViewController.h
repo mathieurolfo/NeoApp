@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOWebViewController : UIViewController
+@interface NEOWebViewController : UIViewController <UIWebViewDelegate>
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

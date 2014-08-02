@@ -41,6 +41,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"view did load");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     NSLog(@"view did load");
@@ -119,7 +120,7 @@
         
         navItem.leftBarButtonItem = lbbi;
         }
-    
+    NSLog(@"view finished init");
     return self;
 }
 
@@ -229,6 +230,7 @@
 
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
+    NSLog(@"Starting to populate");
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
     //Most profile information is in data.Profile[0]
@@ -250,6 +252,7 @@
             break;
         }
     }
+    NSLog(@"Ending populate");
 }
 
 @end
