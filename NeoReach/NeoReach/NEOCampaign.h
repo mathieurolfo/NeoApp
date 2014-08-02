@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NEOCampaign : NSObject
+@property (strong, nonatomic) NSString *ID;
+
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *promotion;
 

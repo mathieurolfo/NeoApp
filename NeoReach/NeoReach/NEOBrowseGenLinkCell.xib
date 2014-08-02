@@ -36,6 +36,10 @@
                     <constraint firstItem="eWQ-nw-G5B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="wcX-FU-cVT"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="generateLinkButton" destination="w5h-pK-cwR" id="vSF-5P-8H7"/>
+                <outlet property="referralURLField" destination="eWQ-nw-G5B" id="gKm-Qc-7HU"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

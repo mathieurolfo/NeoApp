@@ -15,6 +15,8 @@
 
 #import "NEOCampaign.h"
 
+#include <dispatch/dispatch.h> //for semaphores
+
 @interface NEOBrowseCampaignsController ()
 @property NSUInteger campaignIndex;
 @property NSMutableArray *campaigns;
@@ -96,6 +98,11 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NEOCampaign *campaign = nil;
+    if ([_campaigns count] > 0) {
+        campaign = [_campaigns objectAtIndex:_campaignIndex];
+    }
+    
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
         case 0:
@@ -107,9 +114,9 @@
             [lc.nextButton addTarget:self action:@selector(goToNextCampaign:) forControlEvents:UIControlEventTouchUpInside];
             [lc.backButton addTarget:self action:@selector(goToPreviousCampaign:) forControlEvents:UIControlEventTouchUpInside];
             
-            if ([_campaigns count] > 0)
+            if (campaign)
             {
-                lc.nameLabel.text = [(NEOCampaign *)[_campaigns objectAtIndex:_campaignIndex] name];
+                lc.nameLabel.text = campaign.name;
             } else {
                 if (_campaignsLoaded) {
                     lc.nameLabel.text = @"No campaigns!";
@@ -128,9 +135,9 @@
                                         dequeueReusableCellWithIdentifier:@"NEOBrowseDetailsCell"
                                         forIndexPath:indexPath];
             
-            if ([_campaigns count] > 0)
+            if (campaign)
             {
-                dc.promotionLabel.text = [(NEOCampaign *)[_campaigns objectAtIndex:_campaignIndex] promotion];
+                dc.promotionLabel.text = campaign.promotion;
             } else {
                 dc.promotionLabel.text = @"";
                 }
@@ -140,9 +147,15 @@
         }
         case 2:
         {
-            NEOBrowseDetailsCell *glc = [tableView
+            NEOBrowseGenLinkCell *glc = [tableView
                                         dequeueReusableCellWithIdentifier:@"NEOBrowseGenLinkCell"
                                         forIndexPath:indexPath];
+            
+            if (campaign && campaign.referralURL) {
+                glc.referralURLField.text = campaign.referralURL;
+            } else {
+                glc.referralURLField.text = @"Link not generated";
+            }
             
             cell = (UITableViewCell *)glc;
             break;
@@ -167,7 +180,6 @@
     }
     
     [self.tableView reloadData];
-
 }
 
 
@@ -184,6 +196,8 @@
 
 -(void) loadCampaigns
 {
+    _campaignsLoaded = NO;
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -205,13 +219,13 @@
         
 
         [self populateCampaignsWithDictionary:dict];
+        _campaignsLoaded = YES;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
     }];
     [dataTask resume];
-
 }
 
 -(void)populateCampaignsWithDictionary:(NSDictionary *)dict
@@ -222,6 +236,7 @@
         NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
         
         NEOCampaign *campaign = [[NEOCampaign alloc] init];
+        campaign.ID = [campaignDict valueForKey:@"_id"];
         campaign.name = [campaignDict valueForKey:@"name"];
         campaign.promotion = [campaignDict valueForKey:@"promotion"];
         
@@ -234,12 +249,52 @@
             campaign.imageURL = [NSString stringWithFormat:@"https://app.neoreach.com/file/read/%@",imageID];
         }
         
+        
+
+        [self fetchReferralURLForCampaign:campaign];
         [_campaigns addObject:campaign];
-        _campaignsLoaded = YES;
 
 
     }
     
 }
 
+-(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
+    
+    NSURL *url = [NSURL URLWithString:requestString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+
+        
+        NSDictionary *trackerData = [dict objectForKey:@"data"];
+        
+        if (![trackerData isEqual:[NSNull null]]) {
+            campaign.referralURL = [trackerData objectForKey:@"link"];
+        } else {
+            campaign.referralURL = nil;
+        }
+
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }];
+    [dataTask resume];
+}
 @end
