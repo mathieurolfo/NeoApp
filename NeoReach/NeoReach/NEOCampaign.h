@@ -13,9 +13,12 @@
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *promotion;
+@property                        float costPerClick;
+
 
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) UIImage *image;
 
 @property (strong, nonatomic) NSString *referralURL;
+
 @end

@@ -10,5 +10,6 @@
 
 @interface NEOBrowseDetailsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *promotionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *CPCLabel;
 
 @end

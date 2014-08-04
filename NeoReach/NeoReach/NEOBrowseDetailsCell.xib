@@ -14,20 +14,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you fucking love tan high heels, then promote our spring line. Just mention our new spring sale." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="395" translatesAutoresizingMaskIntoConstraints="NO" id="0jS-Ig-K1W">
-                        <rect key="frame" x="0.0" y="0.0" width="395" height="264"/>
+                        <rect key="frame" x="0.0" y="37" width="395" height="227"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTB-VW-qvB">
+                        <rect key="frame" x="0.0" y="8" width="395" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Bjv-wj-9iy"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="0jS-Ig-K1W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="02i-ta-F0R"/>
-                    <constraint firstAttribute="trailing" secondItem="0jS-Ig-K1W" secondAttribute="trailing" id="EB7-0C-X9w"/>
-                    <constraint firstAttribute="bottom" secondItem="0jS-Ig-K1W" secondAttribute="bottom" id="EMB-9R-28t"/>
-                    <constraint firstItem="0jS-Ig-K1W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="sHb-dP-Yvq"/>
+                    <constraint firstAttribute="trailing" secondItem="0jS-Ig-K1W" secondAttribute="trailing" id="GS9-vd-PZF"/>
+                    <constraint firstItem="0jS-Ig-K1W" firstAttribute="top" secondItem="NTB-VW-qvB" secondAttribute="bottom" constant="8" id="SQa-E6-Aq8"/>
+                    <constraint firstItem="NTB-VW-qvB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ewo-G1-2V5"/>
+                    <constraint firstItem="NTB-VW-qvB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fwX-CY-yML"/>
+                    <constraint firstItem="0jS-Ig-K1W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lka-EA-Ed7"/>
+                    <constraint firstAttribute="bottom" secondItem="0jS-Ig-K1W" secondAttribute="bottom" id="nvg-Hu-iyr"/>
+                    <constraint firstAttribute="trailing" secondItem="NTB-VW-qvB" secondAttribute="trailing" id="r73-Bk-uTj"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="CPCLabel" destination="NTB-VW-qvB" id="1GL-Dc-m5n"/>
                 <outlet property="promotionLabel" destination="0jS-Ig-K1W" id="AzM-rV-W4c"/>
             </connections>
         </tableViewCell>

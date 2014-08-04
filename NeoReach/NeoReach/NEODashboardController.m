@@ -163,7 +163,7 @@
                              user.firstName, user.lastName];
 
     } else {
-        hc.nameLabel.text = @"Loading name...";
+        hc.nameLabel.text = @"Loading...";
     }
         
     if (user.profilePicture) {

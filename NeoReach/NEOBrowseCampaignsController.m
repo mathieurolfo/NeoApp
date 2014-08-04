@@ -29,7 +29,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        UINavigationItem *navItem = self.navigationItem;        navItem.title = @"Browse";
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Browse";
     }
     return self;
 }
@@ -138,8 +139,10 @@
             if (campaign)
             {
                 dc.promotionLabel.text = campaign.promotion;
+                dc.CPCLabel.text = [NSString stringWithFormat:@"$%.2f/click",campaign.costPerClick];
             } else {
                 dc.promotionLabel.text = @"";
+                dc.CPCLabel.text = @"";
                 }
             
             cell = (UITableViewCell *)dc;
@@ -236,9 +239,12 @@
     NSArray *campaignsJSON = [[dict objectForKey:@"data"] objectForKey:@"Campaigns"];
     
     for (int i = 0; i < [campaignsJSON count]; i++) {
-        NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
-        
         NEOCampaign *campaign = [[NEOCampaign alloc] init];
+
+        campaign.costPerClick = [[[campaignsJSON objectAtIndex:i] valueForKey:@"cpc"] floatValue];
+        
+        // Most information is in "campaign" field
+        NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
         campaign.ID = [campaignDict valueForKey:@"_id"];
         campaign.name = [campaignDict valueForKey:@"name"];
         campaign.promotion = [campaignDict valueForKey:@"promotion"];
