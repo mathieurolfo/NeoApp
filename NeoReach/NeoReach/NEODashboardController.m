@@ -10,7 +10,6 @@
 #import <MMDrawerBarButtonItem.h>
 #import "NEOAppDelegate.h"
 #import "NEOBrowseCampaignsController.h"
-
 #import "NEODashboardHeaderCell.h"
 #import "NEODashboardStatsCell.h"
 #import "NEODashboardPostCell.h"
@@ -44,7 +43,7 @@
     NSLog(@"view did load");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSLog(@"view did load");
+
 
     // Register the NIB files for the dashboard cells
     UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
@@ -85,7 +84,9 @@
         [self populateUserProfileWithDictionary:profileJSON];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           [self.tableView reloadData];
+            [self.tableView reloadData];
+            delegate.webView = nil;
+            NSLog(@"Webview deleted");
         });
     }];
     [dataTask resume];
@@ -95,7 +96,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"view did appear");
+
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
 }
@@ -110,7 +111,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    NSLog(@"view did init");
+
     if (self) {
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
@@ -120,7 +121,6 @@
         
         navItem.leftBarButtonItem = lbbi;
         }
-    NSLog(@"view finished init");
     return self;
 }
 
@@ -230,7 +230,6 @@
 
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
-    NSLog(@"Starting to populate");
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
     //Most profile information is in data.Profile[0]
@@ -252,7 +251,6 @@
             break;
         }
     }
-    NSLog(@"Ending populate");
 }
 
 @end

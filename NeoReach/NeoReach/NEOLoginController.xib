@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NEOLoginController">
             <connections>
                 <outlet property="logInOutInfoLabel" destination="kbz-eG-6tk" id="oNd-7B-Kpp"/>
+                <outlet property="loginButton" destination="okt-qD-Zbf" id="a84-U6-8rk"/>
                 <outlet property="neoReachLabel" destination="cG3-nw-AtZ" id="dQi-qg-B5J"/>
                 <outlet property="splashImage" destination="8dT-QK-rSm" id="kou-8R-U43"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

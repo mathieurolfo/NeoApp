@@ -18,7 +18,7 @@
 @property (strong, nonatomic) MMDrawerController *drawer;
 @property (strong, nonatomic) UINavigationController *rootNav;
 @property (strong, nonatomic) NEOLoginController *login;
-@property (strong, nonatomic) NEOWebViewController *webView;
+@property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NEOUser *user;
 @property (strong, nonatomic) NSURLSessionConfiguration *sessionConfig;
 

@@ -21,6 +21,8 @@
 
 @implementation NEOLoginController
 
+#pragma mark Initialization and View Methods
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,16 +47,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Logging In Methods
+
 - (IBAction)logInPressed:(id)sender {
+
+    [self.loginButton setEnabled:NO];
+    UIWebView *webView = [self configureWebView];
+    
+    NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
+    NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
+    
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [webView loadRequest:request];
+        [self displayActivityIndicator];
+    });
+}
+
+-(void)displayActivityIndicator
+{
+    UIActivityIndicatorView *loginIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    loginIndicator.center = self.view.center;
+    [loginIndicator startAnimating];
+    [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
+    
+}
+
+#pragma mark - WebView Methods
+
+-(UIWebView *)configureWebView
+{
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSLog(@"pressed login button");
+    //NOTE: hardcoded web view to make status bar visible
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     
-    //NEOWebViewController *webView = [[NEOWebViewController alloc] init];
-    //delegate.webView = webView;
-    //delegate.drawer.centerViewController = delegate.webView;
-
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    delegate.webView = webView;
     webView.delegate = self;
     webView.scalesPageToFit = YES;
     
@@ -63,14 +90,7 @@
     
     delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
-    NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
-
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
-    dispatch_async(dispatch_get_main_queue(), ^ {
-        [webView loadRequest:request];
-        NSLog(@"request loaded");
-    });
+    return webView;
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -78,13 +98,15 @@
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
     NSLog(@"Current URL: %@", redirectAddress);
-    if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) {
+    if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
+        NSLog(@"Got auth header");
         [self getAuthHeader];
         return NO;
-    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) {
+    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) { //display login screen
         webView.hidden = NO;
-        webView.layer.zPosition = MAXFLOAT;
+        self.splashImage.hidden = YES;
+        //webView.layer.zPosition = MAXFLOAT;
         NSLog(@"Login screen loaded");
     }
     
@@ -120,6 +142,10 @@
                 NEODashboardController *dashboard = [[NEODashboardController alloc] init];
                 delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
                 delegate.drawer.centerViewController = delegate.rootNav;
+                NSLog(@"Dashboard initialized");
+                self.splashImage.hidden = NO;
+                delegate.webView.layer.zPosition = -1;
+                NSLog(@"%@", NSStringFromClass(delegate.window.rootViewController.class));
             }
         });
     }];
