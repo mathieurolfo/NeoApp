@@ -9,8 +9,10 @@
 #import "NEOLoginController.h"
 #import "NEODashboardController.h"
 #import "NEOAppDelegate.h"
+#import "NEOWebViewController.h"
 
 @interface NEOLoginController ()
+
 
 @end
 
@@ -43,24 +45,17 @@
 - (IBAction)logInPressed:(id)sender {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    
-    [self getTokensForAPI];
-    
     NSLog(@"pressed login button");
     
-    if (!delegate.rootNav) {
-        NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-        delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-        
-    }
-    delegate.drawer.centerViewController = delegate.rootNav;
-    
+    NEOWebViewController *webView = [[NEOWebViewController alloc] init];
+    delegate.webView = webView;
+    delegate.drawer.centerViewController = delegate.webView;
     
 }
 
-/* this method will currently initialize the session and get the basic NeoReach account information. This information will be put into a dictionary that is a property of the app delegate for now, until we set up dedicated model classes.
- */
--(void)getTokensForAPI
+
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //initialize session configuration: could be done in controller init but keeping code together for now
    
@@ -69,24 +64,22 @@
     //THIS CODE DEALS WITH FACEBOOK AUTHENTICATION IN ORDER TO GET XAUTH AND XDIGEST
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    //NeoReach API protocol
-    NSString *testXAuth = @"53dc02556c97f8081ed9e62d";
-    NSString *testXDigest = @"orx5iNXRlUPReW5sbgY2omBoEbQ6fAic";
-
-    delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
-                                     @"X-Digest":testXDigest};
-    
-    
-    
-    
-    
-    //THE BELOW CODE DEALS WITH GET REQUEST AFTER SUCCESSFULLY RECEIVING XAUTH AND XDIGEST
-    
-    //configuring the header for the session to conform to
-    
-   
 }
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
