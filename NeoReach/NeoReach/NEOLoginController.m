@@ -49,7 +49,7 @@
     
     NEOWebViewController *webView = [[NEOWebViewController alloc] init];
     delegate.webView = webView;
-    delegate.drawer.centerViewController = delegate.webView;
+    
     
 }
 

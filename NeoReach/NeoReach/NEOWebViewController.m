@@ -13,6 +13,7 @@
 @interface NEOWebViewController ()
 @property (nonatomic, strong) NSURL *redirectURL;
 @property (nonatomic, strong) NSString *loginAddress;
+@property (nonatomic, strong) NEOAppDelegate *delegate;
 @end
 
 @implementation NEOWebViewController
@@ -21,7 +22,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        self.delegate = delegate;
     }
     return self;
 }
@@ -51,21 +53,21 @@
 {
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
-    
+    NSLog(@"Current URL: %@", redirectAddress);
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) {
         self.redirectURL = redirect;
         [self getAuthHeader];
         return NO;
+    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) {
+        self.delegate.drawer.centerViewController = self;
     }
+    
     return YES;
 }
 
 -(void)getAuthHeader
 {
-    //NSURL *redirectURL = webView.request.URL;
-    
-    //NSLog(@"redirect url %@", redirectURL);
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
@@ -85,17 +87,13 @@
         
         delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
+        
+        //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!delegate.rootNav) {
                 NEODashboardController *dashboard = [[NEODashboardController alloc] init];
                 delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-                
-                NSLog(@"initialized dashboard");
                 delegate.drawer.centerViewController = delegate.rootNav;
-                //delegate.window.rootViewController = delegate.drawer;
-                
-                [dashboard.tableView reloadData];
-                
             }
         });
     }];
