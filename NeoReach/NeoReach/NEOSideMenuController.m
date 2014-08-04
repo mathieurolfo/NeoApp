@@ -147,8 +147,9 @@
     
     //clicking logout button returns to login screen
     if (indexPath.section == 1 && indexPath.row == 3) {
-        //[delegate.rootNav pushViewController:delegate.login animated:YES];
         
+        [delegate.login.loginIndicator stopAnimating];
+        [delegate.login.loginButton setEnabled:YES];
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {

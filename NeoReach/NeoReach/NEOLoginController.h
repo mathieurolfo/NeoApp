@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *splashImage;
 @property (weak, nonatomic) IBOutlet UILabel *neoReachLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-
+@property (strong, nonatomic) UIActivityIndicatorView *loginIndicator;
 
 @end

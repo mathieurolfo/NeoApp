@@ -253,4 +253,14 @@
     }
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    // We only support single touches, so anyObject retrieves just that touch from touches
+    UITouch *touch = [touches anyObject];
+    NSLog(@"view %i", [touch view].tag);
+}
+
+
+
+
 @end

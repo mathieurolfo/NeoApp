@@ -68,6 +68,7 @@
     UIActivityIndicatorView *loginIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     loginIndicator.center = self.view.center;
     [loginIndicator startAnimating];
+    self.loginIndicator = loginIndicator;
     [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
     
 }
@@ -107,7 +108,7 @@
         webView.hidden = NO;
         self.splashImage.hidden = YES;
         //webView.layer.zPosition = MAXFLOAT;
-        NSLog(@"Login screen loaded");
+        NSLog(@"Facebook screen loaded");
     }
     
     return YES;
@@ -143,8 +144,9 @@
                 delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
                 delegate.drawer.centerViewController = delegate.rootNav;
                 NSLog(@"Dashboard initialized");
-                self.splashImage.hidden = NO;
-                delegate.webView.layer.zPosition = -1;
+                delegate.webView.hidden = YES;
+                //delegate.webView.layer.zPosition = -1;
+                
                 NSLog(@"%@", NSStringFromClass(delegate.window.rootViewController.class));
             }
         });
@@ -152,9 +154,6 @@
     [dataTask resume];
     
 }
-
-
-
 
 
 
