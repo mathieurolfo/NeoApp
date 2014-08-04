@@ -24,6 +24,24 @@
     if (self) {
         NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
         self.delegate = delegate;
+        
+        self.delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        
+        
+        self.loginAddress = @"https://api.neoreach.com/auth/facebook";
+        NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
+        
+        self.webView.scalesPageToFit = YES;
+        self.title = @"Login";
+        self.webView.delegate = self;
+        NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
+        dispatch_async(dispatch_get_main_queue(), ^ {
+            [self.webView loadRequest:request];
+            NSLog(@"request loaded");
+            
+        });
+        NSLog(@"Init completed");
+
     }
     return self;
 }
@@ -33,18 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    
-    self.loginAddress = @"https://api.neoreach.com/auth/facebook";
-    NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
-    
-    self.webView.scalesPageToFit = YES;
-    self.title = @"Login";
-    self.webView.delegate = self;
-    NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
-    [self.webView loadRequest:request];
+    self.webView.hidden = NO;
     
 
 }
@@ -59,7 +66,7 @@
         [self getAuthHeader];
         return NO;
     } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) {
-        self.delegate.drawer.centerViewController = self;
+        //self.delegate.drawer.centerViewController = self;
     }
     
     return YES;
