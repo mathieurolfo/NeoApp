@@ -72,7 +72,7 @@
     
     //NeoReach API protocol
     NSString *testXAuth = @"53dc02556c97f8081ed9e62d";
-    NSString *testXDigest = @"i9FEpCtTfttYDv4BCc3gOSeQRxjVrlSb";
+    NSString *testXDigest = @"orx5iNXRlUPReW5sbgY2omBoEbQ6fAic";
 
     delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":testXAuth,
                                      @"X-Digest":testXDigest};

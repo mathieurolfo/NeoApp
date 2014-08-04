@@ -153,8 +153,11 @@
             
             if (campaign && campaign.referralURL) {
                 glc.referralURLField.text = campaign.referralURL;
+            //    [glc.generateLinkButton setEnabled:NO];
             } else {
                 glc.referralURLField.text = @"Link not generated";
+                [glc.generateLinkButton setEnabled:YES];
+                [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
             }
             
             cell = (UITableViewCell *)glc;
@@ -297,4 +300,33 @@
     }];
     [dataTask resume];
 }
+
+-(IBAction)generateReferralURL:(id)sender
+{
+    NEOCampaign *campaign = [_campaigns objectAtIndex:_campaignIndex];
+    NSURL *URL = [NSURL URLWithString:
+                  [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
+    
+    if (!_session) {
+        NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        NSURLSessionConfiguration *config = delegate.sessionConfig;
+        _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    }
+    
+    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSError *jsonError;
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        NSLog(@"%@",dict);
+    }];
+    
+    [postDataTask resume];
+    
+    
+}
+
 @end
