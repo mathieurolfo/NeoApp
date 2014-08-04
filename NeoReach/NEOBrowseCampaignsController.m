@@ -154,14 +154,8 @@
                                         dequeueReusableCellWithIdentifier:@"NEOBrowseGenLinkCell"
                                         forIndexPath:indexPath];
             
-            if (campaign && campaign.referralURL) {
-                glc.referralURLField.text = campaign.referralURL;
-            //    [glc.generateLinkButton setEnabled:NO];
-            } else {
-                glc.referralURLField.text = @"Link not generated";
-                [glc.generateLinkButton setEnabled:YES];
+            glc.linkURL = campaign.referralURL;
                 [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
-            }
             
             cell = (UITableViewCell *)glc;
             break;
@@ -334,5 +328,6 @@
     
     
 }
+
 
 @end

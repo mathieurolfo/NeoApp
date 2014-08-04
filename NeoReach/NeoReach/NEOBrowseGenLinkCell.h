@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOBrowseGenLinkCell : UITableViewCell
+@interface NEOBrowseGenLinkCell : UITableViewCell <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *referralURLField;
 @property (weak, nonatomic) IBOutlet UIButton *generateLinkButton;
+@property (weak, nonatomic) NSString *linkURL;
 
 @end
