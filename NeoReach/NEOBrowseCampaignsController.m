@@ -85,7 +85,7 @@
             height = screenHeight / 3;
             break;
         case 1: // Details
-            height = screenHeight / 3;
+            height = 40.0 + [self heightForPromotionText];
             break;
         case 2: // Generate link
             height = screenHeight / 12;
@@ -327,6 +327,28 @@
     [postDataTask resume];
     
     
+}
+
+-(CGFloat)heightForPromotionText
+{
+    if ([_campaigns count] == 0) return 0.0;
+
+    UILabel *label = [[UILabel alloc] init];
+    
+    label.text = [[_campaigns objectAtIndex:_campaignIndex] promotion];
+    label.font = [UIFont fontWithName:@"System" size:17.0];
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    /*
+    [label sizeToFit];
+    NSLog(@"Text height = %f", label.frame.size.height);
+    return label.frame.size.height;
+     */
+    CGSize maximumLabelSize = CGSizeMake(self.view.frame.size.width, 9999);
+    CGSize expectSize = [label sizeThatFits:maximumLabelSize];
+    
+    NSLog(@"expectSize: %f",expectSize.height);
+    return 10.0 + expectSize.height;
 }
 
 
