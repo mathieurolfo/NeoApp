@@ -11,5 +11,5 @@
 @interface NEOBrowseCampaignsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) NSURLSession *session;
 @end

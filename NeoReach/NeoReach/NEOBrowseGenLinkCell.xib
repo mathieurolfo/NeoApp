@@ -20,11 +20,14 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://neorea.ch/r4tch1t4" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eWQ-nw-G5B">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://neorea.ch/r4tch1t4" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eWQ-nw-G5B">
                         <rect key="frame" x="8" y="10" width="183" height="49"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <action selector="copyLinkToClipboard:" destination="KGk-i7-Jjw" eventType="editingDidEnd" id="K8r-Nw-G4F"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>
@@ -36,6 +39,10 @@
                     <constraint firstItem="eWQ-nw-G5B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="wcX-FU-cVT"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="generateLinkButton" destination="w5h-pK-cwR" id="vSF-5P-8H7"/>
+                <outlet property="referralURLField" destination="eWQ-nw-G5B" id="gKm-Qc-7HU"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

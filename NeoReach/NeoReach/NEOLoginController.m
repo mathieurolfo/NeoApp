@@ -65,12 +65,12 @@
 
 -(void)displayActivityIndicator
 {
+
     UIActivityIndicatorView *loginIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     loginIndicator.center = self.view.center;
     [loginIndicator startAnimating];
     self.loginIndicator = loginIndicator;
     [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
-    
 }
 
 #pragma mark - WebView Methods
