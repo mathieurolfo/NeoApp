@@ -344,7 +344,7 @@
     NSLog(@"Text height = %f", label.frame.size.height);
     return label.frame.size.height;
      */
-    CGSize maximumLabelSize = CGSizeMake(self.view.frame.size.width, 9999);
+    CGSize maximumLabelSize = CGSizeMake(self.view.frame.size.width - 16.0, 9999); // margins of 8 on both sides
     CGSize expectSize = [label sizeThatFits:maximumLabelSize];
     
     NSLog(@"expectSize: %f",expectSize.height);

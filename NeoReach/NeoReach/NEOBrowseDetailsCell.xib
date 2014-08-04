@@ -13,8 +13,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="395" height="264"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you fucking love tan high heels, then promote our spring line. Just mention our new spring sale." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="395" translatesAutoresizingMaskIntoConstraints="NO" id="0jS-Ig-K1W">
-                        <rect key="frame" x="0.0" y="37" width="395" height="227"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you fucking love tan high heels, then promote our spring line. Just mention our new spring sale." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="379" translatesAutoresizingMaskIntoConstraints="NO" id="0jS-Ig-K1W">
+                        <rect key="frame" x="8" y="37" width="379" height="227"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
@@ -30,11 +30,11 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="0jS-Ig-K1W" secondAttribute="trailing" id="GS9-vd-PZF"/>
+                    <constraint firstAttribute="trailing" secondItem="0jS-Ig-K1W" secondAttribute="trailing" constant="8" id="GS9-vd-PZF"/>
                     <constraint firstItem="0jS-Ig-K1W" firstAttribute="top" secondItem="NTB-VW-qvB" secondAttribute="bottom" constant="8" id="SQa-E6-Aq8"/>
                     <constraint firstItem="NTB-VW-qvB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ewo-G1-2V5"/>
                     <constraint firstItem="NTB-VW-qvB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fwX-CY-yML"/>
-                    <constraint firstItem="0jS-Ig-K1W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lka-EA-Ed7"/>
+                    <constraint firstItem="0jS-Ig-K1W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="lka-EA-Ed7"/>
                     <constraint firstAttribute="bottom" secondItem="0jS-Ig-K1W" secondAttribute="bottom" id="nvg-Hu-iyr"/>
                     <constraint firstAttribute="trailing" secondItem="NTB-VW-qvB" secondAttribute="trailing" id="r73-Bk-uTj"/>
                 </constraints>
