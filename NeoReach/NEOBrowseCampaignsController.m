@@ -336,7 +336,9 @@
     UILabel *label = [[UILabel alloc] init];
     
     label.text = [[_campaigns objectAtIndex:_campaignIndex] promotion];
-    label.font = [UIFont fontWithName:@"System" size:17.0];
+    //label.font = [UIFont fontWithName:@"System" size:17.0];
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     /*
