@@ -15,6 +15,9 @@
 {
     // Initialization code
     _referralURLField.delegate = self;
+    
+    [_generateLinkButton setEnabled:YES];
+    _referralURLField.text = @"Link not generated";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

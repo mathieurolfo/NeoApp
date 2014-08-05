@@ -21,6 +21,8 @@
 @property NSUInteger campaignIndex;
 @property NSMutableArray *campaigns;
 @property bool campaignsLoaded; // Need this to differentiate between 0 campaigns and campaigns loading
+
+@property (weak, nonatomic) NEOBrowseGenLinkCell *genLinkCell; //need a reference to this to update its contents when generating a link
 @end
 
 @implementation NEOBrowseCampaignsController
@@ -157,6 +159,7 @@
             glc.linkURL = campaign.referralURL;
                 [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
             
+            _genLinkCell = glc;
             cell = (UITableViewCell *)glc;
             break;
         }
@@ -305,14 +308,14 @@
 {
     NEOCampaign *campaign = [_campaigns objectAtIndex:_campaignIndex];
     NSURL *URL = [NSURL URLWithString:
-                  [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID]];
+                  [NSString stringWithFormat:@"https://api.neoreach.com/tracker/%@",campaign.ID]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
     
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     if (!_session) {
-        NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        NSURLSessionConfiguration *config = delegate.sessionConfig;
-        _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+               _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     }
     
     NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -321,10 +324,14 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@",dict);
+        
+        NSString *referralURL = [[dict objectForKey:@"data"] valueForKey:@"link"];
+        campaign.referralURL = referralURL;
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }];
-    
     [postDataTask resume];
+    
+    
     
     
 }
@@ -341,15 +348,10 @@
 
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    /*
-    [label sizeToFit];
-    NSLog(@"Text height = %f", label.frame.size.height);
-    return label.frame.size.height;
-     */
+
     CGSize maximumLabelSize = CGSizeMake(self.view.frame.size.width - 16.0, 9999); // margins of 8 on both sides
     CGSize expectSize = [label sizeThatFits:maximumLabelSize];
     
-    NSLog(@"expectSize: %f",expectSize.height);
     return 10.0 + expectSize.height;
 }
 
