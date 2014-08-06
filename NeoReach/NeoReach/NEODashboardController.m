@@ -252,9 +252,8 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
     
     NSString *dobString = [profileDict valueForKey:@"dob"];
-    dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
-    
     if (![dobString isEqual:[NSNull null]]) {
+        dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
         user.dateOfBirth = [dateFormatter dateFromString:dobString];
         
     }
