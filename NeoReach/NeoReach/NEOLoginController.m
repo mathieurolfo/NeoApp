@@ -148,7 +148,7 @@
             
             //delegate.webView.hidden = YES;
             self.splashImage.hidden = NO;
-
+            [self.timer invalidate];
             
             
             
@@ -170,11 +170,6 @@
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
-}
-
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [self.timer invalidate];
 }
 
 
