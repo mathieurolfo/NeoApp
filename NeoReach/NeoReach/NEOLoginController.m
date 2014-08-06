@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSURL *redirectURL;
 @property (nonatomic, strong) NSString *loginAddress;
-
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation NEOLoginController
@@ -72,6 +72,8 @@
     self.loginIndicator = loginIndicator;
     [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
 }
+
+
 
 #pragma mark - WebView Methods
 
@@ -156,7 +158,24 @@
     
 }
 
+-(void)cancelWeb
+{
+    [self.loginIndicator stopAnimating];
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.webView stopLoading];
+    [self.loginButton setEnabled:YES];
+    self.logInOutInfoLabel.text = @"Login timed out";
+}
 
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.timer invalidate];
+}
 
 
 
