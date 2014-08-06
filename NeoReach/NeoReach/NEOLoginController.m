@@ -82,7 +82,7 @@
     //NOTE: hardcoded web view to make status bar visible
     delegate.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     
-    //delegate.webView = webView;
+    delegate.webView.scrollView.scrollEnabled = NO;
     delegate.webView.delegate = self;
     delegate.webView.scalesPageToFit = YES;
     
