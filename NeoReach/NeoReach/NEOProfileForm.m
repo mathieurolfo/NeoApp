@@ -8,11 +8,7 @@
 
 #import "NEOProfileForm.h"
 
-typedef NS_ENUM(NSInteger, Gender)
-{
-    GenderMale,
-    GenderFemale
-};
+
 
 @implementation NEOProfileForm
 

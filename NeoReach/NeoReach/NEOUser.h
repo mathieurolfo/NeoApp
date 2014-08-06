@@ -14,6 +14,10 @@
 @property (strong, nonatomic) NSString *profilePictureURL;
 @property (strong, nonatomic) UIImage *profilePicture;
 
+@property (strong, nonatomic) NSString *email;
+@property (strong, nonatomic) NSString *gender;
+@property (strong, nonatomic) NSString *website;
+@property (strong, nonatomic) NSDate *dateOfBirth;
 
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;

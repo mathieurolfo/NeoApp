@@ -79,9 +79,7 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        
-        NSLog(@"populating user profile dick");
-        [self populateUserProfileWithDictionary:profileJSON];
+                [self populateUserProfileWithDictionary:profileJSON];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"doUpdateName" object:nil];
         
@@ -242,6 +240,22 @@
     
     user.firstName = [profileDict valueForKeyPath:@"name.first"];
     user.lastName = [profileDict valueForKeyPath:@"name.last"];
+    user.email = [profileDict valueForKey:@"email"];
+    user.gender = [profileDict valueForKey:@"gender"];
+    user.website = [profileDict valueForKey:@"website"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
+    
+    NSString *dobString = [profileDict valueForKey:@"dob"];
+    dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
+    
+    if (![dobString isEqual:[NSNull null]]) {
+        user.dateOfBirth = [dateFormatter dateFromString:dobString];
+        
+    }
 
     
     //Profile picture URL is in the 'facebook.com' entry of data.Publishers

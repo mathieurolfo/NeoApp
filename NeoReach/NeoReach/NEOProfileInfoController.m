@@ -8,8 +8,11 @@
 
 #import "NEOProfileInfoController.h"
 #import "NEOProfileForm.h"
+#import "NEOAppDelegate.h"
+#import "NEOUser.h"
 
 @interface NEOProfileInfoController ()
+@property (nonatomic, strong) NSURLSession *session;
 
 @end
 
@@ -20,6 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.formController.form = [[NEOProfileForm alloc] init];
+        [self populateForm];
     }
     return self;
 }
@@ -36,6 +40,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) populateForm
+{
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    NEOProfileForm *form = (NEOProfileForm *)self.formController.form;
+    form.firstName = user.firstName;
+    form.lastName = user.lastName;
+    form.email = user.email;
+    if ([user.gender isEqualToString:@"male"]) {
+        form.gender = GenderMale;
+    } else form.gender = GenderFemale;
+    
+    form.website = user.website;
+    form.dateOfBirth = user.dateOfBirth;
+    
+    NSLog(@"%@ %@", user.gender, user.dateOfBirth);
+}
+
 /*
 #pragma mark - Navigation
 
@@ -46,5 +67,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
 
 @end
