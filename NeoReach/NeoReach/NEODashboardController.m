@@ -87,8 +87,8 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            delegate.webView = nil;
-            NSLog(@"Webview deleted");
+            //delegate.webView = nil;
+            //NSLog(@"Webview deleted");
         });
     }];
     [dataTask resume];

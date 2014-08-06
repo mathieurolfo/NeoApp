@@ -31,6 +31,7 @@
     
     [self.drawer setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:4.0]];
 
+    [self.drawer setShouldStretchDrawer:NO];
     [self.drawer setShowsShadow:NO];
     self.drawer.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width * 2.0 / 3;
     

@@ -139,16 +139,16 @@
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (!delegate.rootNav) {
-                NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-                delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-                delegate.drawer.centerViewController = delegate.rootNav;
-                NSLog(@"Dashboard initialized");
-                delegate.webView.hidden = YES;
-                //delegate.webView.layer.zPosition = -1;
-                
-                NSLog(@"%@", NSStringFromClass(delegate.window.rootViewController.class));
-            }
+            //if (!delegate.rootNav) {
+            NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+            delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+            delegate.drawer.centerViewController = delegate.rootNav;
+            NSLog(@"Dashboard initialized");
+            delegate.webView.hidden = YES;
+            //delegate.webView.layer.zPosition = -1;
+            
+            NSLog(@"%@", NSStringFromClass(delegate.window.rootViewController.class));
+            //}
         });
     }];
     [dataTask resume];

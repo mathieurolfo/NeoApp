@@ -155,6 +155,7 @@
         [delegate.login.loginButton setEnabled:YES];
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
+        //[[NSURLCache sharedURLCache] removeAllCachedResponses];
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
