@@ -1,14 +1,13 @@
 //
 //  NEOProfileInfoController.h
-//  NeoReach
+//  
 //
-//  Created by Mathieu Rolfo on 7/23/14.
-//  Copyright (c) 2014 NeoReach. All rights reserved.
+//  Created by Sam Crognale on 8/6/14.
+//
 //
 
-#import <UIKit/UIKit.h>
+#import "FXForms.h"
 
-@interface NEOProfileInfoController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface NEOProfileInfoController : FXFormViewController
 
 @end

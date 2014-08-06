@@ -1,5 +1,6 @@
 PODS:
   - CRToast (0.0.7)
+  - FXForms (1.1.6)
   - MMDrawerController (0.5.6):
     - MMDrawerController/Core
     - MMDrawerController/MMDrawerBarButtonItem
@@ -15,10 +16,12 @@ PODS:
 
 DEPENDENCIES:
   - CRToast (~> 0.0.7)
+  - FXForms
   - MMDrawerController (~> 0.5.6)
 
 SPEC CHECKSUMS:
   CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
+  FXForms: 9387c60ee6f3e1c75e0f8998012acc1ce0ad8d0a
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
 
 COCOAPODS: 0.33.1
