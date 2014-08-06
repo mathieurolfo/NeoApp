@@ -13,6 +13,8 @@
 #import "NEOTagsController.h"
 
 @interface NEOSideMenuController ()
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
 @end
 
 @implementation NEOSideMenuController
@@ -69,6 +71,7 @@
                     break;
             }
         }
+    cell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
     return cell;
 }
 
@@ -167,15 +170,31 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateName) name:@"doUpdateName" object:nil];
     }
     return self;
+}
+
+-(void)updateName
+{
+    
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.nameLabel.text = [NSString stringWithFormat:@"     Welcome, %@", delegate.user.firstName];
+        //[self.nameLabel setNeedsLayout];
+        NSLog(@"Updated Name in Side Menu");
+    });
+    
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.nameLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16.0];
+    self.nameLabel.text = @"    Welcome";
+    
+    
 }
 
 - (void)didReceiveMemoryWarning

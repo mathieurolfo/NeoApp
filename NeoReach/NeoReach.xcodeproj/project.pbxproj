@@ -237,6 +237,7 @@
 				22A22D25197D6B7A00D4560A /* NEOBrowseCampaignsController.h */,
 				22A22D26197D6B7A00D4560A /* NEOBrowseCampaignsController.m */,
 				22A22D27197D6B7A00D4560A /* NEOBrowseCampaignsController.xib */,
+				22D84CF819819DC3008A16E7 /* DashboardCells */,
 				22C8A7C91982F277007B16CA /* BrowseCells */,
 				22A22D18197D6B4200D4560A /* NEOLoginController.h */,
 				22A22D19197D6B4200D4560A /* NEOLoginController.m */,
@@ -253,7 +254,6 @@
 				4E6368851986C37400FFF5A1 /* NEOTagsController.h */,
 				4E6368861986C37400FFF5A1 /* NEOTagsController.m */,
 				4E6368871986C37400FFF5A1 /* NEOTagsController.xib */,
-				22D84CF819819DC3008A16E7 /* DashboardCells */,
 			);
 			path = NeoReach;
 			sourceTree = "<group>";

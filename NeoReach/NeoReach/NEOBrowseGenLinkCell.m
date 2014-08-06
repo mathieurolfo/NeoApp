@@ -9,11 +9,17 @@
 #import "NEOBrowseGenLinkCell.h"
 #import <CRToast/CRToast.h>
 
+@interface NEOBrowseGenLinkCell ()
+
+@property (weak, nonatomic) IBOutlet UITextField *linkText;
+
+@end
+
 @implementation NEOBrowseGenLinkCell
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    self.linkText.font = [UIFont fontWithName:@"Lato-Regular" size:14.0];
     _referralURLField.delegate = self;
     
     [_generateLinkButton setEnabled:YES];
@@ -31,6 +37,7 @@
     if (!((_linkURL == nil) || [_linkURL isEqualToString:@""])) {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = self.referralURLField.text;
+    
     NSDictionary *options = @{
                               kCRToastTextKey : @"Link copied to clipboard",
                               kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),

@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    self.statsLabel.font = [UIFont fontWithName:@"Lato-Regular" size:14.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

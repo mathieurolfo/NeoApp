@@ -1,5 +1,3 @@
-//
-//  NEOAppDelegate.h
 //  NeoReach
 //
 //  Created by Sam Crognale on 7/10/14.

@@ -83,6 +83,8 @@
         NSLog(@"populating user profile dick");
         [self populateUserProfileWithDictionary:profileJSON];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"doUpdateName" object:nil];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             delegate.webView = nil;
@@ -115,6 +117,7 @@
     if (self) {
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
+        
         self.restorationIdentifier = NSStringFromClass([self class]);
         self.restorationClass = [self class];
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
@@ -158,9 +161,11 @@
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
     
+    
     if (user.firstName && user.lastName) {
         hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                              user.firstName, user.lastName];
+        
 
     } else {
         hc.nameLabel.text = @"Loading...";
