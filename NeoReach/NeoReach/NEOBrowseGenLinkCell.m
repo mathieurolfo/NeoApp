@@ -61,7 +61,7 @@
     
     // If empty string or nil, then link is not yet generated. Otherwise, assume linkURL is a valid URL.
     if ((linkURL == nil) || [linkURL isEqualToString:@""]) {
-        [_generateLinkButton setEnabled:YES];
+        [_generateLinkButton setEnabled:_campaignExists];
         _referralURLField.text = @"Link not generated";
     } else {
         [_generateLinkButton setEnabled:NO];
@@ -70,6 +70,14 @@
     
 }
 
-
+-(void)setCampaignExists:(BOOL)campaignExists
+{
+    _campaignExists = campaignExists;
+    [_generateLinkButton setEnabled:_campaignExists];
+    if (!_campaignExists)
+    {
+        _referralURLField.text = @"Link not generated";
+    }
+}
 
 @end

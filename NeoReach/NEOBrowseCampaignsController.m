@@ -158,7 +158,7 @@
             
             glc.linkURL = campaign.referralURL;
                 [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
-            
+            glc.campaignExists = (campaign != nil);
             _genLinkCell = glc;
             cell = (UITableViewCell *)glc;
             break;
