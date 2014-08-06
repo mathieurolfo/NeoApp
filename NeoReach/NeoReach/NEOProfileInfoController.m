@@ -22,6 +22,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Profile Information";
+        
         self.formController.form = [[NEOProfileForm alloc] init];
         [self populateForm];
     }
