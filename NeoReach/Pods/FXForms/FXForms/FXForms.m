@@ -1684,7 +1684,10 @@ static BOOL *FXFormSetValueForKey(id<FXForm> form, id value, NSString *key)
         else if (self.field.action)
         {
             self.accessoryType = UITableViewCellAccessoryNone;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             self.textLabel.textAlignment = UITextAlignmentCenter;
+            #pragma clang diagnostic pop
         }
         else
         {
@@ -2031,8 +2034,10 @@ static BOOL *FXFormSetValueForKey(id<FXForm> form, id value, NSString *key)
     self.textView.delegate = self;
     self.textView.scrollEnabled = NO;
     [self.contentView addSubview:self.textView];
-    
-    self.detailTextLabel.textAlignment = UITextAlignmentLeft;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    self.detailTextLabel.textAlignment = NSTextAlignmentLeft;
+#pragma clang diagnostic pop
     self.detailTextLabel.numberOfLines = 0;
     
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self.textView action:NSSelectorFromString(@"becomeFirstResponder")]];
@@ -2080,7 +2085,7 @@ static BOOL *FXFormSetValueForKey(id<FXForm> form, id value, NSString *key)
     self.textView.text = [self.field fieldDescription];
     
     self.textView.returnKeyType = UIReturnKeyDefault;
-    self.textView.textAlignment = UITextAlignmentLeft;
+    self.textView.textAlignment = NSTextAlignmentLeft;
     self.textView.secureTextEntry = NO;
     
     if ([self.field.type isEqualToString:FXFormFieldTypeText])
