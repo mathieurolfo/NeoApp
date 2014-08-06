@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    self.promotionLabel.font = [UIFont fontWithName:@"Lato-Regular" size:14.0];
+    self.CPCLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

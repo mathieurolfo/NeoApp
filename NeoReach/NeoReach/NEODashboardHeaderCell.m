@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    self.nameLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20.0];
     
     
 }
