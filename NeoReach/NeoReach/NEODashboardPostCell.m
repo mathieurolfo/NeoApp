@@ -8,11 +8,20 @@
 
 #import "NEODashboardPostCell.h"
 
+@interface NEODashboardPostCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *postLabel;
+@property (weak, nonatomic) IBOutlet UILabel *deltaLabel;
+
+@end
+
 @implementation NEODashboardPostCell
 
 - (void)awakeFromNib
 {
-    // Initialization code
+    self.postLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+    self.deltaLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

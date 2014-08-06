@@ -13,14 +13,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mmbye I love my new mmbyes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJs-Pg-aw9">
-                        <rect key="frame" x="2" y="0.0" width="269" height="43"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mmbye I love my new mmbyes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJs-Pg-aw9">
+                        <rect key="frame" x="8" y="0.0" width="238" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="▲17" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-6G-tBw">
-                        <rect key="frame" x="276" y="0.0" width="39" height="43"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▲17" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-6G-tBw">
+                        <rect key="frame" x="273" y="0.0" width="37" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0015707291839849296" green="0.75944674744897955" blue="0.0024370171165596865" alpha="1" colorSpace="calibratedRGB"/>
@@ -28,14 +28,18 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Gdw-6G-tBw" secondAttribute="trailing" constant="5" id="8Ei-cw-cvx"/>
+                    <constraint firstAttribute="trailing" secondItem="Gdw-6G-tBw" secondAttribute="trailing" constant="10" id="8Ei-cw-cvx"/>
                     <constraint firstAttribute="bottom" secondItem="Gdw-6G-tBw" secondAttribute="bottom" id="ErF-H0-8Fn"/>
-                    <constraint firstItem="iJs-Pg-aw9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="SDc-hG-ZtV"/>
+                    <constraint firstItem="iJs-Pg-aw9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="SDc-hG-ZtV"/>
                     <constraint firstItem="iJs-Pg-aw9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cEQ-8X-5z4"/>
                     <constraint firstItem="Gdw-6G-tBw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kri-ix-tKK"/>
                     <constraint firstAttribute="bottom" secondItem="iJs-Pg-aw9" secondAttribute="bottom" id="odY-LX-b1e"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="deltaLabel" destination="Gdw-6G-tBw" id="zNn-n8-USS"/>
+                <outlet property="postLabel" destination="iJs-Pg-aw9" id="jb3-kI-D8s"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

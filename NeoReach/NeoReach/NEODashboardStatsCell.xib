@@ -13,12 +13,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="analyticsgraph" translatesAutoresizingMaskIntoConstraints="NO" id="G1z-UJ-GfP">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="analyticsgraph" translatesAutoresizingMaskIntoConstraints="NO" id="G1z-UJ-GfP">
                         <rect key="frame" x="0.0" y="24" width="320" height="111"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="312 clicks               ▲15                  $5.19" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mww-8b-EK8">
-                        <rect key="frame" x="0.0" y="1" width="320" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="312 clicks               ▲15                  $5.19" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mww-8b-EK8">
+                        <rect key="frame" x="0.0" y="2" width="320" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -27,14 +27,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Mww-8b-EK8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0t3-QB-ch5"/>
-                    <constraint firstItem="G1z-UJ-GfP" firstAttribute="top" secondItem="Mww-8b-EK8" secondAttribute="bottom" constant="2" id="2Lv-nZ-l5z"/>
-                    <constraint firstItem="Mww-8b-EK8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="MFi-ZB-AH9"/>
+                    <constraint firstItem="G1z-UJ-GfP" firstAttribute="top" secondItem="Mww-8b-EK8" secondAttribute="bottom" constant="1" id="2Lv-nZ-l5z"/>
+                    <constraint firstItem="Mww-8b-EK8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="MFi-ZB-AH9"/>
                     <constraint firstAttribute="trailing" secondItem="G1z-UJ-GfP" secondAttribute="trailing" id="TgN-8d-tLH"/>
                     <constraint firstAttribute="bottom" secondItem="G1z-UJ-GfP" secondAttribute="bottom" constant="1" id="sFf-h6-1Xp"/>
                     <constraint firstAttribute="trailing" secondItem="Mww-8b-EK8" secondAttribute="trailing" id="wd0-8u-rLf"/>
                     <constraint firstItem="G1z-UJ-GfP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zHd-Wo-KD3"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="statsLabel" destination="Mww-8b-EK8" id="HC6-Zh-1nR"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

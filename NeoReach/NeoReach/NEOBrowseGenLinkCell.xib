@@ -41,6 +41,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="generateLinkButton" destination="w5h-pK-cwR" id="vSF-5P-8H7"/>
+                <outlet property="linkText" destination="eWQ-nw-G5B" id="3fF-MR-jQ4"/>
                 <outlet property="referralURLField" destination="eWQ-nw-G5B" id="gKm-Qc-7HU"/>
             </connections>
         </tableViewCell>
