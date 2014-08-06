@@ -11,6 +11,8 @@
 @interface NEOBrowseGenLinkCell : UITableViewCell <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *referralURLField;
 @property (weak, nonatomic) IBOutlet UIButton *generateLinkButton;
+
 @property (weak, nonatomic) NSString *linkURL;
+@property (nonatomic) BOOL campaignExists;
 
 @end
