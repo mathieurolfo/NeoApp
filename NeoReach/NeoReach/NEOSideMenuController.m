@@ -42,7 +42,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    //NSLog(@"%@", indexPath);
 
     switch (indexPath.section) {
         case 0:
