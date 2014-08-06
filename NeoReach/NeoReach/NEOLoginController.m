@@ -80,18 +80,18 @@
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     //NOTE: hardcoded web view to make status bar visible
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
+    delegate.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     
-    delegate.webView = webView;
-    webView.delegate = self;
-    webView.scalesPageToFit = YES;
+    //delegate.webView = webView;
+    delegate.webView.delegate = self;
+    delegate.webView.scalesPageToFit = YES;
     
-    [delegate.window addSubview:webView];
-    webView.hidden = YES;
+    [delegate.window addSubview:delegate.webView];
+    delegate.webView.hidden = YES;
     
     delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
-    return webView;
+    return delegate.webView;
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -139,16 +139,17 @@
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
-            //if (!delegate.rootNav) {
+            
             NEODashboardController *dashboard = [[NEODashboardController alloc] init];
             delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
             delegate.drawer.centerViewController = delegate.rootNav;
-            NSLog(@"Dashboard initialized");
-            delegate.webView.hidden = YES;
-            //delegate.webView.layer.zPosition = -1;
             
-            NSLog(@"%@", NSStringFromClass(delegate.window.rootViewController.class));
-            //}
+            //delegate.webView.hidden = YES;
+            self.splashImage.hidden = NO;
+
+            
+            
+            
         });
     }];
     [dataTask resume];

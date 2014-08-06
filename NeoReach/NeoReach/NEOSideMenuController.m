@@ -11,6 +11,7 @@
 #import "NEOAppDelegate.h"
 #import "NEOProfileInfoController.h"
 #import "NEOTagsController.h"
+#import "UIWebView+Clean.h"
 
 @interface NEOSideMenuController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -156,6 +157,13 @@
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
         //[[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
+        //deletes login info!!! feels a little too shotgun though.
+        for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+        }
+        
+        
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
