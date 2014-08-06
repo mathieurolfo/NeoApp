@@ -13,6 +13,7 @@
 #import "NEODashboardHeaderCell.h"
 #import "NEODashboardStatsCell.h"
 #import "NEODashboardPostCell.h"
+#import "UIWebView+Clean.h"
 
 #import "NEOUser.h"
 
@@ -87,6 +88,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            [delegate.webView cleanForDealloc];
             delegate.webView = nil;
             NSLog(@"Webview deleted");
         });

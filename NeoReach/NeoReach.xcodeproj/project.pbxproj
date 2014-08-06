@@ -65,6 +65,7 @@
 		4E7AF53D1988826C00FD1022 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5291988826C00FD1022 /* Lato-ThinItalic.ttf */; };
 		4E7AF53E1988826C00FD1022 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF52A1988826C00FD1022 /* OFL.txt */; };
 		4E7AF53F1988826C00FD1022 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF52B1988826C00FD1022 /* README.txt */; };
+		4E8875C21992C80A006F1ACB /* UIWebView+Clean.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8875C11992C80A006F1ACB /* UIWebView+Clean.m */; };
 		4ECEF3CA198053300054B2B8 /* NEOProfileInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEF3C8198053300054B2B8 /* NEOProfileInfoController.m */; };
 		4ECEF3CB198053300054B2B8 /* NEOProfileInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECEF3C9198053300054B2B8 /* NEOProfileInfoController.xib */; };
 		C90E4AAD95664C0A8BD74538 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6613254EDF4F968B36F2CF /* libPods.a */; };
@@ -158,6 +159,8 @@
 		4E7AF5291988826C00FD1022 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		4E7AF52A1988826C00FD1022 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		4E7AF52B1988826C00FD1022 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		4E8875C01992C80A006F1ACB /* UIWebView+Clean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Clean.h"; sourceTree = "<group>"; };
+		4E8875C11992C80A006F1ACB /* UIWebView+Clean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Clean.m"; sourceTree = "<group>"; };
 		4ECEF3C7198053300054B2B8 /* NEOProfileInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOProfileInfoController.h; sourceTree = "<group>"; };
 		4ECEF3C8198053300054B2B8 /* NEOProfileInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOProfileInfoController.m; sourceTree = "<group>"; };
 		4ECEF3C9198053300054B2B8 /* NEOProfileInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOProfileInfoController.xib; sourceTree = "<group>"; };
@@ -228,6 +231,8 @@
 				22A9D3F2196F56B900AF6DEB /* NEOAppDelegate.h */,
 				22A9D3F3196F56B900AF6DEB /* NEOAppDelegate.m */,
 				227F2E37198C136D009E66BC /* NEOUser.h */,
+				4E8875C01992C80A006F1ACB /* UIWebView+Clean.h */,
+				4E8875C11992C80A006F1ACB /* UIWebView+Clean.m */,
 				227F2E38198C136D009E66BC /* NEOUser.m */,
 				227F2E3A198C4167009E66BC /* NEOCampaign.h */,
 				227F2E3B198C4167009E66BC /* NEOCampaign.m */,
@@ -519,6 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A22D1B197D6B4200D4560A /* NEOLoginController.m in Sources */,
+				4E8875C21992C80A006F1ACB /* UIWebView+Clean.m in Sources */,
 				22D84D0119819E41008A16E7 /* NEODashboardPostCell.m in Sources */,
 				4E6368881986C37400FFF5A1 /* NEOTagsController.m in Sources */,
 				22A22D20197D6B5700D4560A /* NEODashboardController.m in Sources */,
