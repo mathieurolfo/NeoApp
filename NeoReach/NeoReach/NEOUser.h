@@ -26,4 +26,10 @@
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;
 
+// will send a 'profilePulled' notification when finished
+-(void) pullProfileInfo;
+
+// will send a 'profilePosted' notification when finished
+-(void) postProfileInfoWithDictionary: (NSDictionary *)dict;
+
 @end
