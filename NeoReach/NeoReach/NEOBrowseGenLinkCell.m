@@ -73,9 +73,10 @@
 -(void)setCampaignExists:(BOOL)campaignExists
 {
     _campaignExists = campaignExists;
-    [_generateLinkButton setEnabled:_campaignExists];
+    
     if (!_campaignExists)
     {
+        [_generateLinkButton setEnabled:NO];
         _referralURLField.text = @"Link not generated";
     }
 }

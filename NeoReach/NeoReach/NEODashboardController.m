@@ -41,7 +41,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"view did load");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
@@ -71,7 +70,6 @@
     
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
-    NSLog(@"making profile info request");
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -82,6 +80,7 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
+        
                 [self populateUserProfileWithDictionary:profileJSON];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"doUpdateName" object:nil];
@@ -131,6 +130,10 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
+        
+       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileInformation) name:@"refreshProfile" object:nil];
+        
+        
         }
     return self;
 }
@@ -265,6 +268,10 @@
     user.email = [profileDict valueForKey:@"email"];
     user.gender = [profileDict valueForKey:@"gender"];
     user.website = [profileDict valueForKey:@"website"];
+    user.paypalEmail = [profileDict valueForKey:@"paypalEmail"];
+    user.timezoneOffset = [[profileDict valueForKey:@"timezoneOffset"] intValue];
+    user.tags = [profileDict objectForKey:@"tags"];
+    
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
