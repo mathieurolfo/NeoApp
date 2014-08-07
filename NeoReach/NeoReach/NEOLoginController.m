@@ -100,17 +100,14 @@
 {
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
-    NSLog(@"Current URL: %@", redirectAddress);
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
-        NSLog(@"Got auth header");
         [self getAuthHeader];
         return NO;
     } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
-        //webView.layer.zPosition = MAXFLOAT;
-        NSLog(@"Facebook screen loaded");
+        
     }
     
     return YES;
@@ -131,10 +128,8 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@", headerJSON);
         NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
         NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
-        NSLog(@"%@ %@", xAuth, xDigest);
         
         delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
@@ -146,7 +141,12 @@
             delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
             delegate.drawer.centerViewController = delegate.rootNav;
             
-            //delegate.webView.hidden = YES;
+            delegate.rootNav.navigationBar.barTintColor = [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1];
+            //delegate.rootNav.navigationBar.barTintColor = self.tableHeader.contentView.backgroundColor;
+
+            
+            [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1]];
+
             self.splashImage.hidden = NO;
             [self.timer invalidate];
             

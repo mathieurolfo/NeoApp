@@ -38,6 +38,7 @@
                         </state>
                     </button>
                 </subviews>
+                <color key="backgroundColor" red="0.4656385133" green="0.76339203919999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="4fy-uY-q9G" secondAttribute="trailing" id="7uG-fI-MhR"/>
                     <constraint firstItem="Ezy-vG-tYw" firstAttribute="centerX" secondItem="msZ-A3-3eI" secondAttribute="centerX" id="8sK-uu-HNh"/>
@@ -52,6 +53,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="browseButton" destination="4fy-uY-q9G" id="LkT-Je-Kb3"/>
+                <outlet property="cellView" destination="H2p-sc-9uM" id="Eo9-xo-TjV"/>
                 <outlet property="nameLabel" destination="msZ-A3-3eI" id="Zq5-cu-fO9"/>
                 <outlet property="profileImage" destination="Ezy-vG-tYw" id="cio-MM-EzY"/>
             </connections>

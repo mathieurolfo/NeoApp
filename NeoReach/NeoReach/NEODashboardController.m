@@ -56,6 +56,8 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
+    
+    
     [self loadProfileInformation];
 
 }
@@ -115,6 +117,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self) {
+       
+        
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
         
@@ -165,6 +169,7 @@
     if (user.firstName && user.lastName) {
         hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                              user.firstName, user.lastName];
+        hc.nameLabel.textColor = [UIColor whiteColor];
         
 
     } else {
@@ -179,6 +184,8 @@
 
     [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
     _tableHeader = hc;
+    
+    
     return hc;
 }
 
