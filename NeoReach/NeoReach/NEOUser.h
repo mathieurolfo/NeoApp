@@ -19,6 +19,10 @@
 @property (strong, nonatomic) NSString *website;
 @property (strong, nonatomic) NSDate *dateOfBirth;
 
+@property (strong, nonatomic) NSString *paypalEmail;
+@property NSInteger timezoneOffset;
+@property (strong, nonatomic) NSArray *tags;
+
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;
 

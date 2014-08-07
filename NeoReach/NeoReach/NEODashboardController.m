@@ -245,6 +245,10 @@
     user.email = [profileDict valueForKey:@"email"];
     user.gender = [profileDict valueForKey:@"gender"];
     user.website = [profileDict valueForKey:@"website"];
+    user.paypalEmail = [profileDict valueForKey:@"paypalEmail"];
+    user.timezoneOffset = [[profileDict valueForKey:@"timezoneOffset"] intValue];
+    user.tags = [profileDict objectForKey:@"tags"];
+    
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];

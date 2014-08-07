@@ -60,6 +60,76 @@
     NSLog(@"%@ %@", user.gender, user.dateOfBirth);
 }
 
+- (void)saveProfileChanges
+{
+    NSData *jsonData = [self jsonProfileData];
+    NSURL *URL = [NSURL URLWithString: @"https://api.neoreach.com/account/"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
+    //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:jsonData];
+
+    
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    if (!_session) {
+        _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    }
+    
+    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        NSLog(@"%@",dict);
+    }];
+    [postDataTask resume];
+    
+    
+}
+
+- (NSData *)jsonProfileData
+{
+    NEOProfileForm *form = (NEOProfileForm *)self.formController.form;
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    
+    NSString *gender;
+    if (form.gender == GenderMale) {
+        gender = @"Male";
+    } else {
+        gender = @"Female";
+    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    
+    NSString *dobString = [dateFormatter stringFromDate:form.dateOfBirth];
+    
+    NSDictionary *dict = @{
+        @"email" : form.email,
+        @"name" : @{@"first":form.firstName, @"last":form.lastName},
+        @"gender": gender,
+        @"website": form.website,
+        @"dob": dobString,
+        
+        // These fields are not updated in profile settings
+        @"paypalEmail": user.paypalEmail,
+        @"tags": user.tags,
+        @"timezoneOffset": [NSNumber numberWithLong:user.timezoneOffset]
+        };
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+
+    return jsonData;
+}
+
 /*
 #pragma mark - Navigation
 
