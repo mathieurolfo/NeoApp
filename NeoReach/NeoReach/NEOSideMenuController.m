@@ -12,6 +12,7 @@
 #import "NEOProfileInfoController.h"
 #import "NEOTagsController.h"
 #import "UIWebView+Clean.h"
+#import "NEOAccountsController.h"
 
 @interface NEOSideMenuController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -124,18 +125,15 @@
         }];
     }
 
-    //clicking link accounts brings you to link accounts page (?)
-    /* if (indexPath.section == 1 && indexPath.row == 1) {
-        NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
-        [delegate.rootNav pushViewController:profileController animated:YES];
-        NSLog(@"pushing profileController");
-        // delegate.rootNav.presentedViewController.navigationItem.title = @"Pro";
-        UINavigationItem *navItem = profileController.navigationItem;
-        navItem.title = @"Profile Info";
+    //clicking link accounts brings you to link accounts page
+     if (indexPath.section == 1 && indexPath.row == 1) {
+        NEOAccountsController *accountsController = [[NEOAccountsController alloc] init];
+        [delegate.rootNav pushViewController:accountsController animated:YES];
+        NSLog(@"pushing accountsController");
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
-    } */
+    }
 
     //clicking tags brings you to display of tags
     if (indexPath.section == 1 && indexPath.row == 2) {
