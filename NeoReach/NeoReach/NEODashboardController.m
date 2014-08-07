@@ -90,7 +90,11 @@
             [self.tableView reloadData];
             [delegate.webView cleanForDealloc];
             delegate.webView = nil;
-            NSLog(@"Webview deleted");
+            
+            if ([delegate.user.firstName isEqualToString:@""] &&
+                [delegate.user.lastName isEqualToString:@""]) {
+                [self forceUpdateProfile];
+            }
         });
     }];
     [dataTask resume];
@@ -143,6 +147,13 @@
     [[self navigationController] pushViewController:bcc animated:YES];
 }
 
+-(void)forceUpdateProfile
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    UIAlertView *newAccountAlert = [[UIAlertView alloc] initWithTitle:@"Welcome!" message:@"Please fill in some account information to get started with NeoReach." delegate:delegate.drawer.leftDrawerViewController cancelButtonTitle:nil otherButtonTitles:@"Edit Profile", nil];
+    [newAccountAlert show];
+}
+
 #pragma mark TableViewDelegate Methods
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -170,6 +181,8 @@
         hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                              user.firstName, user.lastName];
         hc.nameLabel.textColor = [UIColor whiteColor];
+        
+        
         
 
     } else {

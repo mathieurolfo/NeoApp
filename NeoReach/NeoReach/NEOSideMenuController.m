@@ -172,6 +172,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark Alert View Methods
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
+    NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
+    [delegate.rootNav pushViewController:profileController animated:YES];
+    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+}
+
 #pragma mark - Other Methods
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
