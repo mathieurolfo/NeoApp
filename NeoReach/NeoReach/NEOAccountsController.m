@@ -7,6 +7,7 @@
 //
 
 #import "NEOAccountsController.h"
+#import "NEOLinkedAccountCell.h"
 
 @interface NEOAccountsController ()
 
@@ -21,6 +22,9 @@
         // Custom initialization
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Link Accounts";
+        
+
+
     }
     return self;
 }
@@ -29,6 +33,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UINib *accountNib = [UINib nibWithNibName:@"NEOLinkedAccountCell" bundle:nil];
+    [self.tableView registerNib:accountNib forCellReuseIdentifier:@"NEOLinkedAccountCell"];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,7 +46,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 4;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -49,13 +56,18 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    return nil;
+    return [tableView dequeueReusableCellWithIdentifier:@"NEOLinkedAccountCell"
+     forIndexPath:indexPath];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
 
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100.0;
+}
 
 
 @end
