@@ -41,7 +41,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"view did load");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
@@ -69,7 +68,6 @@
     
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
-    NSLog(@"making profile info request");
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -80,6 +78,7 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
+        
                 [self populateUserProfileWithDictionary:profileJSON];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"doUpdateName" object:nil];
@@ -88,7 +87,6 @@
             [self.tableView reloadData];
             [delegate.webView cleanForDealloc];
             delegate.webView = nil;
-            NSLog(@"Webview deleted");
         });
     }];
     [dataTask resume];

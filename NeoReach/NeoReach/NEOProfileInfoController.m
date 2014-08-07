@@ -56,8 +56,6 @@
     
     form.website = user.website;
     form.dateOfBirth = user.dateOfBirth;
-    
-    NSLog(@"%@ %@", user.gender, user.dateOfBirth);
 }
 
 - (void)saveProfileChanges
@@ -84,8 +82,12 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@",dict);
+        
+        NSLog(@"post response: %@",dict);
+        
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshProfile" object:nil];
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -104,11 +106,11 @@
     
     NSString *gender;
     if (form.gender == GenderMale) {
-        gender = @"Male";
+        gender = @"male";
     } else {
-        gender = @"Female";
+        gender = @"female";
     }
-    
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     [dateFormatter setLocale:enUSPOSIXLocale];
