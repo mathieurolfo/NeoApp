@@ -64,7 +64,6 @@
     [self displaySavingIndicator];
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user postProfileInfoWithDictionary:[self dictionaryFromForm]];
-    
 }
 
 -(void) profilePosted
