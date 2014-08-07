@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOAccountsController : UIViewController
+@interface NEOAccountsController : UIViewController  <UITableViewDelegate, UITableViewDataSource>
 
 @end
