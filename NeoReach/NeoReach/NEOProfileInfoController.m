@@ -35,6 +35,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profilePosted) name:@"profilePosted" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,46 +61,18 @@
 
 - (void)saveProfileChanges
 {
-    NSData *jsonData = [self jsonProfileData];
-    NSURL *URL = [NSURL URLWithString: @"https://api.neoreach.com/account/"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:jsonData];
-
-    
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
-    if (!_session) {
-        _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
-    }
-    
-    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        NSDictionary *dict =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        NSLog(@"post response: %@",dict);
-        
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshProfile" object:nil];
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        });
-
-    }];
-    
-    [postDataTask resume];
     [self displaySavingIndicator];
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    [user postProfileInfoWithDictionary:[self dictionaryFromForm]];
 }
 
-- (NSData *)jsonProfileData
+-(void) profilePosted
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+   
+}
+
+- (NSDictionary *)dictionaryFromForm
 {
     NEOProfileForm *form = (NEOProfileForm *)self.formController.form;
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
@@ -131,10 +104,7 @@
         @"timezoneOffset": [NSNumber numberWithLong:user.timezoneOffset]
         };
     
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
-
-    return jsonData;
+    return dict;
 }
 
 /*
