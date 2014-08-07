@@ -62,7 +62,7 @@
 - (void)saveProfileChanges
 {
 
-
+    NSLog(@"test line");
     [self displaySavingIndicator];
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user postProfileInfoWithDictionary:[self dictionaryFromForm]];
