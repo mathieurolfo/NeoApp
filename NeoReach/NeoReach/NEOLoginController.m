@@ -25,6 +25,34 @@
 
 #pragma mark Initialization and View Methods
 
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    self.sessionConfig = [decoder decodeObjectForKey:@"sessionConfig"];
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.sessionConfig forKey:@"sessionConfig"];
+}
+
+-(NSString *)configArchivePath
+{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories firstObject];
+    return [documentDirectory stringByAppendingPathComponent:@"config.archive"];
+}
+
+-(BOOL)saveChanges
+{
+    NSString *path = [self configArchivePath];
+    return [NSKeyedArchiver archiveRootObject:self.sessionConfig toFile:path];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -94,7 +122,12 @@
     [delegate.window addSubview:delegate.webView];
     delegate.webView.hidden = YES;
     
-    delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    //if none unarchived, initialize
+    if (!self.sessionConfig) {
+        self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    }
+    
+    
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     return delegate.webView;
 }
@@ -129,7 +162,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:self.sessionConfig delegate:nil delegateQueue:nil];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -139,10 +172,11 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
+        
         NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
         NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
         
-        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
+        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly

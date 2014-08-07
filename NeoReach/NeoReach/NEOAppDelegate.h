@@ -18,7 +18,6 @@
 @property (strong, nonatomic) NEOLoginController *login;
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NEOUser *user;
-@property (strong, nonatomic) NSURLSessionConfiguration *sessionConfig;
 
 
 -(void)enableDrawerAccess;
