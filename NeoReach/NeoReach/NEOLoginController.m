@@ -15,6 +15,8 @@
 @interface NEOLoginController ()
 
 @property (nonatomic, strong) NSURL *redirectURL;
+@property (nonatomic, strong) NSString *prevRedirectAddress;
+@property (nonatomic, strong) NSString *currRedirectAddress;
 @property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
 @end
@@ -27,7 +29,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.prevRedirectAddress = @"";
+        self.currRedirectAddress = @"";
     }
     return self;
 }
@@ -100,14 +103,19 @@
 {
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
+    
+    //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
+    self.prevRedirectAddress = self.currRedirectAddress;
+    self.currRedirectAddress = redirectAddress;
+    
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
         [self getAuthHeader];
         return NO;
-    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) { //display login screen
+    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
-        
     }
     
     return YES;
