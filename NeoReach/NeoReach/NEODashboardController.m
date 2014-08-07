@@ -55,55 +55,30 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
     
     
-    [self loadProfileInformation];
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    [user pullProfileInfo];
+
 
 }
 
-
--(void)loadProfileInformation
+-(void)refreshDashboard
 {
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
-    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    [self.tableView reloadData];
     
-    NSString *requestString = @"https://api.neoreach.com/account";
-    NSURL *url = [NSURL URLWithString:requestString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        //load response into a dictionary
-        NSDictionary *profileJSON =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-                [self populateUserProfileWithDictionary:profileJSON];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"doUpdateName" object:nil];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [delegate.webView cleanForDealloc];
-            delegate.webView = nil;
-            
-            if ([delegate.user.firstName isEqualToString:@""] &&
-                [delegate.user.lastName isEqualToString:@""]) {
-                [self forceUpdateProfile];
-            }
-        });
-    }];
-    [dataTask resume];
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.webView cleanForDealloc];
+    delegate.webView = nil;
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    [self.tableView reloadData];
+    
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
 }
@@ -130,10 +105,6 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
-        
-       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileInformation) name:@"refreshProfile" object:nil];
-        
-        
         }
     return self;
 }
@@ -251,51 +222,6 @@
 {
     [tableView reloadData];
 }
-
--(void)populateUserProfileWithDictionary:(NSDictionary *)dict
-{
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    
-    //Most profile information is in data.Profile[0]
-    NSDictionary *profileDict = [[[dict objectForKey:@"data"] objectForKey:@"Profile"] objectAtIndex:0];
-    
-    user.firstName = [profileDict valueForKeyPath:@"name.first"];
-    user.lastName = [profileDict valueForKeyPath:@"name.last"];
-    user.email = [profileDict valueForKey:@"email"];
-    user.gender = [profileDict valueForKey:@"gender"];
-    user.website = [profileDict valueForKey:@"website"];
-    user.paypalEmail = [profileDict valueForKey:@"paypalEmail"];
-    user.timezoneOffset = [[profileDict valueForKey:@"timezoneOffset"] intValue];
-    user.tags = [profileDict objectForKey:@"tags"];
-    
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
-    
-    NSString *dobString = [profileDict valueForKey:@"dob"];
-    if (![dobString isEqual:[NSNull null]]) {
-        dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
-        user.dateOfBirth = [dateFormatter dateFromString:dobString];
-        
-    }
-
-    
-    //Profile picture URL is in the 'facebook.com' entry of data.Publishers
-    NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
-    
-    for (int i=0; i < [publishers count]; i++) {
-        NSDictionary *publisher = [publishers objectAtIndex:i];
-        NSString *publisherName = [publisher valueForKeyPath:@"name"];
-        if ([publisherName isEqualToString:@"facebook.com"]) {
-            user.profilePictureURL = [publisher valueForKeyPath:@"pic"];
-            user.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:user.profilePictureURL]]];
-            break;
-        }
-    }
-}
-
 
 
 @end
