@@ -178,14 +178,10 @@
     NEODashboardHeaderCell *hc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
-    
-    
     if (user.firstName && user.lastName) {
         hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                              user.firstName, user.lastName];
-        hc.nameLabel.textColor = [UIColor whiteColor];
-        
-        
+        //hc.nameLabel.textColor = [UIColor whiteColor];
         
 
     } else {
