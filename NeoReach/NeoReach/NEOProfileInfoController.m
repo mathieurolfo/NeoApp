@@ -66,7 +66,6 @@
     NSURL *URL = [NSURL URLWithString: @"https://api.neoreach.com/account/"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
-    //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%lu", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:jsonData];
@@ -86,10 +85,16 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         NSLog(@"%@",dict);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshProfile" object:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        });
+
     }];
+    
     [postDataTask resume];
-    
-    
+    [self displaySavingIndicator];
 }
 
 - (NSData *)jsonProfileData
@@ -140,6 +145,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+-(void)displaySavingIndicator
+{
+    
+    UIActivityIndicatorView *saveIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    saveIndicator.center = self.view.center;
+    [saveIndicator startAnimating];
+    [self.view addSubview:saveIndicator];
+}
 
 
 

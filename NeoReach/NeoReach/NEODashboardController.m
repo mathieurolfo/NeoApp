@@ -123,6 +123,10 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
+        
+       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProfileInformation) name:@"refreshProfile" object:nil];
+        
+        
         }
     return self;
 }
