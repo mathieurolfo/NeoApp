@@ -55,12 +55,13 @@
     [self.tableView registerNib:scNib forCellReuseIdentifier:@"NEODashboardStatsCell"];
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
     
     
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user pullProfileInfo];
+
 
 }
 
@@ -94,6 +95,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self) {
+       
+        
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
         
@@ -118,6 +121,13 @@
     [[self navigationController] pushViewController:bcc animated:YES];
 }
 
+-(void)forceUpdateProfile
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    UIAlertView *newAccountAlert = [[UIAlertView alloc] initWithTitle:@"Welcome!" message:@"Please fill in some account information to get started with NeoReach." delegate:delegate.drawer.leftDrawerViewController cancelButtonTitle:nil otherButtonTitles:@"Edit Profile", nil];
+    [newAccountAlert show];
+}
+
 #pragma mark TableViewDelegate Methods
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -139,11 +149,10 @@
     NEODashboardHeaderCell *hc = [tableView dequeueReusableCellWithIdentifier:@"NEODashboardHeaderCell" forIndexPath:nil];
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
-    
-    
     if (user.firstName && user.lastName) {
         hc.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                              user.firstName, user.lastName];
+        //hc.nameLabel.textColor = [UIColor whiteColor];
         
 
     } else {
@@ -158,6 +167,8 @@
 
     [hc.browseButton addTarget:self action:@selector(browseCampaigns:) forControlEvents:UIControlEventTouchUpInside];
     _tableHeader = hc;
+    
+    
     return hc;
 }
 

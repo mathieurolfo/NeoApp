@@ -15,6 +15,8 @@
 @interface NEOLoginController ()
 
 @property (nonatomic, strong) NSURL *redirectURL;
+@property (nonatomic, strong) NSString *prevRedirectAddress;
+@property (nonatomic, strong) NSString *currRedirectAddress;
 @property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
 @end
@@ -27,7 +29,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.prevRedirectAddress = @"";
+        self.currRedirectAddress = @"";
     }
     return self;
 }
@@ -100,17 +103,22 @@
 {
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
-    NSLog(@"Current URL: %@", redirectAddress);
+    
+    //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
+    self.prevRedirectAddress = self.currRedirectAddress;
+    self.currRedirectAddress = redirectAddress;
+    
+    NSLog(@"%@", self.prevRedirectAddress);
+    
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
-        NSLog(@"Got auth header");
         [self getAuthHeader];
         return NO;
-    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"]) { //display login screen
+    } else if (([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
+               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
-        //webView.layer.zPosition = MAXFLOAT;
-        NSLog(@"Facebook screen loaded");
     }
     
     return YES;
@@ -131,10 +139,8 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@", headerJSON);
         NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
         NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
-        NSLog(@"%@ %@", xAuth, xDigest);
         
         delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
@@ -146,7 +152,12 @@
             delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
             delegate.drawer.centerViewController = delegate.rootNav;
             
-            //delegate.webView.hidden = YES;
+            //delegate.rootNav.navigationBar.barTintColor = [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1];
+            //delegate.rootNav.navigationBar.barTintColor = self.tableHeader.contentView.backgroundColor;
+
+            
+            //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1]];
+
             self.splashImage.hidden = NO;
             [self.timer invalidate];
             
