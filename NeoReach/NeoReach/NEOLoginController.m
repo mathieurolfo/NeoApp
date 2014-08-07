@@ -108,12 +108,15 @@
     self.prevRedirectAddress = self.currRedirectAddress;
     self.currRedirectAddress = redirectAddress;
     
+    NSLog(@"%@", self.prevRedirectAddress);
+    
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
         [self getAuthHeader];
         return NO;
-    } else if ([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
-               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) { //display login screen
+    } else if (([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
+               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
