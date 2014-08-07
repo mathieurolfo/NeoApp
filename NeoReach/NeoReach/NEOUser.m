@@ -33,9 +33,9 @@
         
         [self populateUserProfileWithDictionary:profileJSON];
         
-      //  dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
-    //    });
+        });
     }];
     [dataTask resume];
 
@@ -44,14 +44,50 @@
 
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict
 {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSURL *URL = [NSURL URLWithString: @"https://api.neoreach.com/account/"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:jsonData];
     
     
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+        NSLog(@"post response: %@",dict);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePosted" object:nil];
+        });
+        
+        //Later replace with just updating from response
+        [self pullProfileInfo];
+        
+    }];
+    
+    [postDataTask resume];
 }
+
 
 //Populates user profile with the JSON dictionary returned from the API
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
-    
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = [[[dict objectForKey:@"data"] objectForKey:@"Profile"] objectAtIndex:0];
     

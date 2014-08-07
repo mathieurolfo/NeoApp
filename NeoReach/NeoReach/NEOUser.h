@@ -29,7 +29,9 @@
 // will send a 'profilePulled' notification when finished
 -(void) pullProfileInfo;
 
-// will send a 'profilePosted' notification when finished
+// will send a 'profilePosted' notification when finished. Requires a dictionary
+// with all user fields. Automatically calls pullProfileInfo when finished.
+//Later on should probably use returned data from post instead of GETing again
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict;
 
 @end
