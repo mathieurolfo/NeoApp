@@ -8,6 +8,7 @@
 
 #import "NEOUser.h"
 #import "NEOAppDelegate.h"
+#import "NEOLinkedAccount.h"
 
 @implementation NEOUser
 
@@ -89,7 +90,8 @@
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
     //Most profile information is in data.Profile[0]
-    NSDictionary *profileDict = [[[dict objectForKey:@"data"] objectForKey:@"Profile"] objectAtIndex:0];
+    NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
+
     
     self.firstName = [profileDict valueForKeyPath:@"name.first"];
     self.lastName = [profileDict valueForKeyPath:@"name.last"];
@@ -113,17 +115,24 @@
         
     }
     
-    
-    //Profile picture URL is in the 'facebook.com' entry of data.Publishers
+
+    //Publishers are linked accounts
+    self.linkedAccounts = [[NSMutableArray alloc] init]; //clear out any previous data
     NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
-    
     for (int i=0; i < [publishers count]; i++) {
         NSDictionary *publisher = [publishers objectAtIndex:i];
-        NSString *publisherName = [publisher valueForKeyPath:@"name"];
-        if ([publisherName isEqualToString:@"facebook.com"]) {
+        
+        NEOLinkedAccount *account = [[NEOLinkedAccount alloc] init];
+        account.name = publisher[@"name"];
+        account.fullName = publisher[@"full_name"];
+        account.picURL = publisher[@"pic"];
+        account.pid = publisher[@"pid"];
+        account.reach = [publisher[@"reach"] intValue];
+        [self.linkedAccounts addObject:account];
+        
+        if ([account.name isEqualToString:@"facebook.com"]) { // Use facebook profile picture for dashboard
             self.profilePictureURL = [publisher valueForKeyPath:@"pic"];
             self.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.profilePictureURL]]];
-            break;
         }
     }
 }

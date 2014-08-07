@@ -23,6 +23,8 @@
 @property NSInteger timezoneOffset;
 @property (strong, nonatomic) NSArray *tags;
 
+@property (strong, nonatomic) NSMutableArray *linkedAccounts;
+
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;
 

@@ -40,6 +40,10 @@
                     <constraint firstAttribute="centerY" secondItem="Qiz-mU-BDt" secondAttribute="centerY" id="tDe-qg-m0W"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="publisherImage" destination="Fdh-dN-Yzx" id="vd4-Tu-Kbm"/>
+                <outlet property="reachLabel" destination="Qiz-mU-BDt" id="5yf-R6-sA7"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

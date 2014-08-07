@@ -13,6 +13,7 @@
 		2239CB431993FF6100CAF522 /* NEOAccountsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2239CB411993FF6100CAF522 /* NEOAccountsController.xib */; };
 		2239CB471993FF7C00CAF522 /* NEOLinkedAccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239CB451993FF7C00CAF522 /* NEOLinkedAccountCell.m */; };
 		2239CB481993FF7C00CAF522 /* NEOLinkedAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2239CB461993FF7C00CAF522 /* NEOLinkedAccountCell.xib */; };
+		2239CB4B19943BEF00CAF522 /* NEOLinkedAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239CB4A19943BEF00CAF522 /* NEOLinkedAccount.m */; };
 		22698A8C1982C7D3007A7255 /* NEOCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22698A8B1982C7D3007A7255 /* NEOCircleView.m */; };
 		227F2E39198C136D009E66BC /* NEOUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F2E38198C136D009E66BC /* NEOUser.m */; };
 		227F2E3C198C4167009E66BC /* NEOCampaign.m in Sources */ = {isa = PBXBuildFile; fileRef = 227F2E3B198C4167009E66BC /* NEOCampaign.m */; };
@@ -97,6 +98,8 @@
 		2239CB441993FF7C00CAF522 /* NEOLinkedAccountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOLinkedAccountCell.h; sourceTree = "<group>"; };
 		2239CB451993FF7C00CAF522 /* NEOLinkedAccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOLinkedAccountCell.m; sourceTree = "<group>"; };
 		2239CB461993FF7C00CAF522 /* NEOLinkedAccountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOLinkedAccountCell.xib; sourceTree = "<group>"; };
+		2239CB4919943BEF00CAF522 /* NEOLinkedAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOLinkedAccount.h; sourceTree = "<group>"; };
+		2239CB4A19943BEF00CAF522 /* NEOLinkedAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOLinkedAccount.m; sourceTree = "<group>"; };
 		22698A8A1982C7D3007A7255 /* NEOCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOCircleView.h; sourceTree = "<group>"; };
 		22698A8B1982C7D3007A7255 /* NEOCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOCircleView.m; sourceTree = "<group>"; };
 		227F2E37198C136D009E66BC /* NEOUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOUser.h; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				2239CB441993FF7C00CAF522 /* NEOLinkedAccountCell.h */,
 				2239CB451993FF7C00CAF522 /* NEOLinkedAccountCell.m */,
 				2239CB461993FF7C00CAF522 /* NEOLinkedAccountCell.xib */,
+				2239CB4919943BEF00CAF522 /* NEOLinkedAccount.h */,
+				2239CB4A19943BEF00CAF522 /* NEOLinkedAccount.m */,
 			);
 			path = NeoReach;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				4E6368881986C37400FFF5A1 /* NEOTagsController.m in Sources */,
 				22A22D20197D6B5700D4560A /* NEODashboardController.m in Sources */,
 				22A22D2D197D6C8400D4560A /* NEOSideMenuController.m in Sources */,
+				2239CB4B19943BEF00CAF522 /* NEOLinkedAccount.m in Sources */,
 				227F2E39198C136D009E66BC /* NEOUser.m in Sources */,
 				22D84CF619817BA3008A16E7 /* NEODashboardStatsCell.m in Sources */,
 				227F2E3C198C4167009E66BC /* NEOCampaign.m in Sources */,

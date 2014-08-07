@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NEOCircleView.h"
 
 @interface NEOLinkedAccountCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet NEOCircleView *publisherImage;
+@property (weak, nonatomic) IBOutlet UILabel *reachLabel;
 
 @end

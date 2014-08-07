@@ -8,6 +8,8 @@
 
 #import "NEOAccountsController.h"
 #import "NEOLinkedAccountCell.h"
+#import "NEOUser.h"
+#import "NEOAppDelegate.h"
 
 @interface NEOAccountsController ()
 
@@ -46,7 +48,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    return [user.linkedAccounts count];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -56,8 +59,16 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
-    return [tableView dequeueReusableCellWithIdentifier:@"NEOLinkedAccountCell"
-     forIndexPath:indexPath];
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+
+    
+    NEOLinkedAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NEOLinkedAccountCell"
+                                                                 forIndexPath:indexPath];
+    
+
+    cell.reachLabel.text = [user.linkedAccounts[indexPath.row] name];
+    
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
