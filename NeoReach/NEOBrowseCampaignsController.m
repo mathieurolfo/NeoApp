@@ -202,7 +202,7 @@
     _campaignsLoaded = NO;
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
@@ -268,7 +268,7 @@
 -(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
@@ -313,7 +313,7 @@
     request.HTTPMethod = @"POST";
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     if (!_session) {
                _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     }

@@ -26,7 +26,7 @@
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;
 
-// will send a 'profilePulled' notification when finished
+// will send a 'profilePulled' notification on success. If X-Auth and X-Digest were invalid, sends an 'invalidHeaders' notification.
 -(void) pullProfileInfo;
 
 // will send a 'profilePosted' notification when finished. Requires a dictionary

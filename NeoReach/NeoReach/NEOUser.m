@@ -15,7 +15,7 @@
 -(void) pullProfileInfo
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/account";
@@ -31,11 +31,19 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-        [self populateUserProfileWithDictionary:profileJSON];
+        if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+            });
+        } else { // success
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
+            [self populateUserProfileWithDictionary:profileJSON];
+        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
         });
+        }
     }];
     [dataTask resume];
 
@@ -56,7 +64,7 @@
     
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
 
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
 
