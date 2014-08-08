@@ -35,6 +35,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+                NSLog(@"Header invalid");
             });
         } else { // success
         
@@ -42,6 +43,7 @@
         
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
+                NSLog(@"profile pulled");
         });
         }
     }];

@@ -59,6 +59,11 @@
     if (self) {
         self.prevRedirectAddress = @"";
         self.currRedirectAddress = @"";
+        
+        //subscribe to notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebview) name:@"headerInvalid" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
+        
     }
     return self;
 }
@@ -83,8 +88,26 @@
 - (IBAction)logInPressed:(id)sender {
 
     [self.loginButton setEnabled:NO];
-    UIWebView *webView = [self configureWebView];
     
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+   
+    //three cases
+    //case 1: no headers
+    if (!self.sessionConfig) {
+        NSLog(@"No session config");
+        [self loadWebview];
+    } else {
+        //cases 2 and 3
+        [delegate.user pullProfileInfo];
+        NSLog(@"Request to pull initiated");
+    }
+}
+
+//called if no headers exist
+-(void)loadWebview
+{
+    UIWebView *webView = [self configureWebView];
+    NSLog(@"Webview configured");
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     
@@ -92,6 +115,15 @@
         [webView loadRequest:request];
         [self displayActivityIndicator];
     });
+
+}
+
+-(void)createDashboard
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+    delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    delegate.drawer.centerViewController = delegate.rootNav;
 }
 
 -(void)displayActivityIndicator
@@ -185,6 +217,9 @@
             NEODashboardController *dashboard = [[NEODashboardController alloc] init];
             delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
             delegate.drawer.centerViewController = delegate.rootNav;
+            
+            NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+            [user pullProfileInfo];
             
             //delegate.rootNav.navigationBar.barTintColor = [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1];
             //delegate.rootNav.navigationBar.barTintColor = self.tableHeader.contentView.backgroundColor;

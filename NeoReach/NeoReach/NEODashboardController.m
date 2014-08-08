@@ -57,10 +57,10 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
     
-    
+    /*
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user pullProfileInfo];
-
+     */
 
 }
 
