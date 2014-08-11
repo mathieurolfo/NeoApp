@@ -25,13 +25,16 @@
 
 #pragma mark Initialization and View Methods
 
+
 -(id)initWithCoder:(NSCoder *)decoder
 {
-    self = [super init];
-    if (!self) {
-        return nil;
+    self = [super initWithCoder:decoder];
+    if (self) {
+        
     }
     self.sessionConfig = [decoder decodeObjectForKey:@"sessionConfig"];
+    
+    NSLog(@"unarchived sessionConfig");
     return self;
 }
 
@@ -63,6 +66,7 @@
         //subscribe to notifications
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebview) name:@"headerInvalid" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
+        NSLog(@"login nib initialized");
         
     }
     return self;
@@ -180,8 +184,9 @@
         [self getAuthHeader];
         return NO;
     } else if (([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
-               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
-               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/"]) { //display login screen
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress])
+    /*||
+               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/"]*/) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
