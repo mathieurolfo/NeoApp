@@ -8,6 +8,7 @@
 
 #import "NEOAccountsController.h"
 #import "NEOLinkedAccountCell.h"
+#import "NEOLinkedAccount.h"
 #import "NEOUser.h"
 #import "NEOAppDelegate.h"
 
@@ -66,7 +67,12 @@
                                                                  forIndexPath:indexPath];
     
 
-    cell.reachLabel.text = [user.linkedAccounts[indexPath.row] name];
+    
+    NEOLinkedAccount *account = user.linkedAccounts[indexPath.row];
+    
+    cell.reachLabel.text = [NSString stringWithFormat:@"%lu",account.reach];
+    cell.nameLabel.text = account.fullName;
+    
     
     return cell;
 }
@@ -77,7 +83,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100.0;
+    return 60.0;
 }
 
 

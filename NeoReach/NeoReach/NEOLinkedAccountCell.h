@@ -12,5 +12,6 @@
 @interface NEOLinkedAccountCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NEOCircleView *publisherImage;
 @property (weak, nonatomic) IBOutlet UILabel *reachLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

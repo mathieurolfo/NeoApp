@@ -23,24 +23,32 @@
                         </constraints>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9234" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qiz-mU-BDt">
-                        <rect key="frame" x="104" y="35" width="286" height="33"/>
+                        <rect key="frame" x="104" y="75" width="289" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BR-w4-0qN">
+                        <rect key="frame" x="104" y="41" width="289" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Qiz-mU-BDt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="AuO-kW-eWo"/>
-                    <constraint firstAttribute="bottom" secondItem="Qiz-mU-BDt" secondAttribute="bottom" constant="36" id="Hq0-ZC-6oe"/>
+                    <constraint firstItem="3BR-w4-0qN" firstAttribute="leading" secondItem="Fdh-dN-Yzx" secondAttribute="trailing" constant="8" id="0kT-za-CbX"/>
+                    <constraint firstAttribute="trailing" secondItem="3BR-w4-0qN" secondAttribute="trailing" constant="8" id="9ic-6N-f1F"/>
+                    <constraint firstAttribute="centerY" secondItem="3BR-w4-0qN" secondAttribute="centerY" id="JOf-2T-okX"/>
                     <constraint firstItem="Fdh-dN-Yzx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="N3W-6g-kzl"/>
-                    <constraint firstAttribute="trailing" secondItem="Qiz-mU-BDt" secondAttribute="trailing" constant="11" id="YqO-Wb-a3m"/>
+                    <constraint firstAttribute="bottom" secondItem="Qiz-mU-BDt" secondAttribute="bottom" constant="8" id="YIW-uQ-dOh"/>
+                    <constraint firstAttribute="trailing" secondItem="Qiz-mU-BDt" secondAttribute="trailing" constant="8" id="YqO-Wb-a3m"/>
                     <constraint firstItem="Fdh-dN-Yzx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Z4A-cZ-csU"/>
                     <constraint firstAttribute="bottom" secondItem="Fdh-dN-Yzx" secondAttribute="bottom" constant="8" id="rHD-K5-h57"/>
                     <constraint firstItem="Qiz-mU-BDt" firstAttribute="leading" secondItem="Fdh-dN-Yzx" secondAttribute="trailing" constant="8" id="rg7-54-7MR"/>
-                    <constraint firstAttribute="centerY" secondItem="Qiz-mU-BDt" secondAttribute="centerY" id="tDe-qg-m0W"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="nameLabel" destination="3BR-w4-0qN" id="seG-rn-5CO"/>
                 <outlet property="publisherImage" destination="Fdh-dN-Yzx" id="vd4-Tu-Kbm"/>
                 <outlet property="reachLabel" destination="Qiz-mU-BDt" id="5yf-R6-sA7"/>
             </connections>
