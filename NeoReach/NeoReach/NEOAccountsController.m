@@ -73,6 +73,18 @@
     cell.reachLabel.text = [NSString stringWithFormat:@"%lu",account.reach];
     cell.nameLabel.text = account.fullName;
     
+    if ([account.name isEqualToString:@"facebook.com"]) {
+        cell.publisherImage.image = [UIImage imageNamed:@"facebookLogo.png"];
+    } else if ([account.name isEqualToString:@"twitter.com"]) {
+        cell.publisherImage.image = [UIImage imageNamed:@"twitterLogo.png"];
+    } else if ([account.name isEqualToString: @"googleplus.com"]) {
+        cell.publisherImage.image = [UIImage imageNamed:@"googlePlusLogo.png"];
+    } else if ([account.name isEqualToString: @"linkedin.com"]) {
+        cell.publisherImage.image = [UIImage imageNamed:@"linkedInLogo.png"];
+    }
+    
+    
+    
     
     return cell;
 }
