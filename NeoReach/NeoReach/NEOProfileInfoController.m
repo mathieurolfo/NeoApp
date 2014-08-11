@@ -67,9 +67,7 @@
 
 - (NSString *)stringOrBlankIfNil:(NSString *)str
 {
-    if (str) return str;
-    
-    return @"";
+    return (str) ? str : @"";
 }
 
 - (void)saveProfileChanges

@@ -117,19 +117,18 @@
     //clicking profile information takes you to profile info
     if (indexPath.section == 1 && indexPath.row == 0) {
         NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
+        [delegate disableDrawerAccess];
         [delegate.rootNav pushViewController:profileController animated:YES];
-        NSLog(@"pushing profileController");
-       
-                [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
     }
 
     //clicking link accounts brings you to link accounts page
      if (indexPath.section == 1 && indexPath.row == 1) {
+        [delegate disableDrawerAccess];
         NEOAccountsController *accountsController = [[NEOAccountsController alloc] init];
         [delegate.rootNav pushViewController:accountsController animated:YES];
-        NSLog(@"pushing accountsController");
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
@@ -137,9 +136,9 @@
 
     //clicking tags brings you to display of tags
     if (indexPath.section == 1 && indexPath.row == 2) {
+        [delegate disableDrawerAccess];
         NEOTagsController *tagsController = [[NEOTagsController alloc] init];
         [delegate.rootNav pushViewController:tagsController animated:YES];
-        NSLog(@"pushing tagsController");
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
@@ -148,7 +147,7 @@
     
     //clicking logout button returns to login screen
     if (indexPath.section == 1 && indexPath.row == 3) {
-        
+        [delegate disableDrawerAccess];
         [delegate.login.loginIndicator stopAnimating];
         [delegate.login.loginButton setEnabled:YES];
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
