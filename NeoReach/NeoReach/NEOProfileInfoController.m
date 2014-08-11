@@ -48,15 +48,28 @@
 {
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     NEOProfileForm *form = (NEOProfileForm *)self.formController.form;
-    form.firstName = user.firstName;
-    form.lastName = user.lastName;
-    form.email = user.email;
+    
+    form.firstName = [self stringOrBlankIfNil:user.firstName];
+    form.lastName = [self stringOrBlankIfNil:user.lastName];
+    form.email = [self stringOrBlankIfNil:user.email];
+    form.website = [self stringOrBlankIfNil:user.website];
+
     if ([user.gender isEqualToString:@"male"]) {
         form.gender = GenderMale;
     } else form.gender = GenderFemale;
     
-    form.website = user.website;
-    form.dateOfBirth = user.dateOfBirth;
+    if (user.dateOfBirth == nil) {
+        form.dateOfBirth = [NSDate date];
+    } else {
+        form.dateOfBirth = user.dateOfBirth;
+    }
+}
+
+- (NSString *)stringOrBlankIfNil:(NSString *)str
+{
+    if (str) return str;
+    
+    return @"";
 }
 
 - (void)saveProfileChanges
@@ -101,7 +114,7 @@
         @"dob": dobString,
         
         // These fields are not updated in profile settings
-        @"paypalEmail": user.paypalEmail,
+        @"paypalEmail": [self stringOrBlankIfNil:user.paypalEmail],
         @"tags": user.tags,
         @"timezoneOffset": [NSNumber numberWithLong:user.timezoneOffset]
         };
