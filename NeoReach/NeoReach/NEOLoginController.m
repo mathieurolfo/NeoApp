@@ -25,12 +25,58 @@
 
 #pragma mark Initialization and View Methods
 
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self) {
+        
+    }
+    self.sessionConfig = [decoder decodeObjectForKey:@"sessionConfig"];
+    
+    NSLog(@"unarchived sessionConfig");
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.sessionConfig forKey:@"sessionConfig"];
+}
+
+-(NSString *)configArchivePath
+{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories firstObject];
+    return [documentDirectory stringByAppendingPathComponent:@"config.archive"];
+}
+
+-(BOOL)saveChanges
+{
+    NSString *path = [self configArchivePath];
+    return [NSKeyedArchiver archiveRootObject:self.sessionConfig toFile:path];
+}
+
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.prevRedirectAddress = @"";
         self.currRedirectAddress = @"";
+        
+        //subscribe to notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebview) name:@"headerInvalid" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
+        NSLog(@"login nib initialized");
+        NSString *path = [self configArchivePath];
+        _sessionConfig = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        if (!_sessionConfig) {
+            //_sessionConfig = [[NSMutableArray alloc] init];
+            NSLog(@"No session configuration saved");
+        } else {
+            
+        }
     }
     return self;
 }
@@ -55,8 +101,27 @@
 - (IBAction)logInPressed:(id)sender {
 
     [self.loginButton setEnabled:NO];
-    UIWebView *webView = [self configureWebView];
     
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+   
+    //three cases
+    //case 1: no headers
+    if (!self.sessionConfig) {
+        NSLog(@"No session config");
+        [self loadWebview];
+    } else {
+        //cases 2 and 3
+        NSLog(@"%@", self.sessionConfig.HTTPAdditionalHeaders);
+        [delegate.user pullProfileInfo];
+        NSLog(@"Request to pull initiated");
+    }
+}
+
+//called if no headers exist
+-(void)loadWebview
+{
+    UIWebView *webView = [self configureWebView];
+    NSLog(@"Webview configured");
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     
@@ -64,6 +129,15 @@
         [webView loadRequest:request];
         [self displayActivityIndicator];
     });
+
+}
+
+-(void)createDashboard
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+    delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+    delegate.drawer.centerViewController = delegate.rootNav;
 }
 
 -(void)displayActivityIndicator
@@ -94,7 +168,12 @@
     [delegate.window addSubview:delegate.webView];
     delegate.webView.hidden = YES;
     
-    delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    //if none unarchived, initialize
+    if (!self.sessionConfig) {
+        self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSLog(@"Created a session configuration");
+    }
+    
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     return delegate.webView;
 }
@@ -114,9 +193,13 @@
         self.redirectURL = redirect;
         [self getAuthHeader];
         return NO;
-    } else if (([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
-               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress])
-                || [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/" ]) { //display login screen
+    } else if (
+            //the login address appears twice (loading quirk?)
+               ([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
+               
+               //the user is redirected to the actual 'enter login info' page
+               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
@@ -129,7 +212,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:self.sessionConfig delegate:nil delegateQueue:nil];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -139,11 +222,14 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
+        
         NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
         NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
         
-        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
+        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
+        
+        NSLog(@"%@", self.sessionConfig);
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -153,6 +239,9 @@
             delegate.drawer.centerViewController = delegate.rootNav;
             delegate.rootNav.navigationBar.translucent = NO;
             
+            NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+            [user pullProfileInfo];
+            
             //delegate.rootNav.navigationBar.barTintColor = [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1];
             //delegate.rootNav.navigationBar.barTintColor = self.tableHeader.contentView.backgroundColor;
 
@@ -161,8 +250,6 @@
 
             self.splashImage.hidden = NO;
             [self.timer invalidate];
-            
-            
             
         });
     }];
