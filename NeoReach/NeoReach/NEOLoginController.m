@@ -115,8 +115,8 @@
         [self getAuthHeader];
         return NO;
     } else if (([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
-               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
-               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/"]) { //display login screen
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress])
+                || [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/" ]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }

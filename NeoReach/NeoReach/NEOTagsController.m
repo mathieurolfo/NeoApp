@@ -46,7 +46,7 @@
             break;
     }
     
-    NSLog(@"Filling cells");
+    //NSLog(@"Filling cells");
     return cell;
 }
 
