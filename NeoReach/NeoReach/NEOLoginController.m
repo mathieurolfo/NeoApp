@@ -111,6 +111,7 @@
         [self loadWebview];
     } else {
         //cases 2 and 3
+        NSLog(@"%@", self.sessionConfig.HTTPAdditionalHeaders);
         [delegate.user pullProfileInfo];
         NSLog(@"Request to pull initiated");
     }
@@ -170,11 +171,8 @@
     //if none unarchived, initialize
     if (!self.sessionConfig) {
         self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        //self.sessionContainer.sessionConfig = self.sessionConfig;
-        NSLog(@"Created a session configuration %@", self.sessionConfig);
-        
+        NSLog(@"Created a session configuration");
     }
-    
     
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     return delegate.webView;
@@ -195,10 +193,13 @@
         self.redirectURL = redirect;
         [self getAuthHeader];
         return NO;
-    } else if (([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
-               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress])
-    ||
-               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/"]) { //display login screen
+    } else if (
+               //the login address appears twice (loading quirk?)
+               ([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
+               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
+               
+               //the user is redirected to the actual 'enter login info' page
+               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }

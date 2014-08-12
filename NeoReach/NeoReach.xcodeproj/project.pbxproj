@@ -47,7 +47,6 @@
 		22D84D071981ADC8008A16E7 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		4E6368881986C37400FFF5A1 /* NEOTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6368861986C37400FFF5A1 /* NEOTagsController.m */; };
 		4E6368891986C37400FFF5A1 /* NEOTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E6368871986C37400FFF5A1 /* NEOTagsController.xib */; };
-		4E776719199AC2020041E84C /* NEOSessionConfigContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E776718199AC2020041E84C /* NEOSessionConfigContainer.m */; };
 		4E7AF52C1988826C00FD1022 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5181988826C00FD1022 /* Lato-Black.ttf */; };
 		4E7AF52D1988826C00FD1022 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5191988826C00FD1022 /* Lato-BlackItalic.ttf */; };
 		4E7AF52E1988826C00FD1022 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF51A1988826C00FD1022 /* Lato-Bold.ttf */; };
@@ -144,8 +143,6 @@
 		4E6368851986C37400FFF5A1 /* NEOTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOTagsController.h; sourceTree = "<group>"; };
 		4E6368861986C37400FFF5A1 /* NEOTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOTagsController.m; sourceTree = "<group>"; };
 		4E6368871986C37400FFF5A1 /* NEOTagsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOTagsController.xib; sourceTree = "<group>"; };
-		4E776717199AC2020041E84C /* NEOSessionConfigContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOSessionConfigContainer.h; sourceTree = "<group>"; };
-		4E776718199AC2020041E84C /* NEOSessionConfigContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOSessionConfigContainer.m; sourceTree = "<group>"; };
 		4E7AF5181988826C00FD1022 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		4E7AF5191988826C00FD1022 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		4E7AF51A1988826C00FD1022 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -238,8 +235,6 @@
 				22A22D19197D6B4200D4560A /* NEOLoginController.m */,
 				22A22D1A197D6B4200D4560A /* NEOLoginController.xib */,
 				22A22D2A197D6C8400D4560A /* NEOSideMenuController.h */,
-				4E776717199AC2020041E84C /* NEOSessionConfigContainer.h */,
-				4E776718199AC2020041E84C /* NEOSessionConfigContainer.m */,
 				22A22D2B197D6C8400D4560A /* NEOSideMenuController.m */,
 				22A22D2C197D6C8400D4560A /* NEOSideMenuController.xib */,
 				22A22D1D197D6B5700D4560A /* NEODashboardController.h */,
@@ -546,7 +541,6 @@
 				22C8A7D81982F3CE007B16CA /* NEOBrowseDetailsCell.m in Sources */,
 				22C8A7DD19830A67007B16CA /* NEOBrowseGenLinkCell.m in Sources */,
 				22D84CFC19819E0C008A16E7 /* NEODashboardHeaderCell.m in Sources */,
-				4E776719199AC2020041E84C /* NEOSessionConfigContainer.m in Sources */,
 				22698A8C1982C7D3007A7255 /* NEOCircleView.m in Sources */,
 				22A9D3F4196F56B900AF6DEB /* NEOAppDelegate.m in Sources */,
 			);
