@@ -43,8 +43,8 @@
     
     
     //hides navigation bar separating line
-    //[[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    //[[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1]];
     
     

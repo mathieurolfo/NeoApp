@@ -151,6 +151,7 @@
             NEODashboardController *dashboard = [[NEODashboardController alloc] init];
             delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
             delegate.drawer.centerViewController = delegate.rootNav;
+            delegate.rootNav.navigationBar.translucent = NO;
             
             //delegate.rootNav.navigationBar.barTintColor = [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1];
             //delegate.rootNav.navigationBar.barTintColor = self.tableHeader.contentView.backgroundColor;
