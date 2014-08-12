@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NEOSessionConfigContainer.h"
 
 @interface NEOLoginController : UIViewController <UIWebViewDelegate, NSCoding>
 
@@ -16,7 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIActivityIndicatorView *loginIndicator;
 @property (strong, nonatomic) NSURLSessionConfiguration *sessionConfig;
+@property (strong, nonatomic) NEOSessionConfigContainer *sessionContainer;
 
 -(BOOL)saveChanges;
+-(NSString *)configArchivePath;
 
 @end

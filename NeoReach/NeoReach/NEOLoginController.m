@@ -56,6 +56,8 @@
     return [NSKeyedArchiver archiveRootObject:self.sessionConfig toFile:path];
 }
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -67,7 +69,14 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebview) name:@"headerInvalid" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
         NSLog(@"login nib initialized");
-        
+        NSString *path = [self configArchivePath];
+        _sessionConfig = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        if (!_sessionConfig) {
+            //_sessionConfig = [[NSMutableArray alloc] init];
+            NSLog(@"No session configuration saved");
+        } else {
+            
+        }
     }
     return self;
 }
@@ -161,6 +170,9 @@
     //if none unarchived, initialize
     if (!self.sessionConfig) {
         self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        //self.sessionContainer.sessionConfig = self.sessionConfig;
+        NSLog(@"Created a session configuration %@", self.sessionConfig);
+        
     }
     
     
@@ -216,6 +228,8 @@
         self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
         
+        NSLog(@"%@", self.sessionConfig);
+        
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -234,8 +248,6 @@
 
             self.splashImage.hidden = NO;
             [self.timer invalidate];
-            
-            
             
         });
     }];

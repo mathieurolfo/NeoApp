@@ -20,7 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
     self.login = loginController;
 
