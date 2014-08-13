@@ -55,6 +55,7 @@
 
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict
 {
+    NSLog(@"PPIWD: %@",dict);
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     
@@ -107,6 +108,10 @@
     self.lastName = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"name.last"]];
     self.email = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"email"]];
     self.gender = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"gender"]];
+    
+    if ([self.gender isEqualToString:@""]) self.gender = @"male"; // TODO remove this when API bug is fixed
+    
+    
     self.website = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"website"]];
     self.paypalEmail = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"paypalEmail"]];
     self.timezoneOffset = [[profileDict valueForKey:@"timezoneOffset"] intValue];
