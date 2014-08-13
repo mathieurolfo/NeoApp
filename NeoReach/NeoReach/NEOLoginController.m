@@ -53,6 +53,7 @@
 -(BOOL)saveChanges
 {
     NSString *path = [self configArchivePath];
+    NSLog(@"%@", path);
     return [NSKeyedArchiver archiveRootObject:self.sessionConfig toFile:path];
 }
 

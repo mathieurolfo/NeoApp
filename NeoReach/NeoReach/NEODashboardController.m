@@ -19,6 +19,7 @@
 
 @interface NEODashboardController ()
 @property (strong, nonatomic) NEODashboardHeaderCell *tableHeader;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation NEODashboardController
@@ -43,6 +44,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl addTarget:self action:@selector(controlRefreshDashboard) forControlEvents:UIControlEventValueChanged];
 
     // Register the NIB files for the dashboard cells
     UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
@@ -64,12 +68,21 @@
 
 }
 
+-(void)controlRefreshDashboard
+{
+    [self.refreshControl endRefreshing];
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.user pullProfileInfo];
+}
+
+
 -(void)refreshDashboard
 {
     [self.tableView reloadData];
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.webView cleanForDealloc];
+    
     delegate.webView = nil;
 }
 
@@ -94,7 +107,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self) {
-       
+        NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        delegate.rootNav.navigationBar.translucent = NO;
         
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
