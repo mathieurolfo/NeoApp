@@ -200,7 +200,8 @@
                [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
                
                //the user is redirected to the actual 'enter login info' page
-               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"]) { //display login screen
+               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"] ||
+               [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
@@ -237,17 +238,13 @@
             
             NEODashboardController *dashboard = [[NEODashboardController alloc] init];
             delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-            delegate.drawer.centerViewController = delegate.rootNav;
             delegate.rootNav.navigationBar.translucent = NO;
+            delegate.drawer.centerViewController = delegate.rootNav;
             
             NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
             [user pullProfileInfo];
             
-            //delegate.rootNav.navigationBar.barTintColor = [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1];
-            //delegate.rootNav.navigationBar.barTintColor = self.tableHeader.contentView.backgroundColor;
 
-            
-            //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1]];
 
             self.splashImage.hidden = NO;
             [self.timer invalidate];

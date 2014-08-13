@@ -118,6 +118,7 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
+        delegate.rootNav.navigationBar.translucent = NO;
         }
     return self;
 }
