@@ -23,6 +23,7 @@
 @property bool campaignsLoaded; // Need this to differentiate between 0 campaigns and campaigns loading
 
 @property (weak, nonatomic) NEOBrowseGenLinkCell *genLinkCell; //need a reference to this to update its contents when generating a link
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation NEOBrowseCampaignsController
@@ -42,6 +43,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl addTarget:self action:@selector(controlInitRefreshCampaigns) forControlEvents:UIControlEventValueChanged];
     
     _campaigns = [[NSMutableArray alloc] init];
     _campaignIndex = 0;
@@ -56,6 +60,12 @@
     [self.tableView registerNib:dcNib forCellReuseIdentifier:@"NEOBrowseDetailsCell"];
     [self.tableView registerNib:glcNib forCellReuseIdentifier:@"NEOBrowseGenLinkCell"];
     
+    [self loadCampaigns];
+}
+
+-(void)controlInitRefreshCampaigns
+{
+    [self.refreshControl endRefreshing];
     [self loadCampaigns];
 }
 

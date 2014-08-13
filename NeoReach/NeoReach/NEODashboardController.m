@@ -46,7 +46,7 @@
 
     _refreshControl = [[UIRefreshControl alloc] init];
     [self.tableView addSubview:_refreshControl];
-    [_refreshControl addTarget:self action:@selector(controlRefreshDashboard) forControlEvents:UIControlEventValueChanged];
+    [_refreshControl addTarget:self action:@selector(controlInitRefreshDashboard) forControlEvents:UIControlEventValueChanged];
 
     // Register the NIB files for the dashboard cells
     UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
@@ -68,7 +68,9 @@
 
 }
 
--(void)controlRefreshDashboard
+/* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
+ */
+-(void)controlInitRefreshDashboard
 {
     [self.refreshControl endRefreshing];
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
