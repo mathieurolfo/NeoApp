@@ -96,24 +96,10 @@
 -(void) updateUserTags
 {
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    NSString *dobString = [dateFormatter stringFromDate:user.dateOfBirth];
+
 
     NSDictionary *dict = @{
-                           @"tags": _tags,
-                           
-                           // These fields are not updated in tags
-                           @"email" : user.email,
-                           @"name" : @{@"first":user.firstName, @"last":user.lastName},
-                           @"gender": user.gender,
-                           @"website": user.website,
-                           @"dob": dobString,
-                           @"paypalEmail": user.paypalEmail,
-                           @"timezoneOffset": [NSNumber numberWithLong:user.timezoneOffset]
+                           @"tags": _tags
                            };
     
     [user postProfileInfoWithDictionary:dict];

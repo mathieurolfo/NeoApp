@@ -82,7 +82,6 @@
 - (NSDictionary *)dictionaryFromForm
 {
     NEOProfileForm *form = (NEOProfileForm *)self.formController.form;
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     
     NSString *gender;
     if (form.gender == GenderMale) {
@@ -91,25 +90,15 @@
         gender = @"female";
     }
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    
-    NSString *dobString = [dateFormatter stringFromDate:form.dateOfBirth];
     
     NSDictionary *dict = @{
         @"email" : form.email,
         @"name" : @{@"first":form.firstName, @"last":form.lastName},
         @"gender": gender,
         @"website": form.website,
-        @"dob": dobString,
-        
-        // These fields are not updated in profile settings
-        @"paypalEmail": user.paypalEmail,
-        @"tags": user.tags,
-        @"timezoneOffset": [NSNumber numberWithLong:user.timezoneOffset]
+        @"dob": form.dateOfBirth,
         };
+         
     
     return dict;
 }

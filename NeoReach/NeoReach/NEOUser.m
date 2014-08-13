@@ -55,9 +55,10 @@
 
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict
 {
-    NSLog(@"PPIWD: %@",dict);
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSDictionary *completeDict = [self completeDictFrom:dict];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:completeDict options:NSJSONWritingPrettyPrinted error:&error];
     
     NSURL *URL = [NSURL URLWithString: @"https://api.neoreach.com/account/"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
@@ -95,6 +96,61 @@
     
     [postDataTask resume];
 }
+
+-(NSDictionary *)completeDictFrom:(NSDictionary *)dict
+{
+    
+
+    
+    NSArray *tags = [self valueOrUserValueIfNone:dict[@"tags"] userValue:self.tags];
+    NSString *email = [self valueOrUserValueIfNone:dict[@"email"] userValue:self.email];
+    
+    NSDictionary *name = @{
+                           @"first": [self valueOrUserValueIfNone:dict[@"name"][@"first"] userValue:self.firstName],
+                           @"last": [self valueOrUserValueIfNone:dict[@"name"][@"last"] userValue:self.lastName]
+                           };
+    
+    
+    
+    NSString *gender = [self valueOrUserValueIfNone:dict[@"gender"] userValue:self.gender];
+    NSString *website = [self valueOrUserValueIfNone:dict[@"website"] userValue:self.website];
+    
+    NSDate *dateOfBirth = [self valueOrUserValueIfNone:dict[@"dob"] userValue:self.dateOfBirth];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSString *dobString = [dateFormatter stringFromDate:dateOfBirth];
+    
+    
+    NSString *paypalEmail = [self valueOrUserValueIfNone:dict[@"paypalEmail"] userValue:self.paypalEmail];
+    NSInteger timezoneOffset = self.timezoneOffset; // We won't ever be editing this
+    
+    
+    NSDictionary *completeDict = @{
+                                   @"tags": tags,
+                                   @"email" : email,
+                                   @"name" : name,
+                                   @"gender": gender,
+                                   @"website": website,
+                                   @"dob": dobString,
+                                   @"paypalEmail": paypalEmail,
+                                   @"timezoneOffset": [NSNumber numberWithLong:timezoneOffset]
+                                   };
+    
+    
+    return completeDict;
+}
+
+-(id)valueOrUserValueIfNone:(id)value userValue:(id)userValue
+{
+    if (value == nil || value == [NSNull null]) {
+        return userValue;
+    }
+    return value;
+}
+
 
 
 //Populates user profile with the JSON dictionary returned from the API
