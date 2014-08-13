@@ -15,7 +15,7 @@
 
 @implementation NEOTagsController
 
-#pragma mark - Menu Table View Protocol Methods
+#pragma mark - Table View Protocol Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -38,6 +38,18 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // If the table view is asking us to commit a delete command...
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_tags removeObjectAtIndex:indexPath.row];
+        
+        // Also remove that row from the table view with an animation
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
 }
 
 #pragma mark - Default Initialization Methods

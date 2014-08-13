@@ -103,14 +103,16 @@
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
 
     
-    self.firstName = [profileDict valueForKeyPath:@"name.first"];
-    self.lastName = [profileDict valueForKeyPath:@"name.last"];
-    self.email = [profileDict valueForKey:@"email"];
-    self.gender = [profileDict valueForKey:@"gender"];
-    self.website = [profileDict valueForKey:@"website"];
-    self.paypalEmail = [profileDict valueForKey:@"paypalEmail"];
+    self.firstName = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"name.first"]];
+    self.lastName = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"name.last"]];
+    self.email = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"email"]];
+    self.gender = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"gender"]];
+    self.website = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"website"]];
+    self.paypalEmail = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"paypalEmail"]];
     self.timezoneOffset = [[profileDict valueForKey:@"timezoneOffset"] intValue];
+    
     self.tags = [profileDict objectForKey:@"tags"];
+    if (self.tags == nil) self.tags = [[NSMutableArray alloc] init];
     
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -145,6 +147,11 @@
             self.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.profilePictureURL]]];
         }
     }
+}
+
+- (NSString *)stringOrBlankIfNil:(NSString *)str
+{
+    return (str) ? str : @"";
 }
 
 
