@@ -14,12 +14,12 @@
 #import "NEODashboardStatsCell.h"
 #import "NEODashboardPostCell.h"
 #import "UIWebView+Clean.h"
-
 #import "NEOUser.h"
 
 
 @interface NEODashboardController ()
 @property (strong, nonatomic) NEODashboardHeaderCell *tableHeader;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation NEODashboardController
@@ -44,6 +44,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl addTarget:self action:@selector(controlInitRefreshDashboard) forControlEvents:UIControlEventValueChanged];
 
     // Register the NIB files for the dashboard cells
     UINib *prcNib = [UINib nibWithNibName:@"NEODashboardHeaderCell" bundle:nil];
@@ -58,12 +61,22 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
     
-    
+    /*
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user pullProfileInfo];
-
+     */
 
 }
+
+/* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
+ */
+-(void)controlInitRefreshDashboard
+{
+    [self.refreshControl endRefreshing];
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.user pullProfileInfo];
+}
+
 
 -(void)refreshDashboard
 {
@@ -71,6 +84,7 @@
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.webView cleanForDealloc];
+    
     delegate.webView = nil;
 }
 
@@ -95,7 +109,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
     if (self) {
-       
+        NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        delegate.rootNav.navigationBar.translucent = NO;
         
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
@@ -105,6 +120,7 @@
         MMDrawerBarButtonItem *lbbi = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(toggleDrawer)];
         
         navItem.leftBarButtonItem = lbbi;
+        delegate.rootNav.navigationBar.translucent = NO;
         }
     return self;
 }

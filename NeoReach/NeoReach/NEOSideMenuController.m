@@ -159,10 +159,11 @@
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
         }
         
+        //deletes stored session configuration
+        delegate.login.sessionConfig = nil;
+        [[NSFileManager defaultManager] removeItemAtPath: [delegate.login configArchivePath] error:nil];
         
-        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
-            
-        }];
+        [delegate.drawer closeDrawerAnimated:YES completion:nil];
     }
     
     

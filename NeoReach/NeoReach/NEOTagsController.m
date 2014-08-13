@@ -31,6 +31,7 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     cell.textLabel.text = _tags[indexPath.row];
+
     return cell;
 }
 

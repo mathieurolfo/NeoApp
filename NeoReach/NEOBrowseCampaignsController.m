@@ -23,6 +23,7 @@
 @property bool campaignsLoaded; // Need this to differentiate between 0 campaigns and campaigns loading
 
 @property (weak, nonatomic) NEOBrowseGenLinkCell *genLinkCell; //need a reference to this to update its contents when generating a link
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation NEOBrowseCampaignsController
@@ -42,6 +43,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:_refreshControl];
+    [_refreshControl addTarget:self action:@selector(controlInitRefreshCampaigns) forControlEvents:UIControlEventValueChanged];
     
     _campaigns = [[NSMutableArray alloc] init];
     _campaignIndex = 0;
@@ -56,6 +60,12 @@
     [self.tableView registerNib:dcNib forCellReuseIdentifier:@"NEOBrowseDetailsCell"];
     [self.tableView registerNib:glcNib forCellReuseIdentifier:@"NEOBrowseGenLinkCell"];
     
+    [self loadCampaigns];
+}
+
+-(void)controlInitRefreshCampaigns
+{
+    [self.refreshControl endRefreshing];
     [self loadCampaigns];
 }
 
@@ -202,7 +212,7 @@
     _campaignsLoaded = NO;
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
@@ -268,7 +278,7 @@
 -(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
@@ -313,7 +323,7 @@
     request.HTTPMethod = @"POST";
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
     if (!_session) {
                _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     }

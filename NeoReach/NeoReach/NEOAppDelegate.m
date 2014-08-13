@@ -20,7 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
     self.login = loginController;
 
@@ -45,7 +44,7 @@
     //hides navigation bar separating line
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1]];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
     
     
     return YES;
@@ -61,8 +60,12 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    BOOL success = [self.login saveChanges];
+    if (success) {
+        NSLog(@"Successfully archived login");
+    } else {
+        NSLog(@"Didn't save login");
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
