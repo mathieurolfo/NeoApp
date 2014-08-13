@@ -25,9 +25,6 @@
         // Custom initialization
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Link Accounts";
-        
-
-
     }
     return self;
 }
@@ -38,7 +35,6 @@
     // Do any additional setup after loading the view from its nib.
     UINib *accountNib = [UINib nibWithNibName:@"NEOLinkedAccountCell" bundle:nil];
     [self.tableView registerNib:accountNib forCellReuseIdentifier:@"NEOLinkedAccountCell"];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,7 +67,12 @@
     NEOLinkedAccount *account = user.linkedAccounts[indexPath.row];
     
     cell.reachLabel.text = [NSString stringWithFormat:@"%lu",account.reach];
-    cell.nameLabel.text = account.fullName;
+    
+    if ([account.name isEqualToString:@"twitter.com"]) {
+        cell.nameLabel.text = [NSString stringWithFormat:@"@%@",account.fullName];
+    } else {
+        cell.nameLabel.text = account.fullName;
+    }
     
     if ([account.name isEqualToString:@"facebook.com"]) {
         cell.publisherImage.image = [UIImage imageNamed:@"facebookLogo.png"];
