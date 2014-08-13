@@ -60,7 +60,7 @@
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Tags";
         
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTag:)];
         navItem.rightBarButtonItem = addButton;
         
         NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
@@ -69,6 +69,20 @@
         
     }
     return self;
+}
+
+- (IBAction)addTag:(id)sender
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add a Tag" message:nil delegate:self cancelButtonTitle:@"Add" otherButtonTitles:nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"Entered: %@",[[alertView textFieldAtIndex:0] text]);
+    [_tags addObject:[[alertView textFieldAtIndex:0] text]];
+    
+    [_tableView reloadData];
 }
 
 - (void)viewDidLoad
