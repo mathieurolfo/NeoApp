@@ -8,6 +8,8 @@
 
 #import "NEOTagsController.h"
 #import "NEOAppDelegate.h"
+#import <CRToast/CRToast.h>
+
 
 @interface NEOTagsController ()
 @property (strong, nonatomic) NSMutableArray *tags;
@@ -19,7 +21,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_tags count];
+    return [_tags count] + 1; // plus one for save button
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -30,9 +32,27 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    cell.textLabel.text = _tags[indexPath.row];
+    
+    if (indexPath.row < [_tags count]) {
+        cell.textLabel.text = _tags[indexPath.row];
+    } else { // Save button
+        UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        saveButton.frame = CGRectMake(0, 0, screenRect.size.width, 40.0);
+        [saveButton setTitle:@"Save" forState:UIControlStateNormal];
+        [saveButton addTarget:self
+                       action:@selector(updateUserTags:)
+         forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:saveButton];
+    }
+    
 
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40.0;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,24 +105,43 @@
     [_tableView reloadData];
 }
 
+/*
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        [self updateUserTags];
     }
     [super viewWillDisappear:animated];
 }
+ */
 
 
--(void) updateUserTags
+-(IBAction)updateUserTags:(id) sender
 {
+
+
+    if ([_tags count] == 0) {
+        NSDictionary *toastOptions = @{
+                                  kCRToastTextKey : @"Please enter at least one tag.",
+                                  kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                  kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                  kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                  kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                  kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                  kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                  };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                    }];
+
+        
+    } else {
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-
-
     NSDictionary *dict = @{
                            @"tags": _tags
                            };
     
     [user postProfileInfoWithDictionary:dict];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    }
     
 }
 
