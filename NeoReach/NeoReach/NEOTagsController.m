@@ -7,9 +7,10 @@
 //
 
 #import "NEOTagsController.h"
+#import "NEOAppDelegate.h"
 
 @interface NEOTagsController ()
-
+@property (strong, nonatomic) NSMutableArray *tags;
 @end
 
 @implementation NEOTagsController
@@ -18,7 +19,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return [_tags count];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -29,24 +30,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *) indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"recorder";
-            break;
-        case 1:
-            cell.textLabel.text = @"numpy";
-            break;
-        case 2:
-            cell.textLabel.text = @"air guitar";
-            break;
-        case 3:
-            cell.textLabel.text = @"no face";
-            break;
-        default:
-            break;
-    }
-    
-    NSLog(@"Filling cells");
+    cell.textLabel.text = _tags[indexPath.row];
     return cell;
 }
 
@@ -62,8 +46,14 @@
     if (self) {
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Tags";
+        
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:nil action:nil];
         navItem.rightBarButtonItem = addButton;
+        
+        NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+        _tags = [[NSMutableArray alloc] initWithArray:user.tags];
+        
+        
     }
     return self;
 }
