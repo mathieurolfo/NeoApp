@@ -21,4 +21,7 @@
 
 @property (strong, nonatomic) NSString *referralURL;
 
+/* Sends a "campaignURLGenerated" notification when completed. */
+-(void)generateReferralURL;
+
 @end

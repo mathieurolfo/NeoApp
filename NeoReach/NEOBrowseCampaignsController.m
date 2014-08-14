@@ -62,14 +62,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulled) name:@"campaignsPulled" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignURLGenerated) name:@"campaignURLGenerated" object:nil];
+
+    
     [self loadCampaigns];
 }
 
 - (void) campaignsPulled
 {
     _campaignsLoaded = YES;
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    NSLog(@"campaignsLoaded: %@", [user campaigns]);
     [self.tableView reloadData];
 
 }
@@ -180,9 +181,10 @@
                                         dequeueReusableCellWithIdentifier:@"NEOBrowseGenLinkCell"
                                         forIndexPath:indexPath];
             
+            glc.campaignExists = (campaign != nil);
             glc.linkURL = campaign.referralURL;
                 [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
-            glc.campaignExists = (campaign != nil);
+            NSLog(@"campaign exists: %d",glc.campaignExists);
             _genLinkCell = glc;
             cell = (UITableViewCell *)glc;
             break;
@@ -234,35 +236,16 @@
 
 -(IBAction)generateReferralURL:(id)sender
 {
-    NEOCampaign *campaign = [_campaigns objectAtIndex:_campaignIndex];
-    NSURL *URL = [NSURL URLWithString:
-                  [NSString stringWithFormat:@"https://api.neoreach.com/tracker/%@",campaign.ID]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    request.HTTPMethod = @"POST";
-    
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
-    if (!_session) {
-               _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
-    }
-    
-    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSError *jsonError;
-        NSDictionary *dict =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        NSString *referralURL = [[dict objectForKey:@"data"] valueForKey:@"link"];
-        campaign.referralURL = referralURL;
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    }];
-    [postDataTask resume];
-    
-    
-    
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    [user.campaigns[_campaignIndex] generateReferralURL];
     
 }
+
+-(void)campaignURLGenerated
+{
+    [self.tableView reloadData];
+}
+
 
 -(CGFloat)heightForPromotionText
 {
