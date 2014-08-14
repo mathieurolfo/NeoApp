@@ -114,6 +114,15 @@
 {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
+        [delegate disableDrawerAccess];
+        [delegate.rootNav pushViewController:profileController animated:YES];
+        [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
+            
+        }];
+    }
+    
     //clicking profile information takes you to profile info
     if (indexPath.section == 1 && indexPath.row == 0) {
         NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
