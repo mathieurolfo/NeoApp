@@ -39,6 +39,11 @@
 
 #pragma mark Default Methods
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
