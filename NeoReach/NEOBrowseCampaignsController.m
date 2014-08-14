@@ -183,8 +183,7 @@
             
             glc.campaignExists = (campaign != nil);
             glc.linkURL = campaign.referralURL;
-                [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
-            NSLog(@"campaign exists: %d",glc.campaignExists);
+            [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
             _genLinkCell = glc;
             cell = (UITableViewCell *)glc;
             break;
