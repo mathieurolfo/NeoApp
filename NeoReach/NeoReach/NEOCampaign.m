@@ -19,7 +19,7 @@
     request.HTTPMethod = @"POST";
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

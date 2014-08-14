@@ -21,40 +21,45 @@
 -(void) pullProfileInfo
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        //load response into a dictionary
-        NSDictionary *profileJSON =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-                NSLog(@"Header invalid");
+    
+    if (delegate.xAuth && delegate.xDigest) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+        NSLog(@"Header invalid");
+    } else {
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            NSError *jsonError;
+            
+            //load response into a dictionary
+            NSDictionary *profileJSON =
+            [NSJSONSerialization JSONObjectWithData:data
+                                            options:NSJSONReadingMutableContainers
+                                              error:&jsonError];
+            
+            if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+                    NSLog(@"Header invalid");
+                });
+            } else { // success
+            
+                [self populateUserProfileWithDictionary:profileJSON];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
+                    NSLog(@"profile pulled");
             });
-        } else { // success
-        
-            [self populateUserProfileWithDictionary:profileJSON];
-        
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
-                NSLog(@"profile pulled");
-        });
-        }
-    }];
-    [dataTask resume];
-
+            }
+        }];
+        [dataTask resume];
+    }
 }
 
 
@@ -74,7 +79,7 @@
     
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
 
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
 
@@ -219,7 +224,7 @@
 -(void) pullCampaigns
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
@@ -299,7 +304,7 @@
 -(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];

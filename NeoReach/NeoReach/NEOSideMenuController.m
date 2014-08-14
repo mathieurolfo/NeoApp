@@ -170,8 +170,9 @@
         }
         
         //deletes stored session configuration
-        delegate.login.sessionConfig = nil;
-        [[NSFileManager defaultManager] removeItemAtPath: [delegate.login configArchivePath] error:nil];
+        delegate.sessionConfig = nil;
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xAuth"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xDigest"];
         
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     }

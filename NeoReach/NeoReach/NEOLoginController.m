@@ -26,38 +26,6 @@
 #pragma mark Initialization and View Methods
 
 
--(id)initWithCoder:(NSCoder *)decoder
-{
-    self = [super initWithCoder:decoder];
-    if (self) {
-        
-    }
-    self.sessionConfig = [decoder decodeObjectForKey:@"sessionConfig"];
-    
-    NSLog(@"unarchived sessionConfig");
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)encoder
-{
-    [encoder encodeObject:self.sessionConfig forKey:@"sessionConfig"];
-}
-
--(NSString *)configArchivePath
-{
-    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [documentDirectories firstObject];
-    return [documentDirectory stringByAppendingPathComponent:@"config.archive"];
-}
-
--(BOOL)saveChanges
-{
-    NSString *path = [self configArchivePath];
-    NSLog(@"%@", path);
-    return [NSKeyedArchiver archiveRootObject:self.sessionConfig toFile:path];
-}
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,17 +35,9 @@
         self.currRedirectAddress = @"";
         
         //subscribe to notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebview) name:@"headerInvalid" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
-        NSLog(@"login nib initialized");
-        NSString *path = [self configArchivePath];
-        _sessionConfig = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        if (!_sessionConfig) {
-            //_sessionConfig = [[NSMutableArray alloc] init];
-            NSLog(@"No session configuration saved");
-        } else {
-            
-        }
+        
     }
     return self;
 }
@@ -110,21 +70,12 @@
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
    
-    //three cases
-    //case 1: no headers
-    if (!self.sessionConfig) {
-        NSLog(@"No session config");
-        [self loadWebview];
-    } else {
-        //cases 2 and 3
-        NSLog(@"%@", self.sessionConfig.HTTPAdditionalHeaders);
-        [delegate.user pullProfileInfo];
-        NSLog(@"Request to pull initiated");
-    }
+    [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
+    
 }
 
 //called if no headers exist
--(void)loadWebview
+-(void)loadWebView
 {
     UIWebView *webView = [self configureWebView];
     NSLog(@"Webview configured");
@@ -174,11 +125,6 @@
     [delegate.window addSubview:delegate.webView];
     delegate.webView.hidden = YES;
     
-    //if none unarchived, initialize
-    if (!self.sessionConfig) {
-        self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSLog(@"Created a session configuration");
-    }
     
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     return delegate.webView;
@@ -206,7 +152,8 @@
                
                //the user is redirected to the actual 'enter login info' page
                [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"] ||
-               [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"]) { //display login screen
+               [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"] ||
+               [redirectAddress hasPrefix:@"https://www.facebook.com/dialog/oauth"]) { //display login screen
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
@@ -219,7 +166,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:self.sessionConfig delegate:nil delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -233,10 +180,13 @@
         NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
         NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
         
-        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
+        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
         
-        NSLog(@"%@", self.sessionConfig);
+        [[NSUserDefaults standardUserDefaults] setValue:xAuth forKey:@"xAuth"];
+        [[NSUserDefaults standardUserDefaults] setValue:xDigest forKey:@"xDigest"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", xAuth, xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
