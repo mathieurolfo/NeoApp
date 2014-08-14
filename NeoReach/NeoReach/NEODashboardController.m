@@ -65,7 +65,8 @@
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user pullProfileInfo];
      */
-
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    delegate.rootNav.navigationBar.translucent = NO;
 }
 
 /* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
