@@ -256,6 +256,7 @@
         NEOCampaign *campaign = [[NEOCampaign alloc] init];
         
         campaign.costPerClick = [[[campaignsJSON objectAtIndex:i] valueForKey:@"cpc"] floatValue];
+        campaign.totalClicks = [[[campaignsJSON objectAtIndex:i] valueForKey:@"totalClicks"] unsignedIntValue];
         
         // Most information is in "campaign" field
         NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];

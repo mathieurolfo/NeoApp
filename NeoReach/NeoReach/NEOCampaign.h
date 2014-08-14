@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *promotion;
 @property                        float costPerClick;
-
+@property                    NSUInteger totalClicks;
 
 @property (strong, nonatomic) NSString *imageURL;
 @property (strong, nonatomic) UIImage *image;
