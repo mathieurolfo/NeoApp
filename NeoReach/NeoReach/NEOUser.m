@@ -9,6 +9,11 @@
 #import "NEOUser.h"
 #import "NEOAppDelegate.h"
 #import "NEOLinkedAccount.h"
+#import "NEOCampaign.h"
+
+@interface NEOUser ()
+@property (nonatomic) dispatch_semaphore_t referralSema;
+@end
 
 @implementation NEOUser
 
@@ -211,10 +216,126 @@
     self.linkedAccounts = [NSArray arrayWithArray:linkedAccounts];
 }
 
+-(void) pullCampaigns
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
+    NSURL *url = [NSURL URLWithString:requestString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+        
+        
+        NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
+        [self fetchReferralURLsForCampaigns:campaignsWithoutReferralURLs];
+        
+
+    }];
+    [dataTask resume];
+}
+
+-(NSMutableArray *)campaignsFromDictionary:(NSDictionary *)dict
+{
+    NSMutableArray *campaigns = [[NSMutableArray alloc] init];
+    
+    NSArray *campaignsJSON = [[dict objectForKey:@"data"] objectForKey:@"Campaigns"];
+    
+    for (int i = 0; i < [campaignsJSON count]; i++) {
+        NEOCampaign *campaign = [[NEOCampaign alloc] init];
+        
+        campaign.costPerClick = [[[campaignsJSON objectAtIndex:i] valueForKey:@"cpc"] floatValue];
+        
+        // Most information is in "campaign" field
+        NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
+        campaign.ID = [campaignDict valueForKey:@"_id"];
+        campaign.name = [campaignDict valueForKey:@"name"];
+        campaign.promotion = [campaignDict valueForKey:@"promotion"];
+        
+        //Image is stored in Files[0]
+        // TODO load image from URL
+        // *** not tested, Files are all empty for some reason ***
+        NSArray *files = [campaignDict objectForKey:@"Files"];
+        if ([files count] > 0) {
+            NSString *imageID = [[campaignDict objectForKey:@"Files"] objectAtIndex:0];
+            campaign.imageURL = [NSString stringWithFormat:@"https://app.neoreach.com/file/read/%@",imageID];
+        }
+        [campaigns addObject:campaign];
+    }
+    
+    return campaigns;
+}
+
+-(void)fetchReferralURLsForCampaigns:(NSMutableArray *)campaigns
+{
+    _referralSema = dispatch_semaphore_create(0);
+    
+    for (int i = 0; i < [campaigns count]; i++) {
+        [self fetchReferralURLForCampaign:campaigns[i]];
+    }
+    
+    // We need to wait for all the URLs to be fetched before returning
+    for (int i = 0; i < [campaigns count]; i++) {
+        dispatch_semaphore_wait(_referralSema, DISPATCH_TIME_FOREVER);
+    }
+    
+    _campaigns = [NSArray arrayWithArray:campaigns];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
+    });
+}
+
+-(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
+    
+    NSURL *url = [NSURL URLWithString:requestString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+        NSDictionary *trackerData = [dict objectForKey:@"data"];
+        
+        if (![trackerData isEqual:[NSNull null]]) {
+            campaign.referralURL = [trackerData objectForKey:@"link"];
+        } else {
+            campaign.referralURL = nil;
+        }
+        
+        dispatch_semaphore_signal(_referralSema);
+    }];
+    [dataTask resume];
+}
+
+
 - (NSString *)stringOrBlankIfNil:(NSString *)str
 {
     return (str) ? str : @"";
 }
+
 
 
 @end

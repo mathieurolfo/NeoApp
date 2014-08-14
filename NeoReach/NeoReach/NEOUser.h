@@ -35,12 +35,17 @@
 @property (strong, nonatomic) NSString *fbXDigest;
 
 
-// will send a 'profilePulled' notification on success. If X-Auth and X-Digest were invalid, sends an 'invalidHeaders' notification.
+
+/* Sends a 'profilePulled' notification on success. If X-Auth and X-Digest were invalid, sends an
+ *'invalidHeaders' notification.
+ */
 -(void) pullProfileInfo;
 
-
-// will send a 'profilePosted' notification when finished. Requires a dictionary
-// with the user fields to be edited. Automatically calls pullProfileInfo when finished.
+/* Sends a 'profilePosted' notification when finished. Requires a dictionary with the user fields
+ * to be edited. Automatically calls pullProfileInfo when finished.
+ */
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict;
 
+/* Sends a 'campaignsPulled' notification on success. */
+-(void) pullCampaigns;
 @end

@@ -60,8 +60,20 @@
     [self.tableView registerNib:dcNib forCellReuseIdentifier:@"NEOBrowseDetailsCell"];
     [self.tableView registerNib:glcNib forCellReuseIdentifier:@"NEOBrowseGenLinkCell"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulled) name:@"campaignsPulled" object:nil];
+    
     [self loadCampaigns];
 }
+
+- (void) campaignsPulled
+{
+    _campaignsLoaded = YES;
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    NSLog(@"campaignsLoaded: %@", [user campaigns]);
+    [self.tableView reloadData];
+
+}
+
 
 -(void)controlInitRefreshCampaigns
 {
@@ -111,9 +123,11 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    
     NEOCampaign *campaign = nil;
-    if ([_campaigns count] > 0) {
-        campaign = [_campaigns objectAtIndex:_campaignIndex];
+    if ([[user campaigns] count] > 0) {
+        campaign = user.campaigns[_campaignIndex];
     }
     
     UITableViewCell *cell = nil;
@@ -186,7 +200,9 @@
 
 -(IBAction)goToNextCampaign:(id)sender
 {
-    if (_campaignIndex < [_campaigns count] - 1) {
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+
+    if (_campaignIndex < [user.campaigns count] - 1) {
     _campaignIndex++;
     } else {
         _campaignIndex = 0;
@@ -195,13 +211,14 @@
     [self.tableView reloadData];
 }
 
-
 -(IBAction)goToPreviousCampaign:(id)sender
 {
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+
     if (_campaignIndex > 0) {
         _campaignIndex--;
     } else {
-        _campaignIndex = [_campaigns count] - 1;
+        _campaignIndex = [user.campaigns count] - 1;
     }
     
     [self.tableView reloadData];
@@ -210,109 +227,10 @@
 -(void) loadCampaigns
 {
     _campaignsLoaded = NO;
-    
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
-    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
-    
-    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
-    NSURL *url = [NSURL URLWithString:requestString];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        NSDictionary *dict =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        
-
-        [self populateCampaignsWithDictionary:dict];
-        _campaignsLoaded = YES;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    }];
-    [dataTask resume];
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    [user pullCampaigns];
 }
 
--(void)populateCampaignsWithDictionary:(NSDictionary *)dict
-{
-    NSArray *campaignsJSON = [[dict objectForKey:@"data"] objectForKey:@"Campaigns"];
-    
-    for (int i = 0; i < [campaignsJSON count]; i++) {
-        NEOCampaign *campaign = [[NEOCampaign alloc] init];
-
-        campaign.costPerClick = [[[campaignsJSON objectAtIndex:i] valueForKey:@"cpc"] floatValue];
-        
-        // Most information is in "campaign" field
-        NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
-        campaign.ID = [campaignDict valueForKey:@"_id"];
-        campaign.name = [campaignDict valueForKey:@"name"];
-        campaign.promotion = [campaignDict valueForKey:@"promotion"];
-        
-        //Image is stored in Files[0]
-        // TODO load image from URL
-        // *** not tested, Files are all empty for some reason ***
-        NSArray *files = [campaignDict objectForKey:@"Files"];
-        if ([files count] > 0) {
-            NSString *imageID = [[campaignDict objectForKey:@"Files"] objectAtIndex:0];
-            campaign.imageURL = [NSString stringWithFormat:@"https://app.neoreach.com/file/read/%@",imageID];
-        }
-        
-        
-
-        [self fetchReferralURLForCampaign:campaign];
-        [_campaigns addObject:campaign];
-
-
-    }
-    
-}
-
--(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
-{
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
-    _session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
-    
-    NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
-    
-    NSURL *url = [NSURL URLWithString:requestString];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        NSDictionary *dict =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-
-        
-        NSDictionary *trackerData = [dict objectForKey:@"data"];
-        
-        if (![trackerData isEqual:[NSNull null]]) {
-            campaign.referralURL = [trackerData objectForKey:@"link"];
-        } else {
-            campaign.referralURL = nil;
-        }
-
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    }];
-    [dataTask resume];
-}
 
 -(IBAction)generateReferralURL:(id)sender
 {
@@ -348,11 +266,13 @@
 
 -(CGFloat)heightForPromotionText
 {
-    if ([_campaigns count] == 0) return 0.0;
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+
+    if ([user.campaigns count] == 0) return 0.0;
 
     UILabel *label = [[UILabel alloc] init];
     
-    label.text = [[_campaigns objectAtIndex:_campaignIndex] promotion];
+    label.text = [[user.campaigns objectAtIndex:_campaignIndex] promotion];
     label.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
