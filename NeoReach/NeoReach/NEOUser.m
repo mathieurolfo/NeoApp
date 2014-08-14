@@ -55,10 +55,10 @@
 
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict
 {
+    NSDictionary *completeFormattedDict = [self completeFormattedDictFrom:dict];
+
     NSError *error;
-    NSDictionary *completeDict = [self completeDictFrom:dict];
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:completeDict options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:completeFormattedDict options:NSJSONWritingPrettyPrinted error:&error];
     
     NSURL *URL = [NSURL URLWithString: @"https://api.neoreach.com/account/"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
@@ -97,7 +97,7 @@
     [postDataTask resume];
 }
 
--(NSDictionary *)completeDictFrom:(NSDictionary *)dict
+-(NSDictionary *)completeFormattedDictFrom:(NSDictionary *)dict
 {
     
 
@@ -106,8 +106,8 @@
     NSString *email = [self valueOrUserValueIfNone:dict[@"email"] userValue:self.email];
     
     NSDictionary *name = @{
-                           @"first": [self valueOrUserValueIfNone:dict[@"name"][@"first"] userValue:self.firstName],
-                           @"last": [self valueOrUserValueIfNone:dict[@"name"][@"last"] userValue:self.lastName]
+                           @"first": [self valueOrUserValueIfNone:dict[@"firstName"] userValue:self.firstName],
+                           @"last": [self valueOrUserValueIfNone:dict[@"lastName"] userValue:self.lastName]
                            };
     
     
@@ -115,7 +115,7 @@
     NSString *gender = [self valueOrUserValueIfNone:dict[@"gender"] userValue:self.gender];
     NSString *website = [self valueOrUserValueIfNone:dict[@"website"] userValue:self.website];
     
-    NSDate *dateOfBirth = [self valueOrUserValueIfNone:dict[@"dob"] userValue:self.dateOfBirth];
+    NSDate *dateOfBirth = [self valueOrUserValueIfNone:dict[@"dateOfBirth"] userValue:self.dateOfBirth];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
@@ -128,7 +128,7 @@
     NSInteger timezoneOffset = self.timezoneOffset; // We won't ever be editing this
     
     
-    NSDictionary *completeDict = @{
+    NSDictionary *completeFormattedDict = @{
                                    @"tags": tags,
                                    @"email" : email,
                                    @"name" : name,
@@ -140,7 +140,7 @@
                                    };
     
     
-    return completeDict;
+    return completeFormattedDict;
 }
 
 -(id)valueOrUserValueIfNone:(id)value userValue:(id)userValue
@@ -190,7 +190,7 @@
     
 
     //Publishers are linked accounts
-    self.linkedAccounts = [[NSMutableArray alloc] init]; //clear out any previous data
+    NSMutableArray *linkedAccounts = [[NSMutableArray alloc] init];
     NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
     for (int i=0; i < [publishers count]; i++) {
         NSDictionary *publisher = [publishers objectAtIndex:i];
@@ -201,13 +201,14 @@
         account.picURL = publisher[@"pic"];
         account.pid = publisher[@"pid"];
         account.reach = [publisher[@"reach"] intValue];
-        [self.linkedAccounts addObject:account];
+        [linkedAccounts addObject:account];
         
         if ([account.name isEqualToString:@"facebook.com"]) { // Use facebook profile picture for dashboard
             self.profilePictureURL = [publisher valueForKeyPath:@"pic"];
             self.profilePicture = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.profilePictureURL]]];
         }
     }
+    self.linkedAccounts = [NSArray arrayWithArray:linkedAccounts];
 }
 
 - (NSString *)stringOrBlankIfNil:(NSString *)str

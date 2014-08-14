@@ -9,24 +9,31 @@
 #import <Foundation/Foundation.h>
 
 @interface NEOUser : NSObject
+
+/* These properties are pulled from the NeoReach server. They should not be directly
+ * modified; user info should be pulled with pullProfileInfo and modified with 
+ * postProfileInfoWithDictionary.
+ */
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
-@property (strong, nonatomic) NSString *profilePictureURL;
-@property (strong, nonatomic) UIImage *profilePicture;
-
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *gender;
 @property (strong, nonatomic) NSString *website;
 @property (strong, nonatomic) NSDate *dateOfBirth;
-
 @property (strong, nonatomic) NSString *paypalEmail;
 @property NSInteger timezoneOffset;
 @property (strong, nonatomic) NSArray *tags;
 
-@property (strong, nonatomic) NSMutableArray *linkedAccounts;
+/* These properties are pulled from the server, but cannot be changed with postProfileInfoWithDictionary. */
+@property (strong, nonatomic) NSArray *campaigns;
+@property (strong, nonatomic) NSArray *linkedAccounts;
+@property (strong, nonatomic) NSString *profilePictureURL;
+@property (strong, nonatomic) UIImage *profilePicture;
 
+/* These properties are local. Do with them what you please. */
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;
+
 
 // will send a 'profilePulled' notification on success. If X-Auth and X-Digest were invalid, sends an 'invalidHeaders' notification.
 -(void) pullProfileInfo;
