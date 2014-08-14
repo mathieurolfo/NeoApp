@@ -13,6 +13,7 @@
 #import "NEOTagsController.h"
 #import "UIWebView+Clean.h"
 #import "NEOAccountsController.h"
+#import "NEOReferralLinkController.h"
 
 @interface NEOSideMenuController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -114,10 +115,10 @@
 {
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    if (indexPath.section == 1 && indexPath.row == 0) {
-        NEOProfileInfoController *profileController = [[NEOProfileInfoController alloc] init];
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        NEOReferralLinkController *referralLinkController = [[NEOReferralLinkController alloc] init];
         [delegate disableDrawerAccess];
-        [delegate.rootNav pushViewController:profileController animated:YES];
+        [delegate.rootNav pushViewController:referralLinkController animated:YES];
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
         }];
