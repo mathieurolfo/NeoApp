@@ -37,6 +37,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="campaignLabel" destination="iJs-Pg-aw9" id="ayM-r8-6KT"/>
+                <outlet property="clicksLabel" destination="Gdw-6G-tBw" id="d3v-MB-C2K"/>
                 <outlet property="deltaLabel" destination="Gdw-6G-tBw" id="zNn-n8-USS"/>
                 <outlet property="postLabel" destination="iJs-Pg-aw9" id="jb3-kI-D8s"/>
             </connections>
