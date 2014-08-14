@@ -105,14 +105,6 @@
     [_tableView reloadData];
 }
 
-/*
--(void) viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-    }
-    [super viewWillDisappear:animated];
-}
- */
-
 
 -(IBAction)updateUserTags:(id) sender
 {

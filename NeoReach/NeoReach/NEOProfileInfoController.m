@@ -93,10 +93,11 @@
     
     NSDictionary *dict = @{
         @"email" : form.email,
-        @"name" : @{@"first":form.firstName, @"last":form.lastName},
+        @"firstName" : form.firstName,
+        @"lastName" : form.lastName,
         @"gender": gender,
         @"website": form.website,
-        @"dob": form.dateOfBirth,
+        @"dateOfBirth": form.dateOfBirth,
         };
          
     
