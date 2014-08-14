@@ -69,9 +69,14 @@
     [self.loginButton setEnabled:NO];
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-   
-    [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
+    NSLog(@"Login pressed");
     
+    if (!delegate.xAuth) {
+        [self loadWebView];
+    } else {
+    
+        [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
+    }
 }
 
 //called if no headers exist
@@ -80,10 +85,12 @@
     UIWebView *webView = [self configureWebView];
     NSLog(@"Webview configured");
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
+    NSLog(@"%@", loginURL);
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     
-    dispatch_async(dispatch_get_main_queue(), ^ {
+    dispatch_async(dispatch_get_main_queue(), ^{
         [webView loadRequest:request];
+        NSLog(@"Loading request");
         [self displayActivityIndicator];
     });
 
@@ -132,18 +139,21 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSLog(@"load request has begun");
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
-    
+    NSLog(@"%@", redirectAddress);
     //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
     self.prevRedirectAddress = self.currRedirectAddress;
     self.currRedirectAddress = redirectAddress;
     
-    NSLog(@"%@", self.prevRedirectAddress);
+    NSLog(@"%@ helooo", self.prevRedirectAddress);
     
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
+        NSLog(@"Get auth header");
         [self getAuthHeader];
+        
         return NO;
     } else if (
             //the login address appears twice (loading quirk?)
@@ -157,7 +167,7 @@
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
-    
+    NSLog(@"nothing happened here. load request");
     return YES;
 }
 
@@ -217,6 +227,7 @@
     [delegate.webView stopLoading];
     [self.loginButton setEnabled:YES];
     self.logInOutInfoLabel.text = @"Login timed out";
+    NSLog(@"Login timed out");
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView

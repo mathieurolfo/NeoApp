@@ -27,10 +27,13 @@
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    if (delegate.xAuth && delegate.xDigest) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-        NSLog(@"Header invalid");
+    NSLog(@"Trying to pull profile information in User");
+    if (!delegate.xAuth && !delegate.xDigest) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Header empty");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+            
+        });
     } else {
         NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             
