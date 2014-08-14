@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -13,8 +13,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="analyticsgraph" translatesAutoresizingMaskIntoConstraints="NO" id="G1z-UJ-GfP">
-                        <rect key="frame" x="0.0" y="24" width="320" height="111"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="newanalyticsgraph" translatesAutoresizingMaskIntoConstraints="NO" id="G1z-UJ-GfP">
+                        <rect key="frame" x="-5" y="-257" width="320" height="518"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="312 clicks               ▲15                  $5.19" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mww-8b-EK8">
@@ -27,12 +27,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Mww-8b-EK8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0t3-QB-ch5"/>
-                    <constraint firstItem="G1z-UJ-GfP" firstAttribute="top" secondItem="Mww-8b-EK8" secondAttribute="bottom" constant="1" id="2Lv-nZ-l5z"/>
+                    <constraint firstItem="G1z-UJ-GfP" firstAttribute="top" secondItem="Mww-8b-EK8" secondAttribute="bottom" constant="-280" id="2Lv-nZ-l5z"/>
                     <constraint firstItem="Mww-8b-EK8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="MFi-ZB-AH9"/>
-                    <constraint firstAttribute="trailing" secondItem="G1z-UJ-GfP" secondAttribute="trailing" id="TgN-8d-tLH"/>
-                    <constraint firstAttribute="bottom" secondItem="G1z-UJ-GfP" secondAttribute="bottom" constant="1" id="sFf-h6-1Xp"/>
+                    <constraint firstAttribute="trailing" secondItem="G1z-UJ-GfP" secondAttribute="trailing" constant="5" id="TgN-8d-tLH"/>
+                    <constraint firstAttribute="bottom" secondItem="G1z-UJ-GfP" secondAttribute="bottom" constant="-125" id="sFf-h6-1Xp"/>
                     <constraint firstAttribute="trailing" secondItem="Mww-8b-EK8" secondAttribute="trailing" id="wd0-8u-rLf"/>
-                    <constraint firstItem="G1z-UJ-GfP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zHd-Wo-KD3"/>
+                    <constraint firstItem="G1z-UJ-GfP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-5" id="zHd-Wo-KD3"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -41,6 +41,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="analyticsgraph" width="579" height="204"/>
+        <image name="newanalyticsgraph" width="640" height="1136"/>
     </resources>
 </document>
