@@ -116,8 +116,6 @@
 
     if (self) {
         NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        delegate.rootNav.navigationBar.translucent = NO;
-        
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Dashboard";
         

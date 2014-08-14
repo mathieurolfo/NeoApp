@@ -20,6 +20,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.referralLinkField.font = [UIFont fontWithName:@"Lato-Regular" size:14.0];
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Invite Friends";
     }
     return self;
 }
