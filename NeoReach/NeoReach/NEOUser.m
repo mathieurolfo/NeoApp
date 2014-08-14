@@ -12,7 +12,6 @@
 #import "NEOCampaign.h"
 
 @interface NEOUser ()
-@property (nonatomic) dispatch_semaphore_t referralSema;
 @end
 
 @implementation NEOUser
@@ -280,15 +279,14 @@
 
 -(void)fetchReferralURLsForCampaigns:(NSMutableArray *)campaigns
 {
-    _referralSema = dispatch_semaphore_create(0);
-    
+    dispatch_semaphore_t referralSema = dispatch_semaphore_create(0);
     for (int i = 0; i < [campaigns count]; i++) {
-        [self fetchReferralURLForCampaign:campaigns[i]];
+        [self fetchReferralURLForCampaign:campaigns[i] withSemaphore:referralSema];
     }
     
     // We need to wait for all the URLs to be fetched before returning
     for (int i = 0; i < [campaigns count]; i++) {
-        dispatch_semaphore_wait(_referralSema, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(referralSema, DISPATCH_TIME_FOREVER);
     }
     
     _campaigns = [NSArray arrayWithArray:campaigns];
@@ -297,7 +295,7 @@
     });
 }
 
--(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
+-(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign withSemaphore:(dispatch_semaphore_t)sema
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.login.sessionConfig;
@@ -326,7 +324,7 @@
             campaign.referralURL = nil;
         }
         
-        dispatch_semaphore_signal(_referralSema);
+        dispatch_semaphore_signal(sema);
     }];
     [dataTask resume];
 }
