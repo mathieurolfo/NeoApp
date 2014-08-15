@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *currRedirectAddress;
 @property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic) int count;
 @end
 
 @implementation NEOLoginController
@@ -70,8 +71,9 @@
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSLog(@"Login pressed");
-    
+    NSLog(@"%@", delegate.sessionConfig.HTTPAdditionalHeaders);
     if (!delegate.xAuth) {
+        NSLog(@"laod webviw");
         [self loadWebView];
     } else {
     
@@ -83,12 +85,14 @@
 -(void)loadWebView
 {
     UIWebView *webView = [self configureWebView];
-    NSLog(@"Webview configured");
+    self.count = self.count +1;
+    NSLog(@"Webview configured for %ith time", self.count);
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
     NSLog(@"%@", loginURL);
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Starting a new web request");
         [webView loadRequest:request];
         NSLog(@"Loading request");
         [self displayActivityIndicator];
@@ -139,15 +143,14 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"load request has begun");
+    
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
-    NSLog(@"%@", redirectAddress);
     //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
     self.prevRedirectAddress = self.currRedirectAddress;
     self.currRedirectAddress = redirectAddress;
     
-    NSLog(@"%@ helooo", self.prevRedirectAddress);
+    NSLog(@"%@", self.prevRedirectAddress);
     
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
@@ -167,7 +170,6 @@
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
-    NSLog(@"nothing happened here. load request");
     return YES;
 }
 

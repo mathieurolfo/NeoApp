@@ -28,41 +28,35 @@
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSLog(@"Trying to pull profile information in User");
-    if (!delegate.xAuth && !delegate.xDigest) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Header empty");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-            
-        });
-    } else {
-        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            
-            NSError *jsonError;
-            
-            //load response into a dictionary
-            NSDictionary *profileJSON =
-            [NSJSONSerialization JSONObjectWithData:data
-                                            options:NSJSONReadingMutableContainers
-                                              error:&jsonError];
-            
-            if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-                    NSLog(@"Header invalid");
-                });
-            } else { // success
-            
-                [self populateUserProfileWithDictionary:profileJSON];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
-                    NSLog(@"profile pulled");
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        //load response into a dictionary
+        NSDictionary *profileJSON =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+        if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+                NSLog(@"Header invalid");
             });
-            }
-        }];
-        [dataTask resume];
-    }
+        } else { // success
+        
+            [self populateUserProfileWithDictionary:profileJSON];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
+                NSLog(@"profile pulled");
+        });
+        }
+    }];
+    [dataTask resume];
+
 }
 
 
