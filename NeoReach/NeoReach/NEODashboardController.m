@@ -67,7 +67,8 @@
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulled) name:@"campaignsPulled" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignsPulled" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignURLGenerated" object:nil];
 
     _currentCampaigns = [[NSMutableArray alloc] init];
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
@@ -86,8 +87,13 @@
 }
 
 
--(void)campaignsPulled
+-(void)campaignsPulledOrUpdated
 {
+    [self updateCurrentCampaigns];
+    [self refreshDashboard];
+}
+
+-(void)updateCurrentCampaigns {
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     _currentCampaigns = [[NSMutableArray alloc] initWithArray:user.campaigns];
     
@@ -99,8 +105,6 @@
         }
     }
     [_currentCampaigns removeObjectsInArray:futureCampaigns];
-    
-    [self refreshDashboard];
 }
 
 -(void)refreshDashboard
