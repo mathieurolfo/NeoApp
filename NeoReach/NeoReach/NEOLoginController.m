@@ -70,10 +70,7 @@
     [self.loginButton setEnabled:NO];
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSLog(@"Login pressed");
-    NSLog(@"%@", delegate.sessionConfig.HTTPAdditionalHeaders);
     if (!delegate.xAuth) {
-        NSLog(@"laod webviw");
         [self loadWebView];
     } else {
     
@@ -86,15 +83,15 @@
 {
     UIWebView *webView = [self configureWebView];
     self.count = self.count +1;
-    NSLog(@"Webview configured for %ith time", self.count);
+    
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
-    NSLog(@"%@", loginURL);
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"Starting a new web request");
+        
         [webView loadRequest:request];
-        NSLog(@"Loading request");
+        
         [self displayActivityIndicator];
     });
 
@@ -149,12 +146,11 @@
     //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
     self.prevRedirectAddress = self.currRedirectAddress;
     self.currRedirectAddress = redirectAddress;
-    
-    NSLog(@"%@", self.prevRedirectAddress);
+  
     
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
-        NSLog(@"Get auth header");
+       
         [self getAuthHeader];
         
         return NO;
@@ -167,6 +163,7 @@
                [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"] ||
                [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"] ||
                [redirectAddress hasPrefix:@"https://www.facebook.com/dialog/oauth"]) { //display login screen
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
@@ -198,7 +195,6 @@
         [[NSUserDefaults standardUserDefaults] setValue:xAuth forKey:@"xAuth"];
         [[NSUserDefaults standardUserDefaults] setValue:xDigest forKey:@"xDigest"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", xAuth, xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{

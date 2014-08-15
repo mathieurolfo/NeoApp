@@ -27,7 +27,7 @@
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"Trying to pull profile information in User");
+   
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -43,7 +43,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-                NSLog(@"Header invalid");
+                
             });
         } else { // success
         
@@ -51,7 +51,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
-                NSLog(@"profile pulled");
+                
         });
         }
     }];
@@ -89,7 +89,7 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-        NSLog(@"post response: %@",dict);
+        
         
         
         dispatch_async(dispatch_get_main_queue(), ^{

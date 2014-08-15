@@ -54,10 +54,8 @@
     if (self.xAuth && self.xDigest) {
         self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":self.xAuth,
                                                      @"X-Digest":self.xDigest};
-        NSLog(@"They exist");
+       
     }
-    
-    NSLog(@"Loaded header in app delegate: %@", self.sessionConfig.HTTPAdditionalHeaders);
     
     return YES;
 }
