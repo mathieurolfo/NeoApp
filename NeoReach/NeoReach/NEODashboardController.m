@@ -67,7 +67,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignsPulled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignURLGenerated" object:nil];
 
-    _currentCampaigns = [[NSMutableArray alloc] init];
+
+    [self updateCurrentCampaigns];
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.user pullCampaigns];
     delegate.rootNav.navigationBar.translucent = NO;

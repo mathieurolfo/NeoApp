@@ -19,6 +19,7 @@
 
 -(void) pullProfileInfo
 {
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -26,7 +27,6 @@
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSLog(@"Trying to pull profile information in User");
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -219,6 +219,7 @@
 
 -(void) pullCampaigns
 {
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -294,6 +295,7 @@
     _campaigns = [NSArray arrayWithArray:campaigns];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
+        NSLog(@"campaigns pulled");
     });
 }
 
