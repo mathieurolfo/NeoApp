@@ -99,12 +99,54 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"Entered: %@",[[alertView textFieldAtIndex:0] text]);
-    [_tags addObject:[[alertView textFieldAtIndex:0] text]];
+
     
-    [_tableView reloadData];
+    NSString *newTag = [[[alertView textFieldAtIndex:0] text] lowercaseString];
+    
+    if ([newTag isEqualToString:@""]) {
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"Tag cannot be blank.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                    }];
+        
+    } else if ([self tagIsDuplicate:newTag]) {
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : [NSString stringWithFormat:
+                                                          @"\"%@\" is already a tag.",newTag],
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                    }];
+
+    } else {
+        [_tags addObject:newTag];
+        [_tableView reloadData];
+    }
 }
 
+-(BOOL)tagIsDuplicate:(NSString *)tag
+{
+    for (int i = 0; i < [_tags count]; i++) {
+        if ([tag isEqualToString:_tags[i]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 -(IBAction)updateUserTags:(id) sender
 {

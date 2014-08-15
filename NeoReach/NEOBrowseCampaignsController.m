@@ -19,7 +19,6 @@
 
 @interface NEOBrowseCampaignsController ()
 @property NSUInteger campaignIndex;
-@property NSMutableArray *campaigns;
 @property bool campaignsLoaded; // Need this to differentiate between 0 campaigns and campaigns loading
 
 @property (weak, nonatomic) NEOBrowseGenLinkCell *genLinkCell; //need a reference to this to update its contents when generating a link
@@ -47,7 +46,6 @@
     [self.tableView addSubview:_refreshControl];
     [_refreshControl addTarget:self action:@selector(controlInitRefreshCampaigns) forControlEvents:UIControlEventValueChanged];
     
-    _campaigns = [[NSMutableArray alloc] init];
     _campaignIndex = 0;
     _campaignsLoaded = NO;
     
@@ -183,8 +181,7 @@
             
             glc.campaignExists = (campaign != nil);
             glc.linkURL = campaign.referralURL;
-                [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
-            NSLog(@"campaign exists: %d",glc.campaignExists);
+            [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
             _genLinkCell = glc;
             cell = (UITableViewCell *)glc;
             break;
