@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOCustomTagsController : UIViewController <UICollectionViewDelegate, /*UICollectionViewDelegateFlowLayout, */UICollectionViewDataSource>
+@interface NEOCustomTagsController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 @end

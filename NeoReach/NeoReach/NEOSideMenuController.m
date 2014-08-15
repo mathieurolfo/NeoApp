@@ -179,7 +179,7 @@
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
         
-        NSLog(@"Removed auth and digest");
+        
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     }
     
@@ -214,8 +214,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.nameLabel.text = [NSString stringWithFormat:@"     Welcome, %@", delegate.user.firstName];
-        //[self.nameLabel setNeedsLayout];
-        NSLog(@"Updated Name in Side Menu");
+       
     });
     
 

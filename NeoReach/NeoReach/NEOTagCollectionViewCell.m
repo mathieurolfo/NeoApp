@@ -16,20 +16,25 @@
     if (self) {
         NSArray *arrayOfViews = [[NSBundle mainBundle] loadNibNamed:@"NEOTagCollectionViewCell" owner:self options:nil];
         
-        if ([arrayOfViews count] < 1) {
-            return nil;
-            
-        }
-        
-        if (![[arrayOfViews objectAtIndex:0] isKindOfClass:[UICollectionViewCell class]]) {
-           
-            return nil;
-        }
-        
         self = [arrayOfViews objectAtIndex:0];
-        self.tagTitle.textColor = [UIColor grayColor];
+        self.tagTitle.textColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor lightGrayColor];
+        self.tagTitle.font = [UIFont fontWithName:@"Lato-Regular" size:13.0];
     }
     return self;
+}
+
+-(CGSize)intrinsicContentSize
+{
+    [self.tagTitle sizeToFit];
+    CGSize size = [self.tagTitle intrinsicContentSize];
+    
+    size.width += 5;
+    size.height += 5;
+    
+    
+    return size;
+   
 }
 
 /*

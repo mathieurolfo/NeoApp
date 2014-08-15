@@ -7,14 +7,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="neoTagCollectionViewCell" id="M2H-rC-Non" customClass="NEOTagCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
+            <rect key="frame" x="0.0" y="0.0" width="353" height="30"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="353" height="61"/>
+                <rect key="frame" x="0.0" y="0.0" width="353" height="30"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkV-Ia-ebq">
-                        <rect key="frame" x="20" y="12" width="296" height="29"/>
+                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkV-Ia-ebq">
+                        <rect key="frame" x="5" y="5" width="42" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -23,7 +23,11 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <size key="customSize" width="353" height="61"/>
+            <constraints>
+                <constraint firstItem="TkV-Ia-ebq" firstAttribute="leading" secondItem="M2H-rC-Non" secondAttribute="leading" constant="5" id="4kg-lL-Dg5"/>
+                <constraint firstAttribute="centerY" secondItem="TkV-Ia-ebq" secondAttribute="centerY" id="PXX-om-PWg"/>
+            </constraints>
+            <size key="customSize" width="353" height="30"/>
             <connections>
                 <outlet property="tagTitle" destination="TkV-Ia-ebq" id="fCb-Gi-Tcb"/>
             </connections>

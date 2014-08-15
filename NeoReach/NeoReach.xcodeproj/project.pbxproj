@@ -54,6 +54,7 @@
 		4E4CB49A199EA20100E8DC77 /* NEOCustomTagsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E4CB498199EA20100E8DC77 /* NEOCustomTagsController.xib */; };
 		4E4CB49D199EA45A00E8DC77 /* NEOTagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4CB49C199EA45A00E8DC77 /* NEOTagCollectionViewCell.m */; };
 		4E4CB49F199EA5F600E8DC77 /* NEOTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E4CB49E199EA5F600E8DC77 /* NEOTagCollectionViewCell.xib */; };
+		4E4CB4A2199EB3E000E8DC77 /* NEOTagFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4CB4A1199EB3E000E8DC77 /* NEOTagFlowLayout.m */; };
 		4E6368881986C37400FFF5A1 /* NEOTagsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6368861986C37400FFF5A1 /* NEOTagsController.m */; };
 		4E7AF52C1988826C00FD1022 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5181988826C00FD1022 /* Lato-Black.ttf */; };
 		4E7AF52D1988826C00FD1022 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5191988826C00FD1022 /* Lato-BlackItalic.ttf */; };
@@ -164,6 +165,8 @@
 		4E4CB49B199EA45A00E8DC77 /* NEOTagCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOTagCollectionViewCell.h; sourceTree = "<group>"; };
 		4E4CB49C199EA45A00E8DC77 /* NEOTagCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOTagCollectionViewCell.m; sourceTree = "<group>"; };
 		4E4CB49E199EA5F600E8DC77 /* NEOTagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NEOTagCollectionViewCell.xib; sourceTree = "<group>"; };
+		4E4CB4A0199EB3E000E8DC77 /* NEOTagFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOTagFlowLayout.h; sourceTree = "<group>"; };
+		4E4CB4A1199EB3E000E8DC77 /* NEOTagFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOTagFlowLayout.m; sourceTree = "<group>"; };
 		4E6368851986C37400FFF5A1 /* NEOTagsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOTagsController.h; sourceTree = "<group>"; };
 		4E6368861986C37400FFF5A1 /* NEOTagsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEOTagsController.m; sourceTree = "<group>"; };
 		4E7AF5181988826C00FD1022 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -285,6 +288,8 @@
 				4E4CB496199EA20100E8DC77 /* NEOCustomTagsController.h */,
 				4E4CB497199EA20100E8DC77 /* NEOCustomTagsController.m */,
 				4E4CB498199EA20100E8DC77 /* NEOCustomTagsController.xib */,
+				4E4CB4A0199EB3E000E8DC77 /* NEOTagFlowLayout.h */,
+				4E4CB4A1199EB3E000E8DC77 /* NEOTagFlowLayout.m */,
 				4E4CB49B199EA45A00E8DC77 /* NEOTagCollectionViewCell.h */,
 				4E4CB49C199EA45A00E8DC77 /* NEOTagCollectionViewCell.m */,
 				4E4CB49E199EA5F600E8DC77 /* NEOTagCollectionViewCell.xib */,
@@ -589,6 +594,7 @@
 				22A9D3F0196F56B900AF6DEB /* main.m in Sources */,
 				22C8A7D81982F3CE007B16CA /* NEOBrowseDetailsCell.m in Sources */,
 				22C8A7DD19830A67007B16CA /* NEOBrowseGenLinkCell.m in Sources */,
+				4E4CB4A2199EB3E000E8DC77 /* NEOTagFlowLayout.m in Sources */,
 				2239CB471993FF7C00CAF522 /* NEOLinkedAccountCell.m in Sources */,
 				4E4CB499199EA20100E8DC77 /* NEOCustomTagsController.m in Sources */,
 				22D84CFC19819E0C008A16E7 /* NEODashboardHeaderCell.m in Sources */,

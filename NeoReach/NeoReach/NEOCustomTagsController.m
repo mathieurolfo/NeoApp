@@ -9,6 +9,7 @@
 #import "NEOCustomTagsController.h"
 #import "NEOAppDelegate.h"
 #import "NEOTagCollectionViewCell.h"
+#import "NEOTagFlowLayout.h"
 
 @interface NEOCustomTagsController ()
 
@@ -32,7 +33,25 @@
     static NSString *cellIdentifier = @"neoTagCollectionViewCell";
     NEOTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.tagTitle.text = [self.tags objectAtIndex:indexPath.row];
+    NSLog(@"%@", cell.tagTitle.text);
+    NSLog(@"cell is %f by %f using bounds", cell.bounds.size.width, cell.bounds.size.height);
     return cell;
+}
+
+#pragma mark Flow Layout Delegate Methods
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //NEOTagCollectionViewCell *cell = (NEOTagCollectionViewCell *)[collectionView ce
+                                                                  
+    //NSLog(@"%@", cell.tagTitle.text);
+    
+    UIFont *tagFont = [UIFont fontWithName:@"Lato-Regular" size:13.0];
+    CGFloat width = [self.tags[indexPath.row] sizeWithAttributes:@{NSFontAttributeName: tagFont}].width;
+    width = round(width+0.5) + 10;
+    //CGFloat height = [cell.tagTitle.text sizeWithAttributes:@{NSFontAttributeName: cell.tagTitle.font}].height;
+    NSLog(@"%f", width);
+    return CGSizeMake(width, 30);
 }
 
 #pragma mark Default Initialization Methods
@@ -47,7 +66,7 @@
         self.tags = [[NSMutableArray alloc] initWithArray:user.tags];
         NSLog(@"%@", self.tags);
         
-        //self.tagsCollectionView.collectionViewLayout = ;
+        self.tagsCollectionView.collectionViewLayout = [[NEOTagFlowLayout alloc] init];
     }
     return self;
 }
