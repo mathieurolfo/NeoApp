@@ -101,7 +101,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
     
-    NSString *newTag = [[alertView textFieldAtIndex:0] text];
+    NSString *newTag = [[[alertView textFieldAtIndex:0] text] lowercaseString];
     
     if ([newTag isEqualToString:@""]) {
         NSDictionary *toastOptions = @{
@@ -118,7 +118,7 @@
                                     }];
         
     } else {
-    [_tags addObject:[[alertView textFieldAtIndex:0] text]];
+    [_tags addObject:newTag];
         [_tableView reloadData];
     }
 }
