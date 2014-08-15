@@ -19,43 +19,12 @@
 @property (nonatomic, strong) NSString *currRedirectAddress;
 @property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic) int count;
 @end
 
 @implementation NEOLoginController
 
 #pragma mark Initialization and View Methods
-
-
--(id)initWithCoder:(NSCoder *)decoder
-{
-    self = [super initWithCoder:decoder];
-    if (self) {
-        
-    }
-    self.sessionConfig = [decoder decodeObjectForKey:@"sessionConfig"];
-    
-    NSLog(@"unarchived sessionConfig");
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)encoder
-{
-    [encoder encodeObject:self.sessionConfig forKey:@"sessionConfig"];
-}
-
--(NSString *)configArchivePath
-{
-    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [documentDirectories firstObject];
-    return [documentDirectory stringByAppendingPathComponent:@"config.archive"];
-}
-
--(BOOL)saveChanges
-{
-    NSString *path = [self configArchivePath];
-    NSLog(@"%@", path);
-    return [NSKeyedArchiver archiveRootObject:self.sessionConfig toFile:path];
-}
 
 
 
@@ -67,17 +36,9 @@
         self.currRedirectAddress = @"";
         
         //subscribe to notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebview) name:@"headerInvalid" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
-        NSLog(@"login nib initialized");
-        NSString *path = [self configArchivePath];
-        _sessionConfig = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        if (!_sessionConfig) {
-            //_sessionConfig = [[NSMutableArray alloc] init];
-            NSLog(@"No session configuration saved");
-        } else {
-            
-        }
+        
     }
     return self;
 }
@@ -89,6 +50,9 @@
     // Do any additional setup after loading the view from its nib.
     self.splashImage.image = [UIImage imageNamed:@"splash.png"];
     [self.neoReachLabel setFont:[UIFont fontWithName:@"Lato-Black" size:42.0]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,10 +61,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
 
 #pragma mark - Logging In Methods
 
@@ -109,30 +69,31 @@
     [self.loginButton setEnabled:NO];
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-   
-    //three cases
-    //case 1: no headers
-    if (!self.sessionConfig) {
-        NSLog(@"No session config");
-        [self loadWebview];
+    NSLog(@"Login pressed");
+    NSLog(@"%@", delegate.sessionConfig.HTTPAdditionalHeaders);
+    if (!delegate.xAuth) {
+        NSLog(@"laod webviw");
+        [self loadWebView];
     } else {
-        //cases 2 and 3
-        NSLog(@"%@", self.sessionConfig.HTTPAdditionalHeaders);
-        [delegate.user pullProfileInfo];
-        NSLog(@"Request to pull initiated");
+    
+        [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
     }
 }
 
 //called if no headers exist
--(void)loadWebview
+-(void)loadWebView
 {
     UIWebView *webView = [self configureWebView];
-    NSLog(@"Webview configured");
+    self.count = self.count +1;
+    NSLog(@"Webview configured for %ith time", self.count);
     NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
+    NSLog(@"%@", loginURL);
     NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
     
-    dispatch_async(dispatch_get_main_queue(), ^ {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"Starting a new web request");
         [webView loadRequest:request];
+        NSLog(@"Loading request");
         [self displayActivityIndicator];
     });
 
@@ -174,11 +135,6 @@
     [delegate.window addSubview:delegate.webView];
     delegate.webView.hidden = YES;
     
-    //if none unarchived, initialize
-    if (!self.sessionConfig) {
-        self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSLog(@"Created a session configuration");
-    }
     
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     return delegate.webView;
@@ -186,9 +142,9 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
-    
     //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
     self.prevRedirectAddress = self.currRedirectAddress;
     self.currRedirectAddress = redirectAddress;
@@ -197,7 +153,9 @@
     
     if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
         self.redirectURL = redirect;
+        NSLog(@"Get auth header");
         [self getAuthHeader];
+        
         return NO;
     } else if (
             //the login address appears twice (loading quirk?)
@@ -206,11 +164,14 @@
                
                //the user is redirected to the actual 'enter login info' page
                [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"] ||
-               [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"]) { //display login screen
+               [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"] ||
+               [redirectAddress hasPrefix:@"https://www.facebook.com/dialog/oauth"]) { //
+        
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+        [self setNeedsStatusBarAppearanceUpdate];
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }
-    
     return YES;
 }
 
@@ -219,7 +180,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:self.sessionConfig delegate:nil delegateQueue:nil];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -233,10 +194,13 @@
         NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
         NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
         
-        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
+        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
                                                          @"X-Digest":xDigest};
         
-        NSLog(@"%@", self.sessionConfig);
+        [[NSUserDefaults standardUserDefaults] setValue:xAuth forKey:@"xAuth"];
+        [[NSUserDefaults standardUserDefaults] setValue:xDigest forKey:@"xDigest"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", xAuth, xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
         
         //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -267,6 +231,7 @@
     [delegate.webView stopLoading];
     [self.loginButton setEnabled:YES];
     self.logInOutInfoLabel.text = @"Login timed out";
+    NSLog(@"Login timed out");
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView

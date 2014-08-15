@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NEOLoginController : UIViewController <UIWebViewDelegate, NSCoding>
+@interface NEOLoginController : UIViewController <UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *logInOutInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *splashImage;
 @property (weak, nonatomic) IBOutlet UILabel *neoReachLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIActivityIndicatorView *loginIndicator;
-@property (strong, nonatomic) NSURLSessionConfiguration *sessionConfig;
 
--(BOOL)saveChanges;
--(NSString *)configArchivePath;
+
 
 @end

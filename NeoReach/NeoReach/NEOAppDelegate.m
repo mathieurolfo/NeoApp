@@ -47,6 +47,18 @@
     [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
     
     
+    //set up session configuration for app
+    self.xAuth = [[NSUserDefaults standardUserDefaults] objectForKey:@"xAuth"];
+    self.xDigest = [[NSUserDefaults standardUserDefaults] objectForKey:@"xDigest"];
+    self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    if (self.xAuth && self.xDigest) {
+        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":self.xAuth,
+                                                     @"X-Digest":self.xDigest};
+        NSLog(@"They exist");
+    }
+    
+    NSLog(@"Loaded header in app delegate: %@", self.sessionConfig.HTTPAdditionalHeaders);
+    
     return YES;
 }
 
@@ -60,12 +72,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    BOOL success = [self.login saveChanges];
-    if (success) {
-        NSLog(@"Successfully archived login");
-    } else {
-        NSLog(@"Didn't save login");
-    }
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

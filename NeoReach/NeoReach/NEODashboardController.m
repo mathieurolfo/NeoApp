@@ -41,10 +41,7 @@
 
 #pragma mark Default Methods
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleDefault;
-}
+
 
 - (void)viewDidLoad
 {
@@ -74,6 +71,8 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.user pullCampaigns];
     delegate.rootNav.navigationBar.translucent = NO;
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 /* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
