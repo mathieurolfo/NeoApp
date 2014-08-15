@@ -14,6 +14,7 @@
 - (void)awakeFromNib
 {
     self.nameLabel.font = [UIFont fontWithName:@"Lato-Regular" size:20.0];
+    NSLog(@"Button color is %@", self.browseButton.backgroundColor);
     
     
 }
