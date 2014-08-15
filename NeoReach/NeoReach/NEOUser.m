@@ -95,7 +95,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePosted" object:nil];
         });
-        
+        [dict class];
         //Later replace with just updating from response
         [self pullProfileInfo];
         

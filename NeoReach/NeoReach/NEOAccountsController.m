@@ -66,7 +66,7 @@
     
     NEOLinkedAccount *account = user.linkedAccounts[indexPath.row];
     
-    cell.reachLabel.text = [NSString stringWithFormat:@"%lu",account.reach];
+    cell.reachLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)account.reach];
     
     if ([account.name isEqualToString:@"twitter.com"]) {
         cell.nameLabel.text = [NSString stringWithFormat:@"@%@",account.fullName];

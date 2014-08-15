@@ -163,8 +163,11 @@
 
                [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"] ||
                [redirectAddress hasPrefix:@"https://www.facebook.com/dialog/oauth"]) { //display login screen
+        
+        NSLog(@"%d", [[UIApplication sharedApplication] statusBarStyle]);
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self setNeedsStatusBarAppearanceUpdate];
+        NSLog(@"%d", [[UIApplication sharedApplication] statusBarStyle]);
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }

@@ -14,6 +14,7 @@
 #import "UIWebView+Clean.h"
 #import "NEOAccountsController.h"
 #import "NEOReferralLinkController.h"
+#import "NEOCustomTagsController.h"
 
 @interface NEOSideMenuController ()
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -147,7 +148,8 @@
     //clicking tags brings you to display of tags
     if (indexPath.section == 1 && indexPath.row == 2) {
         [delegate disableDrawerAccess];
-        NEOTagsController *tagsController = [[NEOTagsController alloc] init];
+        //NEOTagsController *tagsController = [[NEOTagsController alloc] init];
+        NEOCustomTagsController *tagsController = [[NEOCustomTagsController alloc] init];
         [delegate.rootNav pushViewController:tagsController animated:YES];
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
