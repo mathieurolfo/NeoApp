@@ -18,13 +18,16 @@
         
         if ([arrayOfViews count] < 1) {
             return nil;
+            
         }
         
         if (![[arrayOfViews objectAtIndex:0] isKindOfClass:[UICollectionViewCell class]]) {
+           
             return nil;
         }
         
         self = [arrayOfViews objectAtIndex:0];
+        self.tagTitle.textColor = [UIColor grayColor];
     }
     return self;
 }

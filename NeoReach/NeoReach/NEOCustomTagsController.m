@@ -29,7 +29,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *cellIdentifier = @"NEOTagCollectionViewCell";
+    static NSString *cellIdentifier = @"neoTagCollectionViewCell";
     NEOTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.tagTitle.text = [self.tags objectAtIndex:indexPath.row];
     return cell;
@@ -45,7 +45,7 @@
         
         NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
         self.tags = [[NSMutableArray alloc] initWithArray:user.tags];
-        
+        NSLog(@"%@", self.tags);
         
         //self.tagsCollectionView.collectionViewLayout = ;
     }
@@ -57,7 +57,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self.tagsCollectionView registerClass:[NEOTagCollectionViewCell class] forCellWithReuseIdentifier:@"NEOTagCollectionViewCell"];
+    [self.tagsCollectionView registerClass:[NEOTagCollectionViewCell class] forCellWithReuseIdentifier:@"neoTagCollectionViewCell"];
+    //UINib *cellNib = [UINib nibWithNibName:@"NEOTagCollectionViewCell" bundle:nil];
+    //[self.tagsCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"neoTagCollectionViewCell"];
+    
+    self.tagsCollectionView.delegate = self;
+    self.tagsCollectionView.dataSource = self;
+    self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning
