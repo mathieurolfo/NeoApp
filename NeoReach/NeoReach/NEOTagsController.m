@@ -99,10 +99,28 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"Entered: %@",[[alertView textFieldAtIndex:0] text]);
-    [_tags addObject:[[alertView textFieldAtIndex:0] text]];
+
     
-    [_tableView reloadData];
+    NSString *newTag = [[alertView textFieldAtIndex:0] text];
+    
+    if ([newTag isEqualToString:@""]) {
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"Tag cannot be blank.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                    }];
+        
+    } else {
+    [_tags addObject:[[alertView textFieldAtIndex:0] text]];
+        [_tableView reloadData];
+    }
 }
 
 
