@@ -254,7 +254,7 @@
                                          forIndexPath:indexPath];
             NEOCampaign *campaign = _currentCampaigns[indexPath.row - 1];
             poc.campaignLabel.text = campaign.name;
-            poc.clicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu",campaign.totalClicks];
+            poc.clicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu",(unsigned long)campaign.totalClicks];
             cell = (UITableViewCell *)poc;
             break;
         }

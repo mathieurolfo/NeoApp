@@ -66,14 +66,9 @@
     
     NEOLinkedAccount *account = user.linkedAccounts[indexPath.row];
     
-    cell.reachLabel.text = [NSString stringWithFormat:@"%lu",account.reach];
-    
-    if ([account.name isEqualToString:@"twitter.com"]) {
-        cell.nameLabel.text = [NSString stringWithFormat:@"@%@",account.fullName];
-    } else {
-        cell.nameLabel.text = account.fullName;
-    }
-    
+    cell.reachLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)account.reach];
+    cell.nameLabel.text = account.fullName;
+
     if ([account.name isEqualToString:@"facebook.com"]) {
         cell.publisherImage.image = [UIImage imageNamed:@"facebookLogo.png"];
     } else if ([account.name isEqualToString:@"twitter.com"]) {
