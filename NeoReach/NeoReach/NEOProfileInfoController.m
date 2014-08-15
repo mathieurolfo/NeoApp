@@ -53,6 +53,7 @@
     form.lastName = user.lastName;
     form.email = user.email;
     form.website = user.website;
+    form.paypalEmail = user.paypalEmail;
 
     if ([user.gender isEqualToString:@"male"]) {
         form.gender = GenderMale;
@@ -98,6 +99,7 @@
         @"gender": gender,
         @"website": form.website,
         @"dateOfBirth": form.dateOfBirth,
+        @"paypalEmail" : form.paypalEmail
         };
          
     
