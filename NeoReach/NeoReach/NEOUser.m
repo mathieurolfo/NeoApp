@@ -20,12 +20,14 @@
 -(void) pullProfileInfo
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSLog(@"Trying to pull profile information in User");
+    
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -45,7 +47,7 @@
         } else { // success
         
             [self populateUserProfileWithDictionary:profileJSON];
-        
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
                 NSLog(@"profile pulled");
@@ -73,7 +75,7 @@
     
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
 
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
 
@@ -218,7 +220,7 @@
 -(void) pullCampaigns
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
@@ -298,7 +300,7 @@
 -(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign withSemaphore:(dispatch_semaphore_t)sema
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.login.sessionConfig;
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];

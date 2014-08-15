@@ -41,10 +41,7 @@
 
 #pragma mark Default Methods
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleDefault;
-}
+
 
 - (void)viewDidLoad
 {
@@ -74,6 +71,8 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.user pullCampaigns];
     delegate.rootNav.navigationBar.translucent = NO;
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 /* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
@@ -254,7 +253,7 @@
                                          forIndexPath:indexPath];
             NEOCampaign *campaign = _currentCampaigns[indexPath.row - 1];
             poc.campaignLabel.text = campaign.name;
-            poc.clicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu",campaign.totalClicks];
+            poc.clicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu",(unsigned long)campaign.totalClicks];
             cell = (UITableViewCell *)poc;
             break;
         }
