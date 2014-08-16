@@ -42,7 +42,6 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-                NSLog(@"Header invalid");
             });
         } else { // success
         
@@ -50,7 +49,6 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
-                NSLog(@"profile pulled");
         });
         }
     }];
@@ -180,6 +178,9 @@
     
     self.tags = [profileDict objectForKey:@"tags"];
     if (self.tags == nil) self.tags = [[NSMutableArray alloc] init];
+    
+    self.totalClicks = [[profileDict valueForKey:@"totalClicks"] unsignedIntegerValue];
+    self.totalEarnings = [[profileDict valueForKey:@"totalEarnings"] floatValue];
     
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

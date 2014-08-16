@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NEODashboardStatsCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *statsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalEarningsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalClicksLabel;
 
 @end

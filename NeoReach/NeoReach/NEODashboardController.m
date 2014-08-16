@@ -219,16 +219,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
     CGFloat height = 0.0;
     
     switch (indexPath.row) {
         case 0: // stats
-            height = screenHeight / 4;
+            height = 160.0;
             break;
         default: // posts
-            height = screenHeight / 12;
+            height = 40.0;
     }
     
     return height;
@@ -236,7 +234,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
     
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
@@ -245,6 +242,10 @@
             NEODashboardStatsCell *sc = [tableView
                                          dequeueReusableCellWithIdentifier:@"NEODashboardStatsCell"
                                          forIndexPath:indexPath];
+            NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+            sc.totalClicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu", (unsigned long)user.totalClicks];
+            sc.totalEarningsLabel.text = [NSString stringWithFormat:@"$%.02f",user.totalEarnings];
+            
             cell = (UITableViewCell *)sc;
             break;
         }

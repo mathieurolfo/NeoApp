@@ -25,6 +25,8 @@
 @property (strong, nonatomic) NSArray *tags;
 
 /* These properties are pulled from the server, but cannot be changed with postProfileInfoWithDictionary. */
+@property CGFloat totalEarnings;
+@property NSUInteger totalClicks;
 @property (strong, nonatomic) NSArray *campaigns;
 @property (strong, nonatomic) NSArray *linkedAccounts;
 @property (strong, nonatomic) NSString *profilePictureURL;
