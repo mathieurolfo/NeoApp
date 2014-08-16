@@ -20,10 +20,15 @@
         self.tagTitle.textColor = [UIColor blackColor];
         self.backgroundColor = [UIColor lightGrayColor];
         self.tagTitle.font = [UIFont fontWithName:@"Lato-Regular" size:13.0];
+        
+        [[self layer] setCornerRadius:10];
+        self.clipsToBounds = YES;
+        
     }
     return self;
 }
 
+/*
 -(CGSize)intrinsicContentSize
 {
     [self.tagTitle sizeToFit];
@@ -36,7 +41,7 @@
     return size;
    
 }
-
+*/
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

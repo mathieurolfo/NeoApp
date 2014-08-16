@@ -20,15 +20,23 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vF-pg-YxL">
+                        <rect key="frame" x="57" y="0.0" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="x"/>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="TkV-Ia-ebq" firstAttribute="leading" secondItem="M2H-rC-Non" secondAttribute="leading" constant="5" id="4kg-lL-Dg5"/>
+                <constraint firstAttribute="centerY" secondItem="8vF-pg-YxL" secondAttribute="centerY" id="8Os-rp-QQE"/>
                 <constraint firstAttribute="centerY" secondItem="TkV-Ia-ebq" secondAttribute="centerY" id="PXX-om-PWg"/>
+                <constraint firstItem="8vF-pg-YxL" firstAttribute="leading" secondItem="TkV-Ia-ebq" secondAttribute="trailing" constant="10" id="a4z-7Y-srg"/>
             </constraints>
             <size key="customSize" width="353" height="30"/>
             <connections>
+                <outlet property="deleteButton" destination="8vF-pg-YxL" id="1K9-1I-qaW"/>
                 <outlet property="tagTitle" destination="TkV-Ia-ebq" id="fCb-Gi-Tcb"/>
             </connections>
         </collectionViewCell>

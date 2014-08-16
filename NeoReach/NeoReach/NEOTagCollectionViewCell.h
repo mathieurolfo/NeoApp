@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface NEOTagCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 @property (strong, nonatomic) IBOutlet UILabel *tagTitle;
+
 
 @end

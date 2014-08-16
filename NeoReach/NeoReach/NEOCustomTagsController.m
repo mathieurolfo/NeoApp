@@ -54,6 +54,17 @@
     return CGSizeMake(width, 30);
 }
 
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 7.0;
+}
+
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 10.0;
+}
+
+
 #pragma mark Default Initialization Methods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,7 +77,7 @@
         self.tags = [[NSMutableArray alloc] initWithArray:user.tags];
         NSLog(@"%@", self.tags);
         
-        self.tagsCollectionView.collectionViewLayout = [[NEOTagFlowLayout alloc] init];
+        
     }
     return self;
 }
@@ -75,6 +86,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.tagsCollectionView.collectionViewLayout = [[NEOTagFlowLayout alloc] init];
     
     [self.tagsCollectionView registerClass:[NEOTagCollectionViewCell class] forCellWithReuseIdentifier:@"neoTagCollectionViewCell"];
     //UINib *cellNib = [UINib nibWithNibName:@"NEOTagCollectionViewCell" bundle:nil];
