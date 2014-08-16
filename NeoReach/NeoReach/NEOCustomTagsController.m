@@ -42,13 +42,12 @@
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NEOTagCollectionViewCell *cell = (NEOTagCollectionViewCell *)[collectionView ce
-                                                                  
+    
     //NSLog(@"%@", cell.tagTitle.text);
     
     UIFont *tagFont = [UIFont fontWithName:@"Lato-Regular" size:13.0];
     CGFloat width = [self.tags[indexPath.row] sizeWithAttributes:@{NSFontAttributeName: tagFont}].width;
-    width = round(width+0.5) + 10;
+    width = round(width+0.5) + 30;
     //CGFloat height = [cell.tagTitle.text sizeWithAttributes:@{NSFontAttributeName: cell.tagTitle.font}].height;
     NSLog(@"%f", width);
     return CGSizeMake(width, 30);

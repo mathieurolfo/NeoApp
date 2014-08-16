@@ -8,15 +8,14 @@
 
 #import "NEOTagFlowLayout.h"
 
-const NSInteger kMaxCellSpacing = 7;
+
 
 @implementation NEOTagFlowLayout
 
 -(id)init
 {
     self = [super init];
-    //self.itemSize = CGSizeMake(40, 100);
-    self.sectionInset = UIEdgeInsetsMake(10, 10, 7, 7);
+    self.maxCellSpacing = 7;
     return self;
 }
 
@@ -49,7 +48,7 @@ const NSInteger kMaxCellSpacing = 7;
     
     NSIndexPath* previousIndexPath = [NSIndexPath indexPathForItem:indexPath.item-1 inSection:indexPath.section];
     CGRect previousFrame = [self layoutAttributesForItemAtIndexPath:previousIndexPath].frame;
-    CGFloat previousFrameRightPoint = previousFrame.origin.x + previousFrame.size.width + kMaxCellSpacing;
+    CGFloat previousFrameRightPoint = previousFrame.origin.x + previousFrame.size.width + self.maxCellSpacing;
     
     CGRect currentFrame = currentItemAttributes.frame;
     CGRect strecthedCurrentFrame = CGRectMake(0,

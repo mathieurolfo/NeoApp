@@ -10,4 +10,6 @@
 
 @interface NEOTagFlowLayout : UICollectionViewFlowLayout
 
+@property (nonatomic) int maxCellSpacing;
+
 @end
