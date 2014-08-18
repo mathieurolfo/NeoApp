@@ -10,8 +10,13 @@
 
 @interface NEOTagCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+- (IBAction)deleteClicked:(id)sender;
+
 
 @property (strong, nonatomic) IBOutlet UILabel *tagTitle;
+@property (strong, nonatomic) NSIndexPath *indexPath;
+
+
 
 
 @end

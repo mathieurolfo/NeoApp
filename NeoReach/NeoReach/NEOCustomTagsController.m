@@ -11,6 +11,8 @@
 #import "NEOTagCollectionViewCell.h"
 #import "NEOTagFlowLayout.h"
 
+
+
 @interface NEOCustomTagsController ()
 
 @property (strong, nonatomic) NSMutableArray *tags;
@@ -33,9 +35,12 @@
     static NSString *cellIdentifier = @"neoTagCollectionViewCell";
     NEOTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.tagTitle.text = [self.tags objectAtIndex:indexPath.row];
+    cell.indexPath = indexPath;
+    
     NSLog(@"%@", cell.tagTitle.text);
     NSLog(@"cell is %f by %f using bounds", cell.bounds.size.width, cell.bounds.size.height);
     return cell;
+    
 }
 
 #pragma mark Flow Layout Delegate Methods
