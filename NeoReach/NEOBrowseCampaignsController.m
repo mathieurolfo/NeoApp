@@ -238,6 +238,8 @@
 
 -(IBAction)generateReferralURL:(id)sender
 {
+    [(UIButton *)sender setEnabled:NO];
+    
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
     [user.campaigns[_campaignIndex] generateReferralURL];
     
