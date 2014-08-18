@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, Gender)
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *paypalEmail;
 @property (nonatomic, copy) NSString *website;
 @property (nonatomic) Gender gender;
 @property (nonatomic, copy) NSDate *dateOfBirth;

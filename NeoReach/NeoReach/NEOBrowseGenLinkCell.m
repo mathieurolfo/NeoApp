@@ -58,27 +58,30 @@
 -(void)setLinkURL:(NSString *)linkURL
 {
     _linkURL = linkURL;
-    
-    // If empty string or nil, then link is not yet generated. Otherwise, assume linkURL is a valid URL.
-    if ((linkURL == nil) || [linkURL isEqualToString:@""]) {
-        [_generateLinkButton setEnabled:_campaignExists];
-        _referralURLField.text = @"Link not generated";
-    } else {
-        [_generateLinkButton setEnabled:NO];
-        _referralURLField.text = linkURL;
-    }
-    
+    [self updateFieldProperties];
 }
 
 -(void)setCampaignExists:(BOOL)campaignExists
 {
     _campaignExists = campaignExists;
-    
-    if (!_campaignExists)
-    {
-        [_generateLinkButton setEnabled:NO];
-        _referralURLField.text = @"Link not generated";
-    }
+    [self updateFieldProperties];
 }
+
+-(void)updateFieldProperties
+{
+    if (!_campaignExists) {
+        [_generateLinkButton setEnabled:NO];
+        _referralURLField.text = @"";
+    } else if ((_linkURL == nil) || [_linkURL isEqualToString:@""]) {
+        [_generateLinkButton setEnabled:YES];
+        _referralURLField.text = @"Link not generated.";
+    } else {
+        [_generateLinkButton setEnabled:NO];
+        _referralURLField.text = _linkURL;
+    }
+    
+    
+}
+
 
 @end

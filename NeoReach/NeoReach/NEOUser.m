@@ -12,7 +12,6 @@
 #import "NEOCampaign.h"
 
 @interface NEOUser ()
-@property (nonatomic) dispatch_semaphore_t referralSema;
 @end
 
 @implementation NEOUser
@@ -20,6 +19,7 @@
 
 -(void) pullProfileInfo
 {
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -27,8 +27,6 @@
     NSString *requestString = @"https://api.neoreach.com/account";
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-   
-    
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
@@ -43,7 +41,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-                
+
             });
         } else { // success
         
@@ -51,7 +49,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
-                
+
         });
         }
     }];
@@ -182,6 +180,9 @@
     self.tags = [profileDict objectForKey:@"tags"];
     if (self.tags == nil) self.tags = [[NSMutableArray alloc] init];
     
+    self.totalClicks = [[profileDict valueForKey:@"totalClicks"] unsignedIntegerValue];
+    self.totalEarnings = [[profileDict valueForKey:@"totalEarnings"] floatValue];
+    
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
@@ -220,6 +221,7 @@
 
 -(void) pullCampaigns
 {
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -258,6 +260,7 @@
         NEOCampaign *campaign = [[NEOCampaign alloc] init];
         
         campaign.costPerClick = [[[campaignsJSON objectAtIndex:i] valueForKey:@"cpc"] floatValue];
+        campaign.totalClicks = [[[campaignsJSON objectAtIndex:i] valueForKey:@"totalClicks"] unsignedIntValue];
         
         // Most information is in "campaign" field
         NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
@@ -281,24 +284,24 @@
 
 -(void)fetchReferralURLsForCampaigns:(NSMutableArray *)campaigns
 {
-    _referralSema = dispatch_semaphore_create(0);
-    
+    dispatch_semaphore_t referralSema = dispatch_semaphore_create(0);
     for (int i = 0; i < [campaigns count]; i++) {
-        [self fetchReferralURLForCampaign:campaigns[i]];
+        [self fetchReferralURLForCampaign:campaigns[i] withSemaphore:referralSema];
     }
     
     // We need to wait for all the URLs to be fetched before returning
     for (int i = 0; i < [campaigns count]; i++) {
-        dispatch_semaphore_wait(_referralSema, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(referralSema, DISPATCH_TIME_FOREVER);
     }
     
     _campaigns = [NSArray arrayWithArray:campaigns];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
+        NSLog(@"campaigns pulled");
     });
 }
 
--(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign
+-(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign withSemaphore:(dispatch_semaphore_t)sema
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
@@ -327,7 +330,7 @@
             campaign.referralURL = nil;
         }
         
-        dispatch_semaphore_signal(_referralSema);
+        dispatch_semaphore_signal(sema);
     }];
     [dataTask resume];
 }

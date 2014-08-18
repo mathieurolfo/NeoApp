@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NEODashboardPostCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *campaignLabel;
+@property (weak, nonatomic) IBOutlet UILabel *clicksLabel;
 
 @end

@@ -160,14 +160,11 @@
                
                //the user is redirected to the actual 'enter login info' page
                [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"] ||
-
                [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"] ||
                [redirectAddress hasPrefix:@"https://www.facebook.com/dialog/oauth"]) { //display login screen
         
-        
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self setNeedsStatusBarAppearanceUpdate];
-        
         webView.hidden = NO;
         self.splashImage.hidden = YES;
     }

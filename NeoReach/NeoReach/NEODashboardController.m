@@ -15,11 +15,13 @@
 #import "NEODashboardPostCell.h"
 #import "UIWebView+Clean.h"
 #import "NEOUser.h"
+#import "NEOCampaign.h"
 
 
 @interface NEODashboardController ()
 @property (strong, nonatomic) NEODashboardHeaderCell *tableHeader;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSMutableArray *currentCampaigns;
 @end
 
 @implementation NEODashboardController
@@ -38,6 +40,7 @@
 }
 
 #pragma mark Default Methods
+
 
 - (void)viewDidLoad
 {
@@ -60,14 +63,18 @@
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignsPulled" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignURLGenerated" object:nil];
+
+
+    [self updateCurrentCampaigns];
     
-    /*
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    [user pullProfileInfo];
-     */
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.user pullCampaigns];
     delegate.rootNav.navigationBar.translucent = NO;
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
 }
 
 /* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
@@ -77,8 +84,29 @@
     [self.refreshControl endRefreshing];
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.user pullProfileInfo];
+    [delegate.user pullCampaigns];
 }
 
+
+-(void)campaignsPulledOrUpdated
+{
+    [self updateCurrentCampaigns];
+    [self refreshDashboard];
+}
+
+-(void)updateCurrentCampaigns {
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    _currentCampaigns = [[NSMutableArray alloc] initWithArray:user.campaigns];
+    
+    NSMutableArray *futureCampaigns = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [_currentCampaigns count]; i++) {
+        NEOCampaign *campaign = _currentCampaigns[i];
+        if (campaign.referralURL == nil) {
+            [futureCampaigns addObject:campaign];
+        }
+    }
+    [_currentCampaigns removeObjectsInArray:futureCampaigns];
+}
 
 -(void)refreshDashboard
 {
@@ -152,12 +180,12 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 30; //Stats, (29) posts
+    return 1 + [_currentCampaigns count]; //Stats, posts
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 200.0;
+    return 150.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -191,16 +219,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
     CGFloat height = 0.0;
     
     switch (indexPath.row) {
         case 0: // stats
-            height = screenHeight / 4;
+            height = 160.0;
             break;
         default: // posts
-            height = screenHeight / 12;
+            height = 40.0;
     }
     
     return height;
@@ -208,7 +234,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
     
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
@@ -217,6 +242,10 @@
             NEODashboardStatsCell *sc = [tableView
                                          dequeueReusableCellWithIdentifier:@"NEODashboardStatsCell"
                                          forIndexPath:indexPath];
+            NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+            sc.totalClicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu", (unsigned long)user.totalClicks];
+            sc.totalEarningsLabel.text = [NSString stringWithFormat:@"$%.02f",user.totalEarnings];
+            
             cell = (UITableViewCell *)sc;
             break;
         }
@@ -225,6 +254,9 @@
             NEODashboardPostCell *poc = [tableView
                                          dequeueReusableCellWithIdentifier:@"NEODashboardPostCell"
                                          forIndexPath:indexPath];
+            NEOCampaign *campaign = _currentCampaigns[indexPath.row - 1];
+            poc.campaignLabel.text = campaign.name;
+            poc.clicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu",(unsigned long)campaign.totalClicks];
             cell = (UITableViewCell *)poc;
             break;
         }
