@@ -184,7 +184,6 @@
     
     self.dateOfBirth = [self dateFromNeoReachString:profileDict[@"dob"]];
     
-    
 
     //Publishers are linked accounts
     NSMutableArray *linkedAccounts = [[NSMutableArray alloc] init];
@@ -301,21 +300,24 @@
         dispatch_semaphore_wait(referralSema, DISPATCH_TIME_FOREVER);
     }
     
-    [self sortCampaignsByCreationDate:campaigns];
-    _campaigns = [NSArray arrayWithArray:campaigns];
+    NSArray *sortedCampaigns = [self campaignsByCreationDateDescending:campaigns];
+    _campaigns = sortedCampaigns;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
         NSLog(@"campaigns pulled");
     });
 }
 
--(void)sortCampaignsByCreationDate:(NSMutableArray *)campaigns
+-(NSArray *)campaignsByCreationDateDescending:(NSArray *)campaigns
 {
-    for (int i=0; i < [campaigns count]; i++) {
-        NEOCampaign *campaign = campaigns[i];
-        NSLog(@"%@: %@:",campaign.creationDate, campaign.name);
-    }
+    NSArray *sortedCampaigns = [campaigns sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSDate *first = [(NEOCampaign *)obj1 creationDate];
+        NSDate *second = [(NEOCampaign *)obj2 creationDate];
+        return [second compare:first];
+    }];
     
+    return sortedCampaigns;
 }
 
 
