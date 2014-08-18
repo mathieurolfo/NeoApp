@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NEOTagCollectionViewCell.h"
 
-@interface NEOCustomTagsController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
+@interface NEOCustomTagsController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource, NEOTagManager>
+
 
 @end

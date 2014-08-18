@@ -7,8 +7,10 @@
 //
 
 #import "NEOTagCollectionViewCell.h"
+#import "NEOAppDelegate.h"
 
 #define BlueColor [UIColor colorWithRed:0.465639 green:0.763392 blue:1 alpha:1]
+
 
 @implementation NEOTagCollectionViewCell
 
@@ -23,6 +25,8 @@
         self.backgroundColor = BlueColor;
         self.tagTitle.font = [UIFont fontWithName:@"Lato-Regular" size:13.0];
         self.deleteButton.titleLabel.textColor = [UIColor whiteColor];
+        
+        
         [[self layer] setCornerRadius:10];
         self.clipsToBounds = YES;
         
@@ -32,8 +36,10 @@
 
 -(IBAction)deleteClicked:(id)sender
 {
-    
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSLog(@"%@",delegate.rootNav.presentingViewController);
     NSLog(@"Delete button clicked at index path %ld", (long)self.indexPath.row);
+    [self.delegate deleteButtonClicked:self];
     
 }
 

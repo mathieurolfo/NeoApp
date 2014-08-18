@@ -8,15 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class NEOTagCollectionViewCell;
+@protocol NEOTagManager <NSObject>
+
+-(void)deleteButtonClicked:(NEOTagCollectionViewCell *)tagCell;
+
+@end
+
 @interface NEOTagCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 - (IBAction)deleteClicked:(id)sender;
 
-
 @property (strong, nonatomic) IBOutlet UILabel *tagTitle;
 @property (strong, nonatomic) NSIndexPath *indexPath;
-
-
-
+@property (nonatomic, weak) id <NEOTagManager> delegate;
 
 @end
+
+
