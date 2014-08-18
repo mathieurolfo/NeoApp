@@ -18,11 +18,16 @@
 #include <dispatch/dispatch.h> //for semaphores
 
 @interface NEOBrowseCampaignsController ()
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property NSUInteger campaignIndex;
+
 @property bool campaignsLoaded; // Need this to differentiate between 0 campaigns and campaigns loading
 
 @property (weak, nonatomic) NEOBrowseGenLinkCell *genLinkCell; //need a reference to this to update its contents when generating a link
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation NEOBrowseCampaignsController
