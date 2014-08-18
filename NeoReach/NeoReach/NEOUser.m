@@ -164,36 +164,26 @@
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
 
     
-    self.firstName = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"name.first"]];
-    self.lastName = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"name.last"]];
-    self.email = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"email"]];
-    self.gender = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"gender"]];
+    self.firstName = [self stringOrBlankIfNil:profileDict[@"name"][@"first"]];
+    self.lastName = [self stringOrBlankIfNil:profileDict[@"name"][@"last"]];
+    self.email = [self stringOrBlankIfNil:profileDict[@"email"]];
+    self.gender = [self stringOrBlankIfNil:profileDict[@"gender"]];
     
     if ([self.gender isEqualToString:@""]) self.gender = @"male"; // TODO remove this when API bug is fixed
     
     
-    self.website = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"website"]];
-    self.paypalEmail = [self stringOrBlankIfNil:[profileDict valueForKeyPath:@"paypalEmail"]];
-    self.timezoneOffset = [[profileDict valueForKey:@"timezoneOffset"] intValue];
+    self.website = [self stringOrBlankIfNil:profileDict[@"website"]];
+    self.paypalEmail = [self stringOrBlankIfNil:profileDict[@"paypalEmail"]];
+    self.timezoneOffset = [profileDict[@"timezoneOffset"] intValue];
     
-    self.tags = [profileDict objectForKey:@"tags"];
+    self.tags = profileDict[@"tags"];
     if (self.tags == nil) self.tags = [[NSMutableArray alloc] init];
     
-    self.totalClicks = [[profileDict valueForKey:@"totalClicks"] unsignedIntegerValue];
-    self.totalEarnings = [[profileDict valueForKey:@"totalEarnings"] floatValue];
+    self.totalClicks = [profileDict[@"totalClicks"] unsignedIntegerValue];
+    self.totalEarnings = [profileDict[@"totalEarnings"] floatValue];
     
+    self.dateOfBirth = [self dateFromNeoReachString:profileDict[@"dob"]];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
-    
-    NSString *dobString = [profileDict valueForKey:@"dob"];
-    if (![dobString isEqual:[NSNull null]]) {
-        dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
-        self.dateOfBirth = [dateFormatter dateFromString:dobString];
-        
-    }
     
 
     //Publishers are linked accounts
@@ -217,6 +207,23 @@
     }
     self.linkedAccounts = [NSArray arrayWithArray:linkedAccounts];
 }
+
+-(NSDate *)dateFromNeoReachString:(NSString *)neoReachString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
+    
+    NSString *dobString = neoReachString;
+    if (![dobString isEqual:[NSNull null]]) {
+        dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
+        return [dateFormatter dateFromString:dobString];
+        
+    }
+    return nil;
+}
+
 
 -(void) pullCampaigns
 {
@@ -258,14 +265,15 @@
     for (int i = 0; i < [campaignsJSON count]; i++) {
         NEOCampaign *campaign = [[NEOCampaign alloc] init];
         
-        campaign.costPerClick = [[[campaignsJSON objectAtIndex:i] valueForKey:@"cpc"] floatValue];
-        campaign.totalClicks = [[[campaignsJSON objectAtIndex:i] valueForKey:@"totalClicks"] unsignedIntValue];
+        campaign.costPerClick = [campaignsJSON[i][@"cpc"] floatValue];
+        campaign.totalClicks = [campaignsJSON[i][@"totalClicks"] unsignedIntValue];
         
         // Most information is in "campaign" field
-        NSDictionary *campaignDict = [[campaignsJSON objectAtIndex:i] objectForKey:@"campaign"];
-        campaign.ID = [campaignDict valueForKey:@"_id"];
-        campaign.name = [campaignDict valueForKey:@"name"];
-        campaign.promotion = [campaignDict valueForKey:@"promotion"];
+        NSDictionary *campaignDict = campaignsJSON[i][@"campaign"];
+        campaign.ID = campaignDict[@"_id"];
+        campaign.name = campaignDict[@"name"];
+        campaign.promotion = campaignDict[@"promotion"];
+        campaign.creationDate = [self dateFromNeoReachString:campaignDict[@"created"]];
         
         //Image is stored in Files[0]
         // TODO load image from URL
@@ -293,12 +301,23 @@
         dispatch_semaphore_wait(referralSema, DISPATCH_TIME_FOREVER);
     }
     
+    [self sortCampaignsByCreationDate:campaigns];
     _campaigns = [NSArray arrayWithArray:campaigns];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
         NSLog(@"campaigns pulled");
     });
 }
+
+-(void)sortCampaignsByCreationDate:(NSMutableArray *)campaigns
+{
+    for (int i=0; i < [campaigns count]; i++) {
+        NEOCampaign *campaign = campaigns[i];
+        NSLog(@"%@: %@:",campaign.creationDate, campaign.name);
+    }
+    
+}
+
 
 -(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign withSemaphore:(dispatch_semaphore_t)sema
 {
