@@ -201,7 +201,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateName) name:@"profilePulled" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateName) name:@"profileUpdated" object:nil];
     }
     return self;
 }

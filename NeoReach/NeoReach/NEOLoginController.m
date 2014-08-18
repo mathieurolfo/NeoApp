@@ -37,7 +37,7 @@
         
         //subscribe to notifications
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profileUpdated" object:nil];
         
     }
     return self;

@@ -48,7 +48,7 @@
             [self populateUserProfileWithDictionary:profileJSON];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePulled" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"profileUpdated" object:nil];
         });
         }
     }];
@@ -86,15 +86,11 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-        NSLog(@"post response: %@",dict);
-        
+        [self populateBasicUserInfoWithDictionary:dict[@"data"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"profilePosted" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"profileUpdated" object:nil];
         });
-        
-        //Later replace with just updating from response
-        [self pullProfileInfo];
         
     }];
     
@@ -103,9 +99,6 @@
 
 -(NSDictionary *)completeFormattedDictFrom:(NSDictionary *)dict
 {
-    
-
-    
     NSArray *tags = [self valueOrUserValueIfNone:dict[@"tags"] userValue:self.tags];
     NSString *email = [self valueOrUserValueIfNone:dict[@"email"] userValue:self.email];
     
@@ -113,8 +106,6 @@
                            @"first": [self valueOrUserValueIfNone:dict[@"firstName"] userValue:self.firstName],
                            @"last": [self valueOrUserValueIfNone:dict[@"lastName"] userValue:self.lastName]
                            };
-    
-    
     
     NSString *gender = [self valueOrUserValueIfNone:dict[@"gender"] userValue:self.gender];
     NSString *website = [self valueOrUserValueIfNone:dict[@"website"] userValue:self.website];
@@ -127,10 +118,8 @@
     [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     NSString *dobString = [dateFormatter stringFromDate:dateOfBirth];
     
-    
     NSString *paypalEmail = [self valueOrUserValueIfNone:dict[@"paypalEmail"] userValue:self.paypalEmail];
     NSInteger timezoneOffset = self.timezoneOffset; // We won't ever be editing this
-    
     
     NSDictionary *completeFormattedDict = @{
                                    @"tags": tags,
@@ -157,33 +146,12 @@
 
 
 
-//Populates user profile with the JSON dictionary returned from the API
+//Populates user profile with the JSON dictionary returned from the GET call
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
-
-    
-    self.firstName = [self stringOrBlankIfNil:profileDict[@"name"][@"first"]];
-    self.lastName = [self stringOrBlankIfNil:profileDict[@"name"][@"last"]];
-    self.email = [self stringOrBlankIfNil:profileDict[@"email"]];
-    self.gender = [self stringOrBlankIfNil:profileDict[@"gender"]];
-    
-    if ([self.gender isEqualToString:@""]) self.gender = @"male"; // TODO remove this when API bug is fixed
-    
-    
-    self.website = [self stringOrBlankIfNil:profileDict[@"website"]];
-    self.paypalEmail = [self stringOrBlankIfNil:profileDict[@"paypalEmail"]];
-    self.timezoneOffset = [profileDict[@"timezoneOffset"] intValue];
-    
-    self.tags = profileDict[@"tags"];
-    if (self.tags == nil) self.tags = [[NSMutableArray alloc] init];
-    
-    self.totalClicks = [profileDict[@"totalClicks"] unsignedIntegerValue];
-    self.totalEarnings = [profileDict[@"totalEarnings"] floatValue];
-    
-    self.dateOfBirth = [self dateFromNeoReachString:profileDict[@"dob"]];
-    
+    [self populateBasicUserInfoWithDictionary:profileDict];
 
     //Publishers are linked accounts
     NSMutableArray *linkedAccounts = [[NSMutableArray alloc] init];
@@ -206,6 +174,32 @@
     }
     self.linkedAccounts = [NSArray arrayWithArray:linkedAccounts];
 }
+
+
+// Populates user object with json.data.Profile[0] data for GET request, json.data for POST request
+-(void) populateBasicUserInfoWithDictionary:(NSDictionary *)profileDict
+{
+    self.firstName = [self stringOrBlankIfNil:profileDict[@"name"][@"first"]];
+    self.lastName = [self stringOrBlankIfNil:profileDict[@"name"][@"last"]];
+    self.email = [self stringOrBlankIfNil:profileDict[@"email"]];
+    self.gender = [self stringOrBlankIfNil:profileDict[@"gender"]];
+    
+    if ([self.gender isEqualToString:@""]) self.gender = @"male"; // TODO remove this when API bug is fixed
+    
+    
+    self.website = [self stringOrBlankIfNil:profileDict[@"website"]];
+    self.paypalEmail = [self stringOrBlankIfNil:profileDict[@"paypalEmail"]];
+    self.timezoneOffset = [profileDict[@"timezoneOffset"] intValue];
+    
+    self.tags = profileDict[@"tags"];
+    if (self.tags == nil) self.tags = [[NSMutableArray alloc] init];
+    
+    self.totalClicks = [profileDict[@"totalClicks"] unsignedIntegerValue];
+    self.totalEarnings = [profileDict[@"totalEarnings"] floatValue];
+    
+    self.dateOfBirth = [self dateFromNeoReachString:profileDict[@"dob"]];
+}
+
 
 -(NSDate *)dateFromNeoReachString:(NSString *)neoReachString
 {

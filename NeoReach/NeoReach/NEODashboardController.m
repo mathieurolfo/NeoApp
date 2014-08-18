@@ -63,7 +63,7 @@
 
     [self.tableView registerNib:pocNib forCellReuseIdentifier:@"NEODashboardPostCell"];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profilePulled" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDashboard) name:@"profileUpdated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignsPulled" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignsPulledOrUpdated) name:@"campaignURLGenerated" object:nil];
 
