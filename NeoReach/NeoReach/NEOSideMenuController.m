@@ -150,6 +150,8 @@
         [delegate disableDrawerAccess];
         //NEOTagsController *tagsController = [[NEOTagsController alloc] init];
         NEOCustomTagsController *tagsController = [[NEOCustomTagsController alloc] init];
+        //delegate.rootNav.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(saveAndCheckTags)];
+        
         [delegate.rootNav pushViewController:tagsController animated:YES];
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
@@ -185,6 +187,11 @@
     
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)saveAndCheckTags
+{
+    
 }
 
 #pragma mark Alert View Methods

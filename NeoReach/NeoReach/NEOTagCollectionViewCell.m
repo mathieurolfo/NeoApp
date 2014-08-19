@@ -36,11 +36,7 @@
 
 -(IBAction)deleteClicked:(id)sender
 {
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSLog(@"%@",delegate.rootNav.presentingViewController);
-    NSLog(@"Delete button clicked at index path %ld", (long)self.indexPath.row);
     [self.delegate deleteButtonClicked:self];
-    
 }
 
 /*
