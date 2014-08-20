@@ -20,10 +20,10 @@ static int defaultButtonWidth = 30;
  *
  
  * Necessary Features
- ***
- *** 
- *** 
- ***
+ *** special collection view cell for adding a new tag
+ *** implementation of server call to save tags
+ *** text checking of tags to avoid duplicates
+ *** design: custom "x" button, custom back button on navigation bar
  */
 
 
@@ -93,6 +93,17 @@ static int defaultButtonWidth = 30;
          */
     }
 }
+
+-(BOOL)tagIsDuplicate:(NSString *)tag
+{
+    for (int i = 0; i < [_tags count]; i++) {
+        if ([tag isEqualToString:_tags[i]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 
 -(void)saveAndCheckTags
 {

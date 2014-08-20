@@ -148,10 +148,7 @@
     //clicking tags brings you to display of tags
     if (indexPath.section == 1 && indexPath.row == 2) {
         [delegate disableDrawerAccess];
-        //NEOTagsController *tagsController = [[NEOTagsController alloc] init];
         NEOCustomTagsController *tagsController = [[NEOCustomTagsController alloc] init];
-        //delegate.rootNav.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(saveAndCheckTags)];
-        
         [delegate.rootNav pushViewController:tagsController animated:YES];
         [delegate.drawer closeDrawerAnimated:YES completion:^(BOOL completed) {
             
@@ -166,7 +163,6 @@
         [delegate.login.loginButton setEnabled:YES];
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
-        //[[NSURLCache sharedURLCache] removeAllCachedResponses];
         
         //deletes login info!!! feels a little too shotgun though.
         for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
@@ -181,7 +177,6 @@
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
         
-        
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     }
     
@@ -189,10 +184,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(void)saveAndCheckTags
-{
-    
-}
 
 #pragma mark Alert View Methods
 
