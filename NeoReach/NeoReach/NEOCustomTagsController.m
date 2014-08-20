@@ -115,6 +115,8 @@ static int defaultButtonWidth = 30;
     }
     
     
+    NSDictionary *dict = @{@"tags": _tags};
+    [delegate.user postProfileInfoWithDictionary:dict];
     [delegate.rootNav popViewControllerAnimated:YES];
 }
 

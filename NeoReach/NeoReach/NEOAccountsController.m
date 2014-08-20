@@ -58,11 +58,8 @@
 {
     NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
 
-    
     NEOLinkedAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NEOLinkedAccountCell"
                                                                  forIndexPath:indexPath];
-    
-
     
     NEOLinkedAccount *account = user.linkedAccounts[indexPath.row];
     
