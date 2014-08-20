@@ -70,9 +70,9 @@ static int defaultTimeout = 7;
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     if (!delegate.xAuth) {
+        NSLog(@"No headers");
         [self loadWebView];
     } else {
-    
         [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
     }
 }
@@ -141,6 +141,9 @@ static int defaultTimeout = 7;
     
     NSURL *redirect = [request mainDocumentURL];
     NSString *redirectAddress = [redirect absoluteString];
+    
+    NSLog(@"%@", redirectAddress);
+    
     //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
     self.prevRedirectAddress = self.currRedirectAddress;
     self.currRedirectAddress = redirectAddress;

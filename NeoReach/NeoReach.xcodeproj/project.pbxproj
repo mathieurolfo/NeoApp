@@ -458,6 +458,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = NeoReach;
 				TargetAttributes = {
+					22A9D3DF196F56B900AF6DEB = {
+						DevelopmentTeam = 6RQD2DHNP5;
+					};
 					22A9D3FA196F56B900AF6DEB = {
 						TestTargetID = 22A9D3DF196F56B900AF6DEB;
 					};
@@ -726,8 +729,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
 				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -746,8 +751,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
 				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
