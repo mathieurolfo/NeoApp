@@ -12,10 +12,22 @@
 #import "NEOTagFlowLayout.h"
 
 
+/* 
+ * When the user enters the tags controller, they will be presented with a collection view with all of their tags. The only requirements upon saving the edited tags are that there be at least 1 (3?) tags present, and no duplicate tags present. Do we need to save a duplicate tags array? No. When the user clicks the Back/Save Button, the program will analyze the current tags controller. If there are 0 (or less than 3) tags, it will pop up an alert view that forces continued editing. Swiping on the edge of the screen also needs to be turned off. We might also want an edit button. However, if the user tries to enter a tag that already exists, we need an alert view to pop up before it is added to the array.
+ *
+ 
+ * Necessary Features
+ ***
+ *** 
+ *** 
+ ***
+ */
+
 
 @interface NEOCustomTagsController ()
 
 @property (strong, nonatomic) NSMutableArray *tags;
+@property (strong, nonatomic) NSMutableArray *tempTags;
 @property (weak, nonatomic) IBOutlet UICollectionView *tagsCollectionView;
 
 @end
@@ -38,8 +50,6 @@
     cell.indexPath = indexPath;
     cell.delegate = self;
     
-    //NSLog(@"%@", cell.tagTitle.text);
-    //NSLog(@"cell is %f by %f using bounds", cell.bounds.size.width, cell.bounds.size.height);
     return cell;
     
 }
@@ -47,26 +57,24 @@
 -(void)deleteButtonClicked:(NEOTagCollectionViewCell *)tagCell
 {
     
-    if (self.tags.count == 1) {
-        
-    } else {
-        [self.tags removeObjectAtIndex:tagCell.indexPath.row];
-        [UIView setAnimationsEnabled:NO];
-        [self.tagsCollectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:tagCell.indexPath]];
-        
-        [self.tagsCollectionView reloadItemsAtIndexPaths:self.tagsCollectionView.indexPathsForVisibleItems];
-        [UIView setAnimationsEnabled:YES];
-        [UIView animateWithDuration:0 animations:^{
-            [self.tagsCollectionView performBatchUpdates:^{
-                
-                
-            }completion:nil];
-        }];
-    }
+    [self.tags removeObjectAtIndex:tagCell.indexPath.row];
     
+    [UIView setAnimationsEnabled:NO];
+    [self.tagsCollectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:tagCell.indexPath]];
+    [self.tagsCollectionView reloadItemsAtIndexPaths:self.tagsCollectionView.indexPathsForVisibleItems];
+    [UIView setAnimationsEnabled:YES];
     
-    //[self.tagsCollectionView.collectionViewLayout invalidateLayout];
+    /* //Custom animation code will probably go here
+    [UIView animateWithDuration:0 animations:^{
+        [self.tagsCollectionView performBatchUpdates:^{
+            
+            
+        }completion:nil];
+    }];
+
     
+    [self.tagsCollectionView.collectionViewLayout invalidateLayout];
+    */
 
 }
 
@@ -103,7 +111,6 @@
 
         NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
         self.tags = [[NSMutableArray alloc] initWithArray:user.tags];
-        //NSLog(@"%@", self.tags);
         
         
     }
@@ -113,7 +120,13 @@
 -(void)saveAndCheckTags
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSLog(@"Using custom back button...");
+    
+    if (self.tags.count == 0) {
+        UIAlertView *noTagsAlert = [[UIAlertView alloc] initWithTitle:@"Welcome!" message:@"Please have at least one tag in order to be matched with campaigns." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
+        [noTagsAlert show];
+    }
+    
+    
     [delegate.rootNav popViewControllerAnimated:YES];
 }
 
