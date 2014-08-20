@@ -10,7 +10,8 @@
 #import "NEODashboardController.h"
 #import "NEOAppDelegate.h"
 #import "NEOWebViewController.h"
-//3#import <Quartzcore/Quartzcore.h>
+
+static int defaultTimeout = 7;
 
 @interface NEOLoginController ()
 
@@ -25,7 +26,6 @@
 @implementation NEOLoginController
 
 #pragma mark Initialization and View Methods
-
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -132,7 +132,6 @@
     [delegate.window addSubview:delegate.webView];
     delegate.webView.hidden = YES;
     
-    
     self.loginAddress = @"https://api.neoreach.com/auth/facebook";
     return delegate.webView;
 }
@@ -207,8 +206,6 @@
             
             NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
             [user pullProfileInfo];
-            
-
 
             self.splashImage.hidden = NO;
             [self.timer invalidate];
@@ -225,13 +222,15 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.webView stopLoading];
     [self.loginButton setEnabled:YES];
-    self.logInOutInfoLabel.text = @"Login timed out";
-    NSLog(@"Login timed out");
+    
+    UIAlertView *timeoutAlert = [[UIAlertView alloc] initWithTitle:@":(" message:@"Login was unsuccessful." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
+    [timeoutAlert show];
+    
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:defaultTimeout target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
 }
 
 
