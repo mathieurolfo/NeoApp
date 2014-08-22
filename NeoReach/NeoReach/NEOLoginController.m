@@ -10,7 +10,7 @@
 #import "NEODashboardController.h"
 #import "NEOAppDelegate.h"
 #import "NEOWebViewController.h"
-//3#import <Quartzcore/Quartzcore.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOLoginController ()
 
