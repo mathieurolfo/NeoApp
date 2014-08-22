@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NEOLoginController">
             <connections>
-                <outlet property="fbLoginView" destination="Sq7-Bm-Cwm" id="C5J-Nj-UXQ"/>
                 <outlet property="logInOutInfoLabel" destination="kbz-eG-6tk" id="oNd-7B-Kpp"/>
                 <outlet property="loginButton" destination="okt-qD-Zbf" id="a84-U6-8rk"/>
                 <outlet property="neoReachLabel" destination="cG3-nw-AtZ" id="dQi-qg-B5J"/>
@@ -46,14 +45,6 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view appearanceType="aqua" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sq7-Bm-Cwm" customClass="FBLoginView">
-                    <rect key="frame" x="48" y="399" width="224" height="42"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="tdA-o0-JN9"/>
-                    </connections>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>

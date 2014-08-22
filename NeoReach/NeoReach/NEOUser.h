@@ -38,6 +38,8 @@
 
 
 
+-(void) pullHeadersFromToken:(NSString *)token;
+
 /* Sends a 'profileUpdated' notification on success. If X-Auth and X-Digest were invalid, sends an
  *'invalidHeaders' notification.
  */

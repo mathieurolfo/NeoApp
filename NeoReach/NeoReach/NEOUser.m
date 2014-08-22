@@ -17,6 +17,30 @@
 @implementation NEOUser
 
 
+-(void) pullHeadersFromToken:(NSString *) token
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"https://api.neoreach.com/auth/facebook?access_token=%@", token];
+    NSLog(@"%@", requestString);
+    //NSString *requestString = @"https://api.neoreach.com/auth/facebook?access_token=";
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSError *jsonError;
+        NSDictionary *headerDictionary =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        NSLog(@"%@", headerDictionary);
+    }];
+    [dataTask resume];
+    
+}
+
 -(void) pullProfileInfo
 {
     

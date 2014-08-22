@@ -20,7 +20,6 @@
 @property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) int count;
-@property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;
 @end
 
 @implementation NEOLoginController
@@ -54,7 +53,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self setNeedsStatusBarAppearanceUpdate];
     
-    self.fbLoginView.readPermissions = @[@"public_profile", @"email"];
 
 }
 
@@ -67,14 +65,29 @@
 
 #pragma mark - Logging In Methods
 
--(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
-{
-    NSLog(@"Name is %@", user.name);
-    
-}
-
 - (IBAction)logInPressed:(id)sender {
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 
+    if (FBSession.activeSession.state == FBSessionStateOpen ||
+        FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        [FBSession.activeSession closeAndClearTokenInformation];
+        NSLog(@"Login closed");
+    } else {
+        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            NSLog(@"session opened, token is %@", session.accessTokenData);
+            //session.accessTokenData
+            //NEOAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            //[appDelegate sessionStateChanged:session state:state error:error];
+            
+            NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
+            [delegate.user pullHeadersFromToken:token];
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [delegate.user pullProfileInfo];
+        });
+    }
+    
+    /*
     [self.loginButton setEnabled:NO];
     
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
@@ -87,6 +100,7 @@
     
         [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
     }
+    */
 }
 
 //called if no headers exist
