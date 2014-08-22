@@ -11,6 +11,7 @@
 #import "NEOSideMenuController.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import <MMDrawerController/MMDrawerVisualState.h> //for sidebar animations
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOAppDelegate ()
 
@@ -20,6 +21,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [FBLoginView class];
+    
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
     self.login = loginController;
 
