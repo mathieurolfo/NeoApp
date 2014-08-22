@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) int count;
+@property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;
 @end
 
 @implementation NEOLoginController
@@ -52,6 +53,8 @@
     [self.neoReachLabel setFont:[UIFont fontWithName:@"Lato-Black" size:42.0]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    self.fbLoginView.readPermissions = @[@"public_profile", @"email"];
 
 }
 
@@ -63,6 +66,12 @@
 
 
 #pragma mark - Logging In Methods
+
+-(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
+{
+    NSLog(@"Name is %@", user.name);
+    
+}
 
 - (IBAction)logInPressed:(id)sender {
 

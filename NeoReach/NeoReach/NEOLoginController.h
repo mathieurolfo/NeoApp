@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface NEOLoginController : UIViewController <UIWebViewDelegate>
+@interface NEOLoginController : UIViewController <UIWebViewDelegate, FBLoginViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *logInOutInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *splashImage;
