@@ -81,10 +81,11 @@
             
             NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
             [delegate.user pullHeadersFromToken:token];
+            //dispatch_async(dispatch_get_main_queue(), ^{
+             //   [delegate.user pullProfileInfo];
+            //});
         }];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [delegate.user pullProfileInfo];
-        });
+        
     }
     
     /*

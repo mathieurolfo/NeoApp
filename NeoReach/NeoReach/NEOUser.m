@@ -36,6 +36,21 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         NSLog(@"%@", headerDictionary);
+        if ([headerDictionary[@"success"] intValue] == 1) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"header being configured in session");
+                NSLog(@"%@", headerDictionary[@"data"][@"X-Auth"]);
+                delegate.xAuth = headerDictionary[@"data"][@"X-Auth"];
+                NSLog(@"%@", delegate.xAuth);
+                delegate.xDigest = headerDictionary[@"data"][@"X-Digest"];
+                delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+                delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":delegate.xAuth,
+                                                                 @"X-Digest":delegate.xDigest};
+                
+                [self pullProfileInfo];
+
+            });
+        }
     }];
     [dataTask resume];
     
@@ -173,6 +188,7 @@
 //Populates user profile with the JSON dictionary returned from the GET call
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
+    NSLog(@"%@", dict);
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
     [self populateBasicUserInfoWithDictionary:profileDict];
@@ -188,7 +204,7 @@
         account.fullName = publisher[@"full_name"];
         account.picURL = publisher[@"pic"];
         account.pid = publisher[@"pid"];
-        account.reach = [publisher[@"reach"] intValue];
+        //account.reach = [publisher[@"reach"] intValue];
         [linkedAccounts addObject:account];
         
         if ([account.name isEqualToString:@"facebook.com"]) { // Use facebook profile picture for dashboard
