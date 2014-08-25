@@ -79,7 +79,6 @@
     [self.loginButton setEnabled:NO];
     
     if (delegate.xAuth.length > 1) {
-        NSLog(@"there is a config when initializing: %@", delegate.sessionConfig);
         [delegate.user pullProfileInfo];
     } else {
         [self loadToken];

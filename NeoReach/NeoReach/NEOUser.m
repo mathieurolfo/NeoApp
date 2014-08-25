@@ -35,14 +35,17 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
+        NSLog(@"%@", headerDictionary);
+    
         if ([headerDictionary[@"success"] intValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Old header %@", delegate.sessionConfig.HTTPAdditionalHeaders);
                 delegate.xAuth = headerDictionary[@"data"][@"X-Auth"];
                 delegate.xDigest = headerDictionary[@"data"][@"X-Digest"];
                 delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
                 delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":delegate.xAuth,
                                                                  @"X-Digest":delegate.xDigest};
-                
+                NSLog(@"New header %@", delegate.sessionConfig.HTTPAdditionalHeaders);
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xAuth forKey:@"xAuth"];
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xDigest forKey:@"xDigest"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -80,9 +83,12 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
+        NSLog(@"%@", profileJSON);
+        
         if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
         {
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"couldn't log in with header, posting headerInvalid");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
             });
         } else { // success
