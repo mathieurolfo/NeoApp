@@ -13,20 +13,12 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface NEOLoginController ()
-
-@property (nonatomic, strong) NSURL *redirectURL;
-@property (nonatomic, strong) NSString *prevRedirectAddress;
-@property (nonatomic, strong) NSString *currRedirectAddress;
-@property (nonatomic, strong) NSString *loginAddress;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic) int count;
 @end
 
 @implementation NEOLoginController
 
 #pragma mark Initialization and View Methods
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,7 +26,7 @@
     if (self) {
         
         //subscribe to notifications
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadToken) name:@"headerInvalid" object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profileUpdated" object:nil];
         
@@ -64,21 +56,43 @@
 
 #pragma mark - Logging In Methods
 
+/*
+ Workflow for login is:
+    Check for existence of header
+    If there is a header, try pulling profile info
+        [now inside delegate.user]
+        [If you can pull the profile information, call endRequest and createDashboard]
+        [If you can't, call loadToken which is what happens if there is no header]
+    If there is no header, get the facebook session token using loadToken which then tries pullHeadersFromToken
+        [now inside delegate.user]
+        [If you get the x-header, call pullProfileInfo again]
+            [If successful, calls endRequest and createDashboard]
+            [If not, calls headerInvalid] BUT will always return successful because the server will create a new account if one does not exist for that header.
+        [If you can't, return an error message and cancel request]
+ 
+ */
 - (IBAction)logInPressed:(id)sender {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(endUnsuccessfulRequest) userInfo:nil repeats:NO];
+    [self displayActivityIndicator];
+    
+    if (delegate.xAuth.length > 1) {
+        NSLog(@"there is a config when initializing: %@", delegate.sessionConfig);
+        [delegate.user pullProfileInfo];
+    } else {
+        [self loadToken];
+    }
+    [self.loginButton setEnabled:NO];
+}
 
+-(void)loadToken {
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
         NSLog(@"session opened, token is %@", session.accessTokenData);
-        
         NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
-        [self displayActivityIndicator];
         [delegate.user pullHeadersFromToken:token];
-
     }];
-
-    [self.loginButton setEnabled:NO];
 }
 
 //called if no headers exist
@@ -102,16 +116,21 @@
 }
 
 
--(void)cancelRequest
+-(void)endUnsuccessfulRequest
 {
     [self.loginIndicator stopAnimating];
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    [delegate.webView stopLoading];
     [self.loginButton setEnabled:YES];
-    self.logInOutInfoLabel.text = @"Login timed out";
+    
+    //other version has alert view pop up
     NSLog(@"Login timed out");
 }
 
+-(void)endSuccessfulRequest
+{
+    [self.loginIndicator stopAnimating];
+    [self.loginButton setEnabled:YES];
+    [self.timer invalidate];
+}
 
 
 

@@ -24,8 +24,7 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
     NSString *requestString = [NSString stringWithFormat:@"https://api.neoreach.com/auth/facebook?access_token=%@", token];
-    NSLog(@"%@", requestString);
-    //NSString *requestString = @"https://api.neoreach.com/auth/facebook?access_token=";
+    
     NSURL *url = [NSURL URLWithString:requestString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -38,25 +37,23 @@
         NSLog(@"%@", headerDictionary);
         if ([headerDictionary[@"success"] intValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"header being configured in session");
-                NSLog(@"%@", headerDictionary[@"data"][@"X-Auth"]);
                 delegate.xAuth = headerDictionary[@"data"][@"X-Auth"];
-                NSLog(@"%@", delegate.xAuth);
                 delegate.xDigest = headerDictionary[@"data"][@"X-Digest"];
                 delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
                 delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":delegate.xAuth,
                                                                  @"X-Digest":delegate.xDigest};
-                
                 
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xAuth forKey:@"xAuth"];
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xDigest forKey:@"xDigest"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", delegate.xAuth, delegate.xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
 
-                
                 [self pullProfileInfo];
 
             });
+        } else {
+            [delegate.login endUnsuccessfulRequest];
+            NSLog(@"The login process failed when getting the header from the server.");
         }
     }];
     [dataTask resume];
@@ -92,14 +89,13 @@
         } else { // success
         
             [self populateUserProfileWithDictionary:profileJSON];
-            
+            [delegate.login endSuccessfulRequest];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profileUpdated" object:nil];
-        });
+            });
         }
     }];
     [dataTask resume];
-
 }
 
 
