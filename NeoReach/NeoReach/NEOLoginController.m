@@ -43,7 +43,6 @@
     [self.neoReachLabel setFont:[UIFont fontWithName:@"Lato-Black" size:42.0]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [self setNeedsStatusBarAppearanceUpdate];
-    
 
 }
 
@@ -75,7 +74,9 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(endUnsuccessfulRequest) userInfo:nil repeats:NO];
+    
     [self displayActivityIndicator];
+    [self.loginButton setEnabled:NO];
     
     if (delegate.xAuth.length > 1) {
         NSLog(@"there is a config when initializing: %@", delegate.sessionConfig);
@@ -83,7 +84,7 @@
     } else {
         [self loadToken];
     }
-    [self.loginButton setEnabled:NO];
+    
 }
 
 -(void)loadToken {
@@ -102,7 +103,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NEODashboardController *dashboard = [[NEODashboardController alloc] init];
     delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    delegate.drawer.centerViewController = delegate.rootNav;
+    delegate.drawer.centerViewController = delegate.rootNav; 
 }
 
 -(void)displayActivityIndicator
@@ -118,18 +119,25 @@
 
 -(void)endUnsuccessfulRequest
 {
-    [self.loginIndicator stopAnimating];
-    [self.loginButton setEnabled:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.loginIndicator stopAnimating];
+        [self.loginButton setEnabled:YES];
+    });
     
     //other version has alert view pop up
-    NSLog(@"Login timed out");
+    NSLog(@"unsuccessful request ended");
 }
 
 -(void)endSuccessfulRequest
 {
-    [self.loginIndicator stopAnimating];
-    [self.loginButton setEnabled:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.loginIndicator stopAnimating];
+        [self.loginButton setEnabled:YES];
+    });
+    
     [self.timer invalidate];
+    
+    NSLog(@"successful request ended");
 }
 
 

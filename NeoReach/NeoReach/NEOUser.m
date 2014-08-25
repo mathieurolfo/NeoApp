@@ -62,7 +62,7 @@
 
 -(void) pullProfileInfo
 {
-    
+    NSLog(@"pullProfileInfo called");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];

@@ -220,7 +220,7 @@
     [super viewDidLoad];
     self.nameLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16.0];
     self.nameLabel.text = @"    Welcome";
-    
+    self.view.backgroundColor = [UIColor orangeColor];
     
 }
 
