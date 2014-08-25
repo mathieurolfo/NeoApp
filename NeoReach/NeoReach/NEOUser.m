@@ -283,7 +283,7 @@
         
         NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
         [self fetchReferralURLsForCampaigns:campaignsWithoutReferralURLs];
-        
+        NSLog(@"%@", dict);
 
     }];
     [dataTask resume];
