@@ -76,6 +76,7 @@
 		4E7AF53D1988826C00FD1022 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF5291988826C00FD1022 /* Lato-ThinItalic.ttf */; };
 		4E7AF53E1988826C00FD1022 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF52A1988826C00FD1022 /* OFL.txt */; };
 		4E7AF53F1988826C00FD1022 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4E7AF52B1988826C00FD1022 /* README.txt */; };
+		4E7D4B5219A7DE01002B10A7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7D4B5119A7DE01002B10A7 /* FacebookSDK.framework */; };
 		4E8875C21992C80A006F1ACB /* UIWebView+Clean.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8875C11992C80A006F1ACB /* UIWebView+Clean.m */; };
 		4EC4C34A199D449800BE906C /* NEOReferralLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4C348199D449800BE906C /* NEOReferralLinkController.m */; };
 		4EC4C34B199D449800BE906C /* NEOReferralLinkController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EC4C349199D449800BE906C /* NEOReferralLinkController.xib */; };
@@ -189,6 +190,7 @@
 		4E7AF5291988826C00FD1022 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		4E7AF52A1988826C00FD1022 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		4E7AF52B1988826C00FD1022 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		4E7D4B5119A7DE01002B10A7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4E8875C01992C80A006F1ACB /* UIWebView+Clean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Clean.h"; sourceTree = "<group>"; };
 		4E8875C11992C80A006F1ACB /* UIWebView+Clean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Clean.m"; sourceTree = "<group>"; };
 		4EC4C347199D449700BE906C /* NEOReferralLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEOReferralLinkController.h; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A9D3E6196F56B900AF6DEB /* CoreGraphics.framework in Frameworks */,
+				4E7D4B5219A7DE01002B10A7 /* FacebookSDK.framework in Frameworks */,
 				22A9D3E8196F56B900AF6DEB /* UIKit.framework in Frameworks */,
 				22A9D3E4196F56B900AF6DEB /* Foundation.framework in Frameworks */,
 				C90E4AAD95664C0A8BD74538 /* libPods.a in Frameworks */,
@@ -244,6 +247,7 @@
 		22A9D3E2196F56B900AF6DEB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E7D4B5119A7DE01002B10A7 /* FacebookSDK.framework */,
 				22A9D3E3196F56B900AF6DEB /* Foundation.framework */,
 				22A9D3E5196F56B900AF6DEB /* CoreGraphics.framework */,
 				22A9D3E7196F56B900AF6DEB /* UIKit.framework */,
@@ -472,6 +476,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				he,
 			);
 			mainGroup = 22A9D3D7196F56B900AF6DEB;
 			productRefGroup = 22A9D3E1196F56B900AF6DEB /* Products */;
@@ -725,10 +730,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)/FacebookSDK/FBAudienceNetwork",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
-				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/NeoReach/NeoReach-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -747,10 +754,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)/FacebookSDK/FBAudienceNetwork",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NeoReach/NeoReach-Prefix.pch";
-				INFOPLIST_FILE = "NeoReach/NeoReach-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/NeoReach/NeoReach-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

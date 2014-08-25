@@ -75,7 +75,13 @@
             }
         }
     cell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+    cell.backgroundColor = [UIColor orangeColor];
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40.0;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -163,12 +169,7 @@
         [delegate.login.loginButton setEnabled:YES];
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
-        
-        //deletes login info!!! feels a little too shotgun though.
-        for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-        }
-        
+
         //deletes stored session configuration
         delegate.sessionConfig = nil;
         delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -176,7 +177,11 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xDigest"];
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    
+        [FBSession.activeSession closeAndClearTokenInformation];
         
+        NSLog(@"Removed auth and digest");
+
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     }
     
@@ -201,7 +206,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateName) name:@"profilePulled" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateName) name:@"profileUpdated" object:nil];
     }
     return self;
 }
@@ -212,10 +217,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.nameLabel.text = [NSString stringWithFormat:@"     Welcome, %@", delegate.user.firstName];
-       
     });
-    
-
 }
 
 - (void)viewDidLoad
@@ -223,8 +225,8 @@
     [super viewDidLoad];
     self.nameLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16.0];
     self.nameLabel.text = @"    Welcome";
-    
-    
+    self.tableView.backgroundColor = [UIColor orangeColor];
+    self.tableView.scrollEnabled = NO;
 }
 
 - (void)didReceiveMemoryWarning

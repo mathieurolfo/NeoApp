@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NEOSideMenuController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

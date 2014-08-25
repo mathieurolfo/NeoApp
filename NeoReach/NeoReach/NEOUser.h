@@ -38,13 +38,15 @@
 
 
 
-/* Sends a 'profilePulled' notification on success. If X-Auth and X-Digest were invalid, sends an
+-(void) pullHeadersFromToken:(NSString *)token;
+
+/* Sends a 'profileUpdated' notification on success. If X-Auth and X-Digest were invalid, sends an
  *'invalidHeaders' notification.
  */
 -(void) pullProfileInfo;
 
-/* Sends a 'profilePosted' notification when finished. Requires a dictionary with the user fields
- * to be edited. Automatically calls pullProfileInfo when finished.
+/* Sends a 'profileUpdated' notification on success. Requires a dictionary with the user fields
+ * to be edited.
  */
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict;
 

@@ -25,6 +25,6 @@
 
 -(void)enableDrawerAccess;
 -(void)disableDrawerAccess;
-
+-(void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error: (NSError *)error;
 
 @end

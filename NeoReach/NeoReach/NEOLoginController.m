@@ -10,17 +10,15 @@
 #import "NEODashboardController.h"
 #import "NEOAppDelegate.h"
 #import "NEOWebViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
+
 
 static int defaultTimeout = 7;
 
-@interface NEOLoginController ()
 
-@property (nonatomic, strong) NSURL *redirectURL;
-@property (nonatomic, strong) NSString *prevRedirectAddress;
-@property (nonatomic, strong) NSString *currRedirectAddress;
-@property (nonatomic, strong) NSString *loginAddress;
+
+@interface NEOLoginController ()
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic) int count;
 @end
 
 @implementation NEOLoginController
@@ -32,12 +30,11 @@ static int defaultTimeout = 7;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.prevRedirectAddress = @"";
-        self.currRedirectAddress = @"";
         
         //subscribe to notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profilePulled" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadToken) name:@"headerInvalid" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profileUpdated" object:nil];
         
     }
     return self;
@@ -64,37 +61,48 @@ static int defaultTimeout = 7;
 
 #pragma mark - Logging In Methods
 
+/*
+ Workflow for login is:
+    Check for existence of header
+    If there is a header, try pulling profile info
+        [now inside delegate.user]
+        [If you can pull the profile information, call endRequest and createDashboard]
+        [If you can't, call loadToken which is what happens if there is no header]
+    If there is no header, get the facebook session token using loadToken which then tries pullHeadersFromToken
+        [now inside delegate.user]
+        [If you get the x-header, call pullProfileInfo again]
+            [If successful, calls endRequest and createDashboard]
+            [If not, calls headerInvalid] BUT will always return successful because the server will create a new account if one does not exist for that header.
+        [If you can't, return an error message and cancel request]
+ 
+ */
 - (IBAction)logInPressed:(id)sender {
-
-    [self.loginButton setEnabled:NO];
-    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    if (!delegate.xAuth) {
-        NSLog(@"No headers");
-        [self loadWebView];
+
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:defaultTimeout target:self selector:@selector(endUnsuccessfulRequest) userInfo:nil repeats:NO];
+    
+    [self displayActivityIndicator];
+    [self.loginButton setEnabled:NO];
+    if (delegate.xAuth.length > 1) {
+        NSLog(@"there is a config when initializing: %@", delegate.sessionConfig);
+        [delegate.user pullProfileInfo];
     } else {
-        [delegate.user pullProfileInfo]; //this attempts to use the saved header information. if it works, we go straight to the dashboard; if it doesn't, the "header invalid" notification is issued and the selector loadWebView is called.
+        [self loadToken];
     }
+    
+}
+
+
+-(void)loadToken {
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+        NSLog(@"session opened, token is %@", session.accessTokenData);
+        NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
+        [delegate.user pullHeadersFromToken:token];
+    }];
 }
 
 //called if no headers exist
--(void)loadWebView
-{
-    UIWebView *webView = [self configureWebView];
-    self.count = self.count +1;
-    
-    NSURL *loginURL = [NSURL URLWithString:self.loginAddress];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:loginURL];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [webView loadRequest:request];
-        
-        [self displayActivityIndicator];
-    });
-
-}
 
 -(void)createDashboard
 {
@@ -102,6 +110,7 @@ static int defaultTimeout = 7;
     NEODashboardController *dashboard = [[NEODashboardController alloc] init];
     delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
     delegate.drawer.centerViewController = delegate.rootNav;
+    [self endSuccessfulRequest];
 }
 
 -(void)displayActivityIndicator
@@ -115,128 +124,26 @@ static int defaultTimeout = 7;
 }
 
 
-
-#pragma mark - WebView Methods
-
--(UIWebView *)configureWebView
+-(void)endUnsuccessfulRequest
 {
-    NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    //NOTE: hardcoded web view to make status bar visible
-    delegate.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
-    
-    delegate.webView.scrollView.scrollEnabled = NO;
-    delegate.webView.delegate = self;
-    delegate.webView.scalesPageToFit = YES;
-    
-    [delegate.window addSubview:delegate.webView];
-    delegate.webView.hidden = YES;
-    
-    self.loginAddress = @"https://api.neoreach.com/auth/facebook";
-    return delegate.webView;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.loginIndicator stopAnimating];
+        [self.loginButton setEnabled:YES];
+    });
+    //other version has alert view pop up
+    NSLog(@"unsuccessful request ended");
 }
 
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+-(void)endSuccessfulRequest
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.loginIndicator stopAnimating];
+        [self.loginButton setEnabled:YES];
+    });
     
-    NSURL *redirect = [request mainDocumentURL];
-    NSString *redirectAddress = [redirect absoluteString];
-    
-    NSLog(@"%@", redirectAddress);
-    
-    //mediocre fix for white landing page: the URL appears twice at the last page so if the previous one is the same, display the web view.
-    self.prevRedirectAddress = self.currRedirectAddress;
-    self.currRedirectAddress = redirectAddress;
-  
-    
-    if ([redirectAddress hasPrefix:@"https://api.neoreach.com/auth/facebook/callback"]) { //terminate request early to get Auth Header
-        self.redirectURL = redirect;
-       
-        [self getAuthHeader];
-        
-        return NO;
-    } else if (
-            //the login address appears twice (loading quirk?)
-               ([redirectAddress hasPrefix:@"https://m.facebook.com/login"] &&
-               [self.currRedirectAddress isEqualToString:self.prevRedirectAddress]) ||
-               
-               //the user is redirected to the actual 'enter login info' page
-               [redirectAddress hasPrefix:@"https://m.facebook.com/v1.0/dialog/oauth?redirect"] ||
-               [redirectAddress hasPrefix:@"https://m.facebook.com/dialog/oauth"] ||
-               [redirectAddress hasPrefix:@"https://www.facebook.com/dialog/oauth"]) { //display login screen
-        
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-        [self setNeedsStatusBarAppearanceUpdate];
-        webView.hidden = NO;
-        self.splashImage.hidden = YES;
-    }
-    return YES;
+    [self.timer invalidate];
+    NSLog(@"successful request ended");
 }
-
--(void)getAuthHeader
-{
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        //load response into a dictionary
-        NSDictionary *headerJSON =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
-        NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
-        
-        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
-                                                         @"X-Digest":xDigest};
-        
-        [[NSUserDefaults standardUserDefaults] setValue:xAuth forKey:@"xAuth"];
-        [[NSUserDefaults standardUserDefaults] setValue:xDigest forKey:@"xDigest"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-            delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-            delegate.rootNav.navigationBar.translucent = NO;
-            delegate.drawer.centerViewController = delegate.rootNav;
-            
-            NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-            [user pullProfileInfo];
-
-            self.splashImage.hidden = NO;
-            [self.timer invalidate];
-            
-        });
-    }];
-    [dataTask resume];
-    
-}
-
--(void)cancelWeb
-{
-    [self.loginIndicator stopAnimating];
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    [delegate.webView stopLoading];
-    [self.loginButton setEnabled:YES];
-    
-    UIAlertView *timeoutAlert = [[UIAlertView alloc] initWithTitle:@":(" message:@"Login was unsuccessful." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
-    [timeoutAlert show];
-    
-}
-
--(void)webViewDidStartLoad:(UIWebView *)webView
-{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:defaultTimeout target:self selector:@selector(cancelWeb) userInfo:nil repeats:NO];
-}
-
-
 
 
 
