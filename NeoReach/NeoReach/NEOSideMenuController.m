@@ -74,7 +74,13 @@
             }
         }
     cell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+    cell.backgroundColor = [UIColor orangeColor];
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40.0;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -216,7 +222,8 @@
     [super viewDidLoad];
     self.nameLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16.0];
     self.nameLabel.text = @"    Welcome";
-    self.view.backgroundColor = [UIColor orangeColor];
+    self.tableView.backgroundColor = [UIColor orangeColor];
+    self.tableView.scrollEnabled = NO;
 }
 
 - (void)didReceiveMemoryWarning
