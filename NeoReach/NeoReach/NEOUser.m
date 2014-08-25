@@ -47,6 +47,13 @@
                 delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":delegate.xAuth,
                                                                  @"X-Digest":delegate.xDigest};
                 
+                
+                [[NSUserDefaults standardUserDefaults] setValue:delegate.xAuth forKey:@"xAuth"];
+                [[NSUserDefaults standardUserDefaults] setValue:delegate.xDigest forKey:@"xDigest"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", delegate.xAuth, delegate.xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
+
+                
                 [self pullProfileInfo];
 
             });

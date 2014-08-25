@@ -162,12 +162,6 @@
         [delegate.login.loginButton setEnabled:YES];
         delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
-        //[[NSURLCache sharedURLCache] removeAllCachedResponses];
-        
-        //deletes login info!!! feels a little too shotgun though.
-        for(NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]) {
-            [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-        }
         
         //deletes stored session configuration
         delegate.sessionConfig = nil;
@@ -176,6 +170,8 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xDigest"];
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        
+        [FBSession.activeSession closeAndClearTokenInformation];
         
         NSLog(@"Removed auth and digest");
         [delegate.drawer closeDrawerAnimated:YES completion:nil];

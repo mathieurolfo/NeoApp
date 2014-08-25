@@ -49,9 +49,6 @@
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
     
-    NSLog(@"loading stuff");
-    
-    
     
     //set up session configuration for app
     self.xAuth = [[NSUserDefaults standardUserDefaults] objectForKey:@"xAuth"];
@@ -60,7 +57,6 @@
     if (self.xAuth && self.xDigest) {
         self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":self.xAuth,
                                                      @"X-Digest":self.xDigest};
-        NSLog(@"They exist");
     }
     
     NSLog(@"Loaded header in app delegate: %@", self.sessionConfig.HTTPAdditionalHeaders);

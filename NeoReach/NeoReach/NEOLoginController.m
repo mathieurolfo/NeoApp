@@ -32,11 +32,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.prevRedirectAddress = @"";
-        self.currRedirectAddress = @"";
         
         //subscribe to notifications
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebView) name:@"headerInvalid" object:nil];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profileUpdated" object:nil];
         
     }
@@ -69,21 +68,17 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
 
     self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
-    NSLog(@"%u", FBSession.activeSession.state);
-    if (FBSession.activeSession.state == FBSessionStateOpen ||
-        FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-        [FBSession.activeSession closeAndClearTokenInformation];
-        NSLog(@"Login closed");
-    } else {
-        [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-            NSLog(@"session opened, token is %@", session.accessTokenData);
-            
-            NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
-            [self displayActivityIndicator];
-            [delegate.user pullHeadersFromToken:token];
 
-        }];
-    }
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+        NSLog(@"session opened, token is %@", session.accessTokenData);
+        
+        NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
+        [self displayActivityIndicator];
+        [delegate.user pullHeadersFromToken:token];
+
+    }];
+
+    [self.loginButton setEnabled:NO];
 }
 
 //called if no headers exist
@@ -106,57 +101,6 @@
     [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
 }
 
-
-
-
--(void)getAuthHeader
-{
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.redirectURL];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:delegate.sessionConfig delegate:nil delegateQueue:nil];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        //load response into a dictionary
-        NSDictionary *headerJSON =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        NSString *xAuth = [headerJSON valueForKeyPath:@"data.X-Auth"];
-        NSString *xDigest = [headerJSON valueForKeyPath:@"data.X-Digest"];
-        
-        delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":xAuth,
-                                                         @"X-Digest":xDigest};
-        
-        [[NSUserDefaults standardUserDefaults] setValue:xAuth forKey:@"xAuth"];
-        [[NSUserDefaults standardUserDefaults] setValue:xDigest forKey:@"xDigest"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", xAuth, xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
-        
-        //initialization of dashboard controller must occur on the main thread after the headers are configured, or else the API server call won't return correctly
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-            delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-            delegate.rootNav.navigationBar.translucent = NO;
-            delegate.drawer.centerViewController = delegate.rootNav;
-            
-            NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-            [user pullProfileInfo];
-            
-
-
-            self.splashImage.hidden = NO;
-            [self.timer invalidate];
-            
-        });
-    }];
-    [dataTask resume];
-    
-}
 
 -(void)cancelRequest
 {
