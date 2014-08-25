@@ -208,11 +208,7 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.nameLabel.text = [NSString stringWithFormat:@"     Welcome, %@", delegate.user.firstName];
-        //[self.nameLabel setNeedsLayout];
-        NSLog(@"Updated Name in Side Menu");
     });
-    
-
 }
 
 - (void)viewDidLoad
@@ -221,7 +217,6 @@
     self.nameLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16.0];
     self.nameLabel.text = @"    Welcome";
     self.view.backgroundColor = [UIColor orangeColor];
-    
 }
 
 - (void)didReceiveMemoryWarning

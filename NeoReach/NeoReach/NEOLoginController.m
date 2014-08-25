@@ -103,7 +103,8 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NEODashboardController *dashboard = [[NEODashboardController alloc] init];
     delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    delegate.drawer.centerViewController = delegate.rootNav; 
+    delegate.drawer.centerViewController = delegate.rootNav;
+    [self endSuccessfulRequest];
 }
 
 -(void)displayActivityIndicator

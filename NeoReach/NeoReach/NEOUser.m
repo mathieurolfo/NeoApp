@@ -34,7 +34,7 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@", headerDictionary);
+        
         if ([headerDictionary[@"success"] intValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 delegate.xAuth = headerDictionary[@"data"][@"X-Auth"];
@@ -46,8 +46,7 @@
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xAuth forKey:@"xAuth"];
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xDigest forKey:@"xDigest"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                NSLog(@"Saved xAuth and xDigest in getAuthHeader: %@ %@ %@", delegate.xAuth, delegate.xDigest, delegate.sessionConfig.HTTPAdditionalHeaders);
-
+                
                 [self pullProfileInfo];
 
             });
@@ -62,7 +61,7 @@
 
 -(void) pullProfileInfo
 {
-    NSLog(@"pullProfileInfo called");
+    
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -89,7 +88,6 @@
         } else { // success
         
             [self populateUserProfileWithDictionary:profileJSON];
-            [delegate.login endSuccessfulRequest];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profileUpdated" object:nil];
             });
@@ -191,7 +189,7 @@
 //Populates user profile with the JSON dictionary returned from the GET call
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
-    NSLog(@"%@", dict);
+    
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
     [self populateBasicUserInfoWithDictionary:profileDict];
@@ -286,8 +284,7 @@
         
         NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
         [self fetchReferralURLsForCampaigns:campaignsWithoutReferralURLs];
-        NSLog(@"%@", dict);
-
+        
     }];
     [dataTask resume];
 }
@@ -342,7 +339,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
-        NSLog(@"campaigns pulled");
+        
     });
 }
 
