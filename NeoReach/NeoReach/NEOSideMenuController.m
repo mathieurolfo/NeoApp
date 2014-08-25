@@ -171,8 +171,10 @@
         delegate.drawer.centerViewController = delegate.login;
 
         //deletes stored session configuration
-        delegate.sessionConfig = nil;
+        delegate.xAuth = nil;
+        delegate.xDigest = nil;
         delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xAuth"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xDigest"];
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];

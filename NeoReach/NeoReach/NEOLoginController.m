@@ -84,7 +84,7 @@ static int defaultTimeout = 7;
     [self displayActivityIndicator];
     [self.loginButton setEnabled:NO];
     if (delegate.xAuth.length > 1) {
-        NSLog(@"there is a config when initializing: %@", delegate.sessionConfig);
+        NSLog(@"there is a config when initializing: %@", delegate.sessionConfig.HTTPAdditionalHeaders);
         [delegate.user pullProfileInfo];
     } else {
         [self loadToken];
@@ -110,7 +110,10 @@ static int defaultTimeout = 7;
     NEODashboardController *dashboard = [[NEODashboardController alloc] init];
     delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
     delegate.drawer.centerViewController = delegate.rootNav;
-    [self endSuccessfulRequest];
+    NSLog(@"ending successful request from createDashboard");
+    if (self.loginIndicator.isAnimating) {
+        [self endSuccessfulRequest];
+    }
 }
 
 -(void)displayActivityIndicator
@@ -142,7 +145,6 @@ static int defaultTimeout = 7;
     });
     
     [self.timer invalidate];
-    NSLog(@"successful request ended");
 }
 
 
