@@ -58,6 +58,9 @@
     self.xAuth = [[NSUserDefaults standardUserDefaults] objectForKey:@"xAuth"];
     self.xDigest = [[NSUserDefaults standardUserDefaults] objectForKey:@"xDigest"];
     
+    self.xAuth = @"53fb5fb44dd75a0772c44ed3";
+    self.xDigest = @"0GFnhRALqPyXEWNNRsDChxYcRCLlKvzY";
+    
     self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     if (self.xAuth && self.xDigest) {
         self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":self.xAuth, @"X-Digest":self.xDigest};
