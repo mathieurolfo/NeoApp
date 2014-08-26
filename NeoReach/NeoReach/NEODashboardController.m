@@ -41,8 +41,6 @@
 
 #pragma mark Default Methods
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -77,52 +75,11 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
-/* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
- */
--(void)controlInitRefreshDashboard
-{
-    [self.refreshControl endRefreshing];
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    [delegate.user pullProfileInfo];
-    [delegate.user pullCampaigns];
-}
-
-
--(void)campaignsPulledOrUpdated
-{
-    [self updateCurrentCampaigns];
-    [self refreshDashboard];
-}
-
--(void)updateCurrentCampaigns {
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    _currentCampaigns = [[NSMutableArray alloc] initWithArray:user.campaigns];
-    
-    NSMutableArray *futureCampaigns = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [_currentCampaigns count]; i++) {
-        NEOCampaign *campaign = _currentCampaigns[i];
-        if (campaign.referralURL == nil) {
-            [futureCampaigns addObject:campaign];
-        }
-    }
-    [_currentCampaigns removeObjectsInArray:futureCampaigns];
-}
-
--(void)refreshDashboard
-{
-    [self.tableView reloadData];
-    
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    [delegate.webView cleanForDealloc];
-    
-    delegate.webView = nil;
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.tableView reloadData];
-    
     NEOAppDelegate *delegate = (NEOAppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate enableDrawerAccess];
 }
@@ -153,8 +110,47 @@
     return self;
 }
 
-
 #pragma mark Dashboard Methods
+
+/* This method initiates a refreshing of the dashboard by pulling down on the dashboard. It calls the pullProfileInfo method, which pulls data from the server then issues a notification to call refreshDashboard, which actually reloads the table view.
+ */
+-(void)controlInitRefreshDashboard
+{
+    [self.refreshControl endRefreshing];
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.user pullProfileInfo];
+    [delegate.user pullCampaigns];
+}
+
+-(void)campaignsPulledOrUpdated
+{
+    [self updateCurrentCampaigns];
+    [self refreshDashboard];
+}
+
+-(void)updateCurrentCampaigns {
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    _currentCampaigns = [[NSMutableArray alloc] initWithArray:user.campaigns];
+    
+    NSMutableArray *futureCampaigns = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [_currentCampaigns count]; i++) {
+        NEOCampaign *campaign = _currentCampaigns[i];
+        if (campaign.referralURL == nil) {
+            [futureCampaigns addObject:campaign];
+        }
+    }
+    [_currentCampaigns removeObjectsInArray:futureCampaigns];
+}
+
+-(void)refreshDashboard
+{
+    [self.tableView reloadData];
+    
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    [delegate.webView cleanForDealloc];
+    
+    delegate.webView = nil;
+}
 
 - (IBAction)browseCampaigns:(id)sender {
     NEOBrowseCampaignsController *bcc = [[NEOBrowseCampaignsController alloc] init];

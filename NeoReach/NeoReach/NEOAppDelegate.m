@@ -19,25 +19,27 @@
 
 @implementation NEOAppDelegate
 
+#pragma mark didFinishLaunchingWithOptions
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FBLoginView class];
     
     NEOLoginController *loginController = [[NEOLoginController alloc] init];
+    NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
+    self.user = [[NEOUser alloc] init];
     self.login = loginController;
 
-    NEOSideMenuController *sideMenu = [[NEOSideMenuController alloc] init];
+    
     
     self.drawer = [[MMDrawerController alloc] initWithCenterViewController:loginController
                                                                  leftDrawerViewController:sideMenu];
-    
     [self.drawer setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:4.0]];
-
     [self.drawer setShouldStretchDrawer:NO];
     [self.drawer setShowsShadow:NO];
     self.drawer.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width * 2.0 / 3;
     
-    self.user = [[NEOUser alloc] init];
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.drawer;
@@ -51,18 +53,25 @@
     
     
     //set up session configuration for app
+    
+    
     self.xAuth = [[NSUserDefaults standardUserDefaults] objectForKey:@"xAuth"];
     self.xDigest = [[NSUserDefaults standardUserDefaults] objectForKey:@"xDigest"];
+    
     self.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     if (self.xAuth && self.xDigest) {
-        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":self.xAuth,
-                                                     @"X-Digest":self.xDigest};
+        self.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":self.xAuth, @"X-Digest":self.xDigest};
+        self.user.triedNewHeader = NO;
+    } else {
+        self.user.triedNewHeader = YES;
     }
     
     NSLog(@"Loaded header in app delegate: %@", self.sessionConfig.HTTPAdditionalHeaders);
     
     return YES;
 }
+
+#pragma mark FBSession Methods
 
 -(void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error
 {
@@ -135,7 +144,7 @@
     return wasHandled;
 }
 
-
+#pragma mark Application States
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -163,6 +172,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark MMDrawer Methods
+
 -(void)enableDrawerAccess
 {
     self.drawer.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView |
@@ -173,8 +184,6 @@
     MMCloseDrawerGestureModePanningCenterView |
     MMCloseDrawerGestureModeTapNavigationBar |
     MMCloseDrawerGestureModePanningNavigationBar;
-    
-
     
 }
 

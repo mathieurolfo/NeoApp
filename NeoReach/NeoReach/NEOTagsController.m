@@ -72,6 +72,58 @@
     
 }
 
+#pragma mark Tag Management Methods
+
+- (IBAction)addTag:(id)sender
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add a Tag" message:nil delegate:self cancelButtonTitle:@"Add" otherButtonTitles:nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+-(BOOL)tagIsDuplicate:(NSString *)tag
+{
+    for (int i = 0; i < [_tags count]; i++) {
+        if ([tag isEqualToString:_tags[i]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(IBAction)updateUserTags:(id) sender
+{
+    
+    
+    if ([_tags count] == 0) {
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"Please enter at least one tag.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                    }];
+        
+        
+    } else {
+        NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+        NSDictionary *dict = @{
+                               @"tags": _tags
+                               };
+        
+        [user postProfileInfoWithDictionary:dict];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
+}
+
+
+
 #pragma mark - Default Initialization Methods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,12 +143,6 @@
     return self;
 }
 
-- (IBAction)addTag:(id)sender
-{
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add a Tag" message:nil delegate:self cancelButtonTitle:@"Add" otherButtonTitles:nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
@@ -137,48 +183,6 @@
         [_tableView reloadData];
     }
 }
-
--(BOOL)tagIsDuplicate:(NSString *)tag
-{
-    for (int i = 0; i < [_tags count]; i++) {
-        if ([tag isEqualToString:_tags[i]]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
--(IBAction)updateUserTags:(id) sender
-{
-
-
-    if ([_tags count] == 0) {
-        NSDictionary *toastOptions = @{
-                                  kCRToastTextKey : @"Please enter at least one tag.",
-                                  kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
-                                  kCRToastBackgroundColorKey : [UIColor orangeColor],
-                                  kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
-                                  kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
-                                  kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
-                                  kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
-                                  };
-        [CRToastManager showNotificationWithOptions:toastOptions
-                                    completionBlock:^{
-                                    }];
-
-        
-    } else {
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    NSDictionary *dict = @{
-                           @"tags": _tags
-                           };
-    
-    [user postProfileInfoWithDictionary:dict];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    
-}
-
 
 - (void)viewDidLoad
 {
