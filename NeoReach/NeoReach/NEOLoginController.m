@@ -14,7 +14,7 @@
 
 @interface NEOLoginController ()
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) NSString *token;
+
 @end
 
 @implementation NEOLoginController

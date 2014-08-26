@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *neoReachLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIActivityIndicatorView *loginIndicator;
+@property (nonatomic, strong) NSString *token;
 
 -(void)endSuccessfulRequest;
 -(void)endUnsuccessfulRequest;

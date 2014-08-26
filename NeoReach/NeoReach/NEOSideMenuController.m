@@ -179,7 +179,8 @@
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
         
-        [FBSession.activeSession closeAndClearTokenInformation];
+        //[FBSession.activeSession closeAndClearTokenInformation];
+        delegate.login.token = nil;
         
         NSLog(@"Removed auth and digest");
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
