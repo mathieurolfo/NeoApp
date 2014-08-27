@@ -85,8 +85,6 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-        
-        NSLog(@"pullProfileInfo %@", profileJSON);
         if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
         {
             dispatch_async(dispatch_get_main_queue(), ^{

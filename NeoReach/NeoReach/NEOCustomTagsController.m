@@ -12,7 +12,10 @@
 #import "NEOTagFlowLayout.h"
 
 static int defaultCellHeight = 30;
-static int defaultButtonWidth = 35;
+static int defaultButtonWidth = 30;
+
+#define tagFont [UIFont fontWithName:@"Lato-Regular" size:15.0]
+
 
 
 /* 
@@ -125,10 +128,9 @@ static int defaultButtonWidth = 35;
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    UIFont *tagFont = [UIFont fontWithName:@"Lato-Regular" size:13.0];
+    
     CGFloat width = [self.tags[indexPath.row] sizeWithAttributes:@{NSFontAttributeName: tagFont}].width;
     width = round(width+0.5) + defaultButtonWidth;
-    
     return CGSizeMake(width, defaultCellHeight);
    
 }
