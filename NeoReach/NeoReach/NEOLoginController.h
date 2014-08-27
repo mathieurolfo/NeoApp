@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIActivityIndicatorView *loginIndicator;
 @property (nonatomic, strong) NSString *token;
+@property (nonatomic) BOOL dashboardCreated;
 
 -(void)endSuccessfulRequest;
 -(void)endUnsuccessfulRequest;

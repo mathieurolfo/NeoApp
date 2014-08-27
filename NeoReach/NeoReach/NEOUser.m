@@ -42,14 +42,11 @@
     
         if ([headerDictionary[@"success"] intValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Old header %@", delegate.sessionConfig.HTTPAdditionalHeaders);
                 delegate.xAuth = headerDictionary[@"data"][@"X-Auth"];
                 delegate.xDigest = headerDictionary[@"data"][@"X-Digest"];
                 delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
                 delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":delegate.xAuth,
                                                                  @"X-Digest":delegate.xDigest};
-                NSLog(@"New header %@", delegate.sessionConfig.HTTPAdditionalHeaders);
-                
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xAuth forKey:@"xAuth"];
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xDigest forKey:@"xDigest"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -86,7 +83,7 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
-        NSLog(@"profile information in pullProfileInfo %@", profileJSON);
+        
         
         if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
         {
@@ -126,12 +123,12 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
-        NSLog(@"%@", response);
+        
         NSDictionary *dict =
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        NSLog(@"%@", dict);
+        
         
         
         NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];

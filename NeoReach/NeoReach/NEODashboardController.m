@@ -72,6 +72,9 @@
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [delegate.user pullCampaigns];
     delegate.rootNav.navigationBar.translucent = NO;
+    [delegate.rootNav.navigationBar setTitleTextAttributes:
+        [NSDictionary dictionaryWithObjectsAndKeys:
+            [UIFont fontWithName:@"Lato-Hairline" size:18.0], NSFontAttributeName, nil]];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 

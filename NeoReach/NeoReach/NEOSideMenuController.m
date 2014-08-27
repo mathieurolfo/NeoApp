@@ -74,8 +74,8 @@
                     break;
             }
         }
-    cell.textLabel.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
-    cell.backgroundColor = [UIColor orangeColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Lato-Light" size:14.0];
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -108,7 +108,7 @@
     myLabel.frame = CGRectMake(0, 0, 320, 22);
     myLabel.font = [UIFont boldSystemFontOfSize:12];
     myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    myLabel.backgroundColor = [UIColor lightGrayColor];
+    myLabel.backgroundColor = [UIColor grayColor];
     
     UIView *headerView = [[UIView alloc] init];
     [headerView addSubview:myLabel];
@@ -184,6 +184,7 @@
         
         //[FBSession.activeSession closeAndClearTokenInformation];
         delegate.login.token = nil;
+        delegate.login.dashboardCreated = NO;
         
         NSLog(@"Removed auth and digest");
 
@@ -230,7 +231,7 @@
     [super viewDidLoad];
     self.nameLabel.font = [UIFont fontWithName:@"Lato-Bold" size:16.0];
     self.nameLabel.text = @"    Welcome";
-    self.tableView.backgroundColor = [UIColor orangeColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.scrollEnabled = NO;
 }
 

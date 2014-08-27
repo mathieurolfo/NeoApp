@@ -13,7 +13,7 @@
 
 - (void)awakeFromNib
 {
-    self.nameLabel.font = [UIFont fontWithName:@"Lato-Hairline" size:20.0];
+    self.nameLabel.font = [UIFont fontWithName:@"Lato-Light" size:20.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

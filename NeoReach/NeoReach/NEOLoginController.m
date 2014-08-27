@@ -37,6 +37,8 @@ static int defaultTimeout = 7;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createDashboard) name:@"profileUpdated" object:nil];
         
+        self.dashboardCreated = NO;
+        
     }
     return self;
 }
@@ -94,7 +96,8 @@ static int defaultTimeout = 7;
         [self loadToken];
     } else {
         NSLog(@"Token found, request not working.");
-        [self endUnsuccessfulRequest];
+        [self loadToken];
+        //[self endUnsuccessfulRequest];
     }
     
 }
@@ -104,7 +107,6 @@ static int defaultTimeout = 7;
     NSLog(@"loadToken");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-        NSLog(@"token is %@", session.accessTokenData);
         self.token = [NSString stringWithFormat:@"%@", session.accessTokenData];
         NSLog(@"calling pullHeadersFromToken");
         [delegate.user pullHeadersFromToken:self.token];
@@ -116,12 +118,15 @@ static int defaultTimeout = 7;
 -(void)createDashboard
 {
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NEODashboardController *dashboard = [[NEODashboardController alloc] init];
-    delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    delegate.drawer.centerViewController = delegate.rootNav;
-    NSLog(@"ending successful request from createDashboard");
-    if (self.loginIndicator.isAnimating) {
-        [self endSuccessfulRequest];
+    if (!self.dashboardCreated) {
+        NEODashboardController *dashboard = [[NEODashboardController alloc] init];
+        delegate.rootNav = [[UINavigationController alloc] initWithRootViewController:dashboard];
+        delegate.drawer.centerViewController = delegate.rootNav;
+        NSLog(@"ending successful request from createDashboard");
+        if (self.loginIndicator.isAnimating) {
+            [self endSuccessfulRequest];
+        }
+        self.dashboardCreated = YES;
     }
 }
 
