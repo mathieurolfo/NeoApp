@@ -50,8 +50,7 @@ static int defaultButtonWidth = 30;
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"tag number %ld", (long)indexPath.row);
-    
+    NSLog(@"tag number %ld with text %@", (long)indexPath.row, self.tags[indexPath.row]);
     static NSString *cellIdentifier = @"neoTagCollectionViewCell";
     NEOTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.tagTitle.text = [self.tags objectAtIndex:indexPath.row];
@@ -124,8 +123,22 @@ static int defaultButtonWidth = 30;
 #pragma mark Text Field Methods
 -(BOOL) textFieldShouldReturn:(UITextField *)textField
 {
+    [self.tags addObject:textField.text];
     [textField resignFirstResponder];
-    NSLog(@"%@", textField.text);
+    
+    
+    [UIView setAnimationsEnabled:NO];
+    [self.tagsCollectionView reloadData];
+    //[self.tagsCollectionView reloadItemsAtIndexPaths:self.tagsCollectionView.indexPathsForVisibleItems];
+    [UIView setAnimationsEnabled:YES];
+    textField.text = @"Add new tag here";
+    
+    return YES;
+}
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    textField.text = @"";
     return YES;
 }
 
