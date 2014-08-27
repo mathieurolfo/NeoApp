@@ -55,8 +55,8 @@
 
             });
         } else if ([headerDictionary[@"success"] intValue] == 0) {
-            [delegate.login endUnsuccessfulRequest];
-            NSLog(@"The login process failed when getting the header from the server.");
+            //[delegate.login endUnsuccessfulRequest];
+            //NSLog(@"The login process failed when getting the header from the server.");
         }
     }];
     [dataTask resume];
@@ -67,6 +67,8 @@
 {
     NSLog(@"pullProfileInfo");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    
+    [delegate.login displayActivityIndicator];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     
@@ -84,7 +86,7 @@
                                           error:&jsonError];
         
         
-        
+        NSLog(@"pullProfileInfo %@", profileJSON);
         if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
         {
             dispatch_async(dispatch_get_main_queue(), ^{

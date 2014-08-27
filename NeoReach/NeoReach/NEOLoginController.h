@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *token;
 @property (nonatomic) BOOL dashboardCreated;
 
+-(void)displayActivityIndicator;
 -(void)endSuccessfulRequest;
 -(void)endUnsuccessfulRequest;
 

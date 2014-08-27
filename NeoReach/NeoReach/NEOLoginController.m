@@ -86,7 +86,7 @@ static int defaultTimeout = 7;
 
     self.timer = [NSTimer scheduledTimerWithTimeInterval:defaultTimeout target:self selector:@selector(endUnsuccessfulRequest) userInfo:nil repeats:NO];
     
-    [self displayActivityIndicator];
+    
     [self.loginButton setEnabled:NO];
 
     NSLog(@"loginPressed");
@@ -105,6 +105,7 @@ static int defaultTimeout = 7;
 
 -(void)loadToken {
     NSLog(@"loadToken");
+    [self displayActivityIndicator];
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
         self.token = [NSString stringWithFormat:@"%@", session.accessTokenData];
@@ -117,6 +118,7 @@ static int defaultTimeout = 7;
 
 -(void)createDashboard
 {
+    NSLog(@"createDashboard");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     if (!self.dashboardCreated) {
         NEODashboardController *dashboard = [[NEODashboardController alloc] init];
@@ -132,12 +134,13 @@ static int defaultTimeout = 7;
 
 -(void)displayActivityIndicator
 {
-
-    UIActivityIndicatorView *loginIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    loginIndicator.center = self.view.center;
-    [loginIndicator startAnimating];
-    self.loginIndicator = loginIndicator;
-    [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
+    if (!self.loginIndicator || !self.loginIndicator.isAnimating) {
+        UIActivityIndicatorView *loginIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        loginIndicator.center = self.view.center;
+        [loginIndicator startAnimating];
+        self.loginIndicator = loginIndicator;
+        [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
+    }
 }
 
 
