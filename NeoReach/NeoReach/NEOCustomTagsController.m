@@ -11,6 +11,7 @@
 #import "NEOTagCollectionViewCell.h"
 #import "NEOTagFlowLayout.h"
 
+
 static int defaultCellHeight = 30;
 static int defaultButtonWidth = 30;
 
@@ -49,10 +50,7 @@ static int defaultButtonWidth = 30;
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.row == self.tags.count) {
-        
-    }
+    NSLog(@"tag number %ld", (long)indexPath.row);
     
     static NSString *cellIdentifier = @"neoTagCollectionViewCell";
     NEOTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -113,26 +111,37 @@ static int defaultButtonWidth = 30;
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     if (self.tags.count == 0) {
-        UIAlertView *noTagsAlert = [[UIAlertView alloc] initWithTitle:@"Welcome!" message:@"Please have at least one tag in order to be matched with campaigns." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
+        UIAlertView *noTagsAlert = [[UIAlertView alloc] initWithTitle:@"Hold up!" message:@"Please have at least one tag in order to be matched with campaigns." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
         [noTagsAlert show];
+    } else {
+        NSDictionary *dict = @{@"tags": _tags};
+        [delegate.user postProfileInfoWithDictionary:dict];
+        [delegate.rootNav popViewControllerAnimated:YES];
     }
     
-    
-    NSDictionary *dict = @{@"tags": _tags};
-    [delegate.user postProfileInfoWithDictionary:dict];
-    [delegate.rootNav popViewControllerAnimated:YES];
+}
+
+#pragma mark Text Field Methods
+-(BOOL) textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    NSLog(@"%@", textField.text);
+    return YES;
 }
 
 #pragma mark Flow Layout Delegate Methods
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%ld", (long)indexPath.row);
+    if (indexPath.row == self.tags.count) {
+        return CGSizeMake(50, defaultCellHeight);
+    } else {
+        CGFloat width = [self.tags[indexPath.row] sizeWithAttributes:@{NSFontAttributeName: tagFont}].width;
+        width = round(width+0.5) + defaultButtonWidth;
+        return CGSizeMake(width, defaultCellHeight);
+    }
     
-    
-    CGFloat width = [self.tags[indexPath.row] sizeWithAttributes:@{NSFontAttributeName: tagFont}].width;
-    width = round(width+0.5) + defaultButtonWidth;
-    return CGSizeMake(width, defaultCellHeight);
-   
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section

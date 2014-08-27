@@ -258,6 +258,9 @@
             NEOCampaign *campaign = _currentCampaigns[indexPath.row - 1];
             poc.campaignLabel.text = campaign.name;
             poc.clicksLabel.text = [NSString stringWithFormat:@"\u25B2%lu",(unsigned long)campaign.totalClicks];
+            
+            poc.campaignLabel.font = [UIFont fontWithName:@"Lato-Light" size:16.0];
+            
             cell = (UITableViewCell *)poc;
             break;
         }
