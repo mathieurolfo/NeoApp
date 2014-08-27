@@ -19,6 +19,7 @@ static int defaultTimeout = 7;
 
 @interface NEOLoginController ()
 @property (nonatomic, strong) NSTimer *timer;
+
 @end
 
 @implementation NEOLoginController
@@ -63,6 +64,8 @@ static int defaultTimeout = 7;
 
 /*
  Workflow for login is:
+    Button clicked
+    Start a 10-second timer that calls endUnsuccessfulRequest
     Check for existence of header
     If there is a header, try pulling profile info
         [now inside delegate.user]
@@ -83,26 +86,32 @@ static int defaultTimeout = 7;
     
     [self displayActivityIndicator];
     [self.loginButton setEnabled:NO];
-    if (delegate.xAuth.length > 1) {
-        NSLog(@"there is a config when initializing: %@", delegate.sessionConfig.HTTPAdditionalHeaders);
+
+    NSLog(@"loginPressed");
+    if (delegate.xAuth.length > 0) {
         [delegate.user pullProfileInfo];
-    } else {
+    } else if (self.token.length == 0) {
         [self loadToken];
+    } else {
+        NSLog(@"Token found, request not working.");
+        [self endUnsuccessfulRequest];
     }
     
 }
 
 
 -(void)loadToken {
+    NSLog(@"loadToken");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-        NSLog(@"session opened, token is %@", session.accessTokenData);
-        NSString *token = [NSString stringWithFormat:@"%@", session.accessTokenData];
-        [delegate.user pullHeadersFromToken:token];
+        NSLog(@"token is %@", session.accessTokenData);
+        self.token = [NSString stringWithFormat:@"%@", session.accessTokenData];
+        NSLog(@"calling pullHeadersFromToken");
+        [delegate.user pullHeadersFromToken:self.token];
     }];
 }
 
-//called if no headers exist
+
 
 -(void)createDashboard
 {
@@ -133,6 +142,8 @@ static int defaultTimeout = 7;
         [self.loginIndicator stopAnimating];
         [self.loginButton setEnabled:YES];
     });
+    [self.timer invalidate];
+
     //other version has alert view pop up
     NSLog(@"unsuccessful request ended");
 }

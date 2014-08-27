@@ -173,14 +173,17 @@
         //deletes stored session configuration
         delegate.xAuth = nil;
         delegate.xDigest = nil;
+
+        delegate.sessionConfig = nil;
         delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xAuth"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"xDigest"];
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    
-        [FBSession.activeSession closeAndClearTokenInformation];
+        
+        //[FBSession.activeSession closeAndClearTokenInformation];
+        delegate.login.token = nil;
         
         NSLog(@"Removed auth and digest");
 

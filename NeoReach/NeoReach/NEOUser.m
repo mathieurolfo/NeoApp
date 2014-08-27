@@ -12,13 +12,16 @@
 #import "NEOCampaign.h"
 
 @interface NEOUser ()
+
 @end
 
 @implementation NEOUser
 
+#pragma mark API GET Calls
 
 -(void) pullHeadersFromToken:(NSString *) token
 {
+    NSLog(@"pullHeadersFromToken");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -35,13 +38,17 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
+        NSLog(@"headerDictionary in pullHeadersFromToken, %@", headerDictionary);
+    
         if ([headerDictionary[@"success"] intValue] == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Old header %@", delegate.sessionConfig.HTTPAdditionalHeaders);
                 delegate.xAuth = headerDictionary[@"data"][@"X-Auth"];
                 delegate.xDigest = headerDictionary[@"data"][@"X-Digest"];
                 delegate.sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
                 delegate.sessionConfig.HTTPAdditionalHeaders = @{@"X-Auth":delegate.xAuth,
                                                                  @"X-Digest":delegate.xDigest};
+                NSLog(@"New header %@", delegate.sessionConfig.HTTPAdditionalHeaders);
                 
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xAuth forKey:@"xAuth"];
                 [[NSUserDefaults standardUserDefaults] setValue:delegate.xDigest forKey:@"xDigest"];
@@ -50,7 +57,7 @@
                 [self pullProfileInfo];
 
             });
-        } else {
+        } else if ([headerDictionary[@"success"] intValue] == 0) {
             [delegate.login endUnsuccessfulRequest];
             NSLog(@"The login process failed when getting the header from the server.");
         }
@@ -61,7 +68,7 @@
 
 -(void) pullProfileInfo
 {
-    
+    NSLog(@"pullProfileInfo");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -79,14 +86,22 @@
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
         
+        NSLog(@"profile information in pullProfileInfo %@", profileJSON);
+        
         if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
-
+                if (!self.triedNewHeader) {
+                    NSLog(@"couldn't log in with header in pullProfileInfo, posting headerInvalid");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"headerInvalid" object:nil];
+                    self.triedNewHeader = YES;
+                } else {
+                    NSLog(@"Tried new header and not working, aborting loop.");
+                    [delegate.login endUnsuccessfulRequest];
+                }
             });
         } else { // success
-        
+            
             [self populateUserProfileWithDictionary:profileJSON];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"profileUpdated" object:nil];
@@ -96,7 +111,93 @@
     [dataTask resume];
 }
 
+-(void) pullCampaigns
+{
+    NSLog(@"pullCampaigns");
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
+    NSURL *url = [NSURL URLWithString:requestString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        NSLog(@"%@", response);
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        NSLog(@"%@", dict);
+        
+        
+        NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
+        [self fetchReferralURLsForCampaigns:campaignsWithoutReferralURLs];
+        
+    }];
+    [dataTask resume];
+}
 
+-(void)fetchReferralURLsForCampaigns:(NSMutableArray *)campaigns
+{
+    NSLog(@"fetchReferralURLsForCampaigns");
+    dispatch_semaphore_t referralSema = dispatch_semaphore_create(0);
+    for (int i = 0; i < [campaigns count]; i++) {
+        [self fetchReferralURLForCampaign:campaigns[i] withSemaphore:referralSema];
+    }
+    
+    // We need to wait for all the URLs to be fetched before returning
+    for (int i = 0; i < [campaigns count]; i++) {
+        dispatch_semaphore_wait(referralSema, DISPATCH_TIME_FOREVER);
+    }
+    
+    NSArray *sortedCampaigns = [self campaignsByCreationDateDescending:campaigns];
+    _campaigns = sortedCampaigns;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
+        
+    });
+}
+
+-(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign withSemaphore:(dispatch_semaphore_t)sema
+{
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    NSURLSessionConfiguration *config = delegate.sessionConfig;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
+    
+    NSURL *url = [NSURL URLWithString:requestString];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSError *jsonError;
+        
+        NSDictionary *dict =
+        [NSJSONSerialization JSONObjectWithData:data
+                                        options:NSJSONReadingMutableContainers
+                                          error:&jsonError];
+        
+        NSDictionary *trackerData = [dict objectForKey:@"data"];
+        
+        if (![trackerData isEqual:[NSNull null]]) {
+            campaign.referralURL = [trackerData objectForKey:@"link"];
+        } else {
+            campaign.referralURL = nil;
+        }
+        
+        dispatch_semaphore_signal(sema);
+    }];
+    [dataTask resume];
+}
+
+#pragma mark API POST Calls
 -(void) postProfileInfoWithDictionary: (NSDictionary *)dict
 {
     NSDictionary *completeFormattedDict = [self completeFormattedDictFrom:dict];
@@ -139,8 +240,13 @@
     [postDataTask resume];
 }
 
+
+
+#pragma mark Data Storage Methods
+
 -(NSDictionary *)completeFormattedDictFrom:(NSDictionary *)dict
 {
+    NSLog(@"completeFormattedDictFrom");
     NSArray *tags = [self valueOrUserValueIfNone:dict[@"tags"] userValue:self.tags];
     NSString *email = [self valueOrUserValueIfNone:dict[@"email"] userValue:self.email];
     
@@ -178,24 +284,14 @@
     return completeFormattedDict;
 }
 
--(id)valueOrUserValueIfNone:(id)value userValue:(id)userValue
-{
-    if (value == nil || value == [NSNull null]) {
-        return userValue;
-    }
-    return value;
-}
-
-
-
 //Populates user profile with the JSON dictionary returned from the GET call
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
-    
+    NSLog(@"populateUserProfileWithDictionary");
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
     [self populateBasicUserInfoWithDictionary:profileDict];
-
+    
     //Publishers are linked accounts
     NSMutableArray *linkedAccounts = [[NSMutableArray alloc] init];
     NSArray *publishers = [[dict objectForKey:@"data"] objectForKey:@"Publishers"];
@@ -243,54 +339,6 @@
     self.dateOfBirth = [self dateFromNeoReachString:profileDict[@"dob"]];
 }
 
-
--(NSDate *)dateFromNeoReachString:(NSString *)neoReachString
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
-    
-    NSString *dobString = neoReachString;
-    if (![dobString isEqual:[NSNull null]]) {
-        dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
-        return [dateFormatter dateFromString:dobString];
-        
-    }
-    return nil;
-}
-
-
--(void) pullCampaigns
-{
-    
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
-    
-    NSString *requestString = @"https://api.neoreach.com/campaigns?skip=0&limit=1000000";
-    NSURL *url = [NSURL URLWithString:requestString];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        NSDictionary *dict =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        
-        
-        NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
-        [self fetchReferralURLsForCampaigns:campaignsWithoutReferralURLs];
-        
-    }];
-    [dataTask resume];
-}
-
 -(NSMutableArray *)campaignsFromDictionary:(NSDictionary *)dict
 {
     NSMutableArray *campaigns = [[NSMutableArray alloc] init];
@@ -324,25 +372,32 @@
     return campaigns;
 }
 
--(void)fetchReferralURLsForCampaigns:(NSMutableArray *)campaigns
+
+#pragma mark Data Storage Helpers
+
+-(id)valueOrUserValueIfNone:(id)value userValue:(id)userValue
 {
-    dispatch_semaphore_t referralSema = dispatch_semaphore_create(0);
-    for (int i = 0; i < [campaigns count]; i++) {
-        [self fetchReferralURLForCampaign:campaigns[i] withSemaphore:referralSema];
+    if (value == nil || value == [NSNull null]) {
+        return userValue;
     }
+    return value;
+}
+
+
+-(NSDate *)dateFromNeoReachString:(NSString *)neoReachString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter setLocale:enUSPOSIXLocale];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"]; //ignores timezone for now
     
-    // We need to wait for all the URLs to be fetched before returning
-    for (int i = 0; i < [campaigns count]; i++) {
-        dispatch_semaphore_wait(referralSema, DISPATCH_TIME_FOREVER);
-    }
-    
-    NSArray *sortedCampaigns = [self campaignsByCreationDateDescending:campaigns];
-    _campaigns = sortedCampaigns;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"campaignsPulled" object:nil];
+    NSString *dobString = neoReachString;
+    if (![dobString isEqual:[NSNull null]]) {
+        dobString = [dobString substringToIndex:[dobString length] - 5]; //cut off timezone
+        return [dateFormatter dateFromString:dobString];
         
-    });
+    }
+    return nil;
 }
 
 -(NSArray *)campaignsByCreationDateDescending:(NSArray *)campaigns
@@ -356,47 +411,9 @@
     return sortedCampaigns;
 }
 
-
--(void)fetchReferralURLForCampaign:(NEOCampaign *)campaign withSemaphore:(dispatch_semaphore_t)sema
-{
-    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    NSURLSessionConfiguration *config = delegate.sessionConfig;
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
-    
-    NSString *requestString = [NSString stringWithFormat:@"http://api.neoreach.com/tracker/%@",campaign.ID];
-    
-    NSURL *url = [NSURL URLWithString:requestString];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSError *jsonError;
-        
-        NSDictionary *dict =
-        [NSJSONSerialization JSONObjectWithData:data
-                                        options:NSJSONReadingMutableContainers
-                                          error:&jsonError];
-        
-        NSDictionary *trackerData = [dict objectForKey:@"data"];
-        
-        if (![trackerData isEqual:[NSNull null]]) {
-            campaign.referralURL = [trackerData objectForKey:@"link"];
-        } else {
-            campaign.referralURL = nil;
-        }
-        
-        dispatch_semaphore_signal(sema);
-    }];
-    [dataTask resume];
-}
-
-
 - (NSString *)stringOrBlankIfNil:(NSString *)str
 {
     return (str) ? str : @"";
 }
-
-
 
 @end

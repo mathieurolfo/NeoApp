@@ -53,8 +53,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma mark Tag Display Methods
+#pragma mark Tag Management Methods
 
 - (IBAction)addTag:(id)sender
 {
@@ -62,6 +61,69 @@
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
 }
+
+-(BOOL)tagIsDuplicate:(NSString *)tag
+{
+    for (int i = 0; i < [_tags count]; i++) {
+        if ([tag isEqualToString:_tags[i]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+-(IBAction)updateUserTags:(id) sender
+{
+    
+    
+    if ([_tags count] == 0) {
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"Please enter at least one tag.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                    }];
+        
+        
+    } else {
+        NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+        NSDictionary *dict = @{
+                               @"tags": _tags
+                               };
+        
+        [user postProfileInfoWithDictionary:dict];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    
+}
+
+
+
+#pragma mark - Default Initialization Methods
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        UINavigationItem *navItem = self.navigationItem;
+        navItem.title = @"Tags";
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTag:)];
+        navItem.rightBarButtonItem = addButton;
+        
+        NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+        _tags = [[NSMutableArray alloc] initWithArray:user.tags];
+        
+        
+    }
+    return self;
+}
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
@@ -105,46 +167,6 @@
     }
 }
 
--(BOOL)tagIsDuplicate:(NSString *)tag
-{
-    for (int i = 0; i < [_tags count]; i++) {
-        if ([tag isEqualToString:_tags[i]]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
--(IBAction)updateUserTags:(id) sender
-{
-
-
-    if ([_tags count] == 0) {
-        NSDictionary *toastOptions = @{
-                                  kCRToastTextKey : @"Please enter at least one tag.",
-                                  kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
-                                  kCRToastBackgroundColorKey : [UIColor orangeColor],
-                                  kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
-                                  kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
-                                  kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
-                                  kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop)
-                                  };
-        [CRToastManager showNotificationWithOptions:toastOptions
-                                    completionBlock:^{
-                                    }];
-
-        
-    } else {
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    NSDictionary *dict = @{
-                           @"tags": _tags
-                           };
-    
-    [user postProfileInfoWithDictionary:dict];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    
-}
 
 
 

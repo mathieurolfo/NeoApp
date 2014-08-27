@@ -44,6 +44,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>
+		<string>Lato-Hairline.ttf</string>
 		<string>Lato-Regular.ttf</string>
 		<string>Lato-Bold.ttf</string>
 	</array>

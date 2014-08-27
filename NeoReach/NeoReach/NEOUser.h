@@ -36,7 +36,7 @@
 @property (strong, nonatomic) NSString *fbXAuth;
 @property (strong, nonatomic) NSString *fbXDigest;
 
-
+@property (nonatomic) BOOL triedNewHeader;
 
 -(void) pullHeadersFromToken:(NSString *)token;
 
