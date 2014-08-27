@@ -115,7 +115,7 @@
 
 -(void) pullCampaigns
 {
-    
+    NSLog(@"pullCampaigns");
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     NSURLSessionConfiguration *config = delegate.sessionConfig;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -128,12 +128,12 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSError *jsonError;
-        
+        NSLog(@"%@", response);
         NSDictionary *dict =
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        
+        NSLog(@"%@", dict);
         
         
         NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
@@ -145,6 +145,7 @@
 
 -(void)fetchReferralURLsForCampaigns:(NSMutableArray *)campaigns
 {
+    NSLog(@"fetchReferralURLsForCampaigns");
     dispatch_semaphore_t referralSema = dispatch_semaphore_create(0);
     for (int i = 0; i < [campaigns count]; i++) {
         [self fetchReferralURLForCampaign:campaigns[i] withSemaphore:referralSema];
@@ -245,6 +246,7 @@
 
 -(NSDictionary *)completeFormattedDictFrom:(NSDictionary *)dict
 {
+    NSLog(@"completeFormattedDictFrom");
     NSArray *tags = [self valueOrUserValueIfNone:dict[@"tags"] userValue:self.tags];
     NSString *email = [self valueOrUserValueIfNone:dict[@"email"] userValue:self.email];
     
@@ -285,7 +287,7 @@
 //Populates user profile with the JSON dictionary returned from the GET call
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
-    
+    NSLog(@"populateUserProfileWithDictionary");
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
     [self populateBasicUserInfoWithDictionary:profileDict];
