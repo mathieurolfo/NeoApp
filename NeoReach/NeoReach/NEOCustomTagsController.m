@@ -123,17 +123,22 @@ static int defaultButtonWidth = 30;
 #pragma mark Text Field Methods
 -(BOOL) textFieldShouldReturn:(UITextField *)textField
 {
-    [self.tags addObject:textField.text];
-    [textField resignFirstResponder];
-    
-    
-    [UIView setAnimationsEnabled:NO];
-    [self.tagsCollectionView reloadData];
-    //[self.tagsCollectionView reloadItemsAtIndexPaths:self.tagsCollectionView.indexPathsForVisibleItems];
-    [UIView setAnimationsEnabled:YES];
+    NSCharacterSet *badSet = [[NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 "] invertedSet];
+    //if tag is duplicate, empty, or contains invalid characters
+    if ([self tagIsDuplicate:textField.text] || textField.text.length == 0 ||
+        [textField.text rangeOfCharacterFromSet:badSet].location != NSNotFound) {
+        //UIAlertView causes the delete buttons to turn to black for some reason so that won't work here.
+    } else {
+        NSString *lowercase = [textField.text lowercaseString];
+        [self.tags addObject:lowercase];
+        [UIView setAnimationsEnabled:NO];
+        [self.tagsCollectionView reloadData];
+        [UIView setAnimationsEnabled:YES];
+    }
     textField.text = @"Add new tag here";
-    
+    [textField resignFirstResponder];
     return YES;
+    
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
