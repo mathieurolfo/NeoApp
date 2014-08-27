@@ -23,7 +23,7 @@
         self = [arrayOfViews objectAtIndex:0];
         self.tagTitle.textColor = [UIColor whiteColor];
         self.backgroundColor = BlueColor;
-        self.tagTitle.font = [UIFont fontWithName:@"Lato-Regular" size:13.0];
+        self.tagTitle.font = [UIFont fontWithName:@"Lato-Regular" size:15.0];
         self.deleteButton.titleLabel.textColor = [UIColor whiteColor];
         
         [[self layer] setCornerRadius:10];

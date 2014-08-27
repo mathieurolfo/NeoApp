@@ -11,8 +11,8 @@
 #import "NEOTagCollectionViewCell.h"
 #import "NEOTagFlowLayout.h"
 
-static int defaultCellHeight = 26;
-static int defaultButtonWidth = 30;
+static int defaultCellHeight = 30;
+static int defaultButtonWidth = 35;
 
 
 /* 
