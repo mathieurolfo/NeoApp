@@ -29,6 +29,8 @@
         [[self layer] setCornerRadius:10];
         self.clipsToBounds = YES;
         
+        [self.deleteButton setImage:[UIImage imageNamed:@"deleteButtonIcon"] forState:UIControlStateApplication];
+        
     }
     return self;
 }

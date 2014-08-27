@@ -50,7 +50,7 @@ static int defaultButtonWidth = 30;
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"tag number %ld with text %@", (long)indexPath.row, self.tags[indexPath.row]);
+    
     static NSString *cellIdentifier = @"neoTagCollectionViewCell";
     NEOTagCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.tagTitle.text = [self.tags objectAtIndex:indexPath.row];
@@ -128,14 +128,15 @@ static int defaultButtonWidth = 30;
     if ([self tagIsDuplicate:textField.text] || textField.text.length == 0 ||
         [textField.text rangeOfCharacterFromSet:badSet].location != NSNotFound) {
         //UIAlertView causes the delete buttons to turn to black for some reason so that won't work here.
+        textField.text = @"Not a valid tag";
     } else {
         NSString *lowercase = [textField.text lowercaseString];
         [self.tags addObject:lowercase];
         [UIView setAnimationsEnabled:NO];
         [self.tagsCollectionView reloadData];
         [UIView setAnimationsEnabled:YES];
+        textField.text = @"Add new tag here";
     }
-    textField.text = @"Add new tag here";
     [textField resignFirstResponder];
     return YES;
     
@@ -151,7 +152,6 @@ static int defaultButtonWidth = 30;
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld", (long)indexPath.row);
     if (indexPath.row == self.tags.count) {
         return CGSizeMake(50, defaultCellHeight);
     } else {
@@ -193,10 +193,7 @@ static int defaultButtonWidth = 30;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.tagsCollectionView.collectionViewLayout = [[NEOTagFlowLayout alloc] init];
-    
     [self.tagsCollectionView registerClass:[NEOTagCollectionViewCell class] forCellWithReuseIdentifier:@"neoTagCollectionViewCell"];
-    
-    
     self.tagsCollectionView.delegate = self;
     self.tagsCollectionView.dataSource = self;
     self.tagsCollectionView.backgroundColor = [UIColor whiteColor];
@@ -206,7 +203,7 @@ static int defaultButtonWidth = 30;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" Back" style:UIBarButtonItemStyleBordered target:self action:@selector(saveAndCheckTags)];
     //[[UIBarButtonItem alloc] initWithImage:<#(UIImage *)#> style:<#(UIBarButtonItemStyle)#> target:<#(id)#> action:<#(SEL)#>]
     
-    
+    self.textField.font = [UIFont fontWithName:@"Lato-Light" size:20.0];
     
 }
 

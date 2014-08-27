@@ -11,5 +11,6 @@
 
 @interface NEOCustomTagsController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource, NEOTagManager, UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
