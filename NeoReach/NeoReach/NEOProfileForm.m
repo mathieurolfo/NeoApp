@@ -26,6 +26,7 @@
              }};
 }
 
+/*
 - (NSArray *)extraFields
 {
     return @[
@@ -39,5 +40,6 @@
              
              ];
 }
+*/
 
 @end

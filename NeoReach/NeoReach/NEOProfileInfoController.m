@@ -23,8 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        UINavigationItem *navItem = self.navigationItem;
-        navItem.title = @"Profile Information";
+        
         
         self.formController.form = [[NEOProfileForm alloc] init];
         [self populateForm];
@@ -37,6 +36,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profilePosted) name:@"profileUpdated" object:nil];
+    
+    UINavigationItem *navItem = self.navigationItem;
+    navItem.title = @"Profile Information";
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(saveProfileChanges)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,9 +75,10 @@
 - (void)saveProfileChanges
 {
     if ([self allFieldsAreValid]) {
-    [self displaySavingIndicator];
-    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
-    [user postProfileInfoWithDictionary:[self dictionaryFromForm]];
+        NSLog(@"saving changes because fields are valid");
+        [self displaySavingIndicator];
+        NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+        [user postProfileInfoWithDictionary:[self dictionaryFromForm]];
     }
     
 }
