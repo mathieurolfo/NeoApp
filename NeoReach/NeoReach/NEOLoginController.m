@@ -109,6 +109,7 @@ static int defaultTimeout = 7;
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
         self.token = [NSString stringWithFormat:@"%@", session.accessTokenData];
+        NSLog(@"%@", self.token);
         NSLog(@"calling pullHeadersFromToken");
         [delegate.user pullHeadersFromToken:self.token];
     }];

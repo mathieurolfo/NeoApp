@@ -29,6 +29,7 @@
 @property NSUInteger totalClicks;
 @property (strong, nonatomic) NSArray *campaigns;
 @property (strong, nonatomic) NSArray *linkedAccounts;
+@property (strong, nonatomic) NSString *referralLinkURL;
 @property (strong, nonatomic) NSString *profilePictureURL;
 @property (strong, nonatomic) UIImage *profilePicture;
 

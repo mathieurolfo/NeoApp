@@ -10,5 +10,7 @@
 
 @interface NEOReferralLinkController : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *referralLinkField;
+@property (weak, nonatomic) IBOutlet UILabel *shareTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shareTextLabel;
 
 @end

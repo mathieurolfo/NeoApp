@@ -8,6 +8,7 @@
 
 #import "NEOReferralLinkController.h"
 #import <CRToast/CRToast.h>
+#import "NEOAppDelegate.h"
 
 @interface NEOReferralLinkController ()
 
@@ -22,6 +23,8 @@
         self.referralLinkField.font = [UIFont fontWithName:@"Lato-Regular" size:14.0];
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Invite Friends";
+        self.shareTextLabel.font = [UIFont fontWithName:@"Lato-Light" size:14.0];
+        
     }
     return self;
 }
@@ -52,6 +55,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    self.referralLinkField.text = delegate.user.referralLinkURL;
 }
 
 - (void)didReceiveMemoryWarning

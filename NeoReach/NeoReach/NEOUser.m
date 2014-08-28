@@ -286,7 +286,7 @@
 //Populates user profile with the JSON dictionary returned from the GET call
 -(void)populateUserProfileWithDictionary:(NSDictionary *)dict
 {
-    NSLog(@"populateUserProfileWithDictionary");
+    
     //Most profile information is in data.Profile[0]
     NSDictionary *profileDict = dict[@"data"][@"Profile"][0];
     [self populateBasicUserInfoWithDictionary:profileDict];
@@ -336,6 +336,7 @@
     self.totalEarnings = [profileDict[@"totalEarnings"] floatValue];
     
     self.dateOfBirth = [self dateFromNeoReachString:profileDict[@"dob"]];
+    self.referralLinkURL = [self stringOrBlankIfNil:profileDict[@"referralLink"]];
 }
 
 -(NSMutableArray *)campaignsFromDictionary:(NSDictionary *)dict

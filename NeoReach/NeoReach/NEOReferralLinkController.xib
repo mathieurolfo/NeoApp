@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NEOReferralLinkController">
             <connections>
                 <outlet property="referralLinkField" destination="C1T-Ah-gRZ" id="SYr-bi-vHK"/>
+                <outlet property="shareTextLabel" destination="HYv-Th-KnR" id="lL5-ag-0SQ"/>
+                <outlet property="shareTitleLabel" destination="aEy-4v-XCn" id="5bF-bA-TZq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField appearanceType="aqua" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="neoreach.com" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C1T-Ah-gRZ">
-                    <rect key="frame" x="83" y="272" width="154" height="30"/>
+                    <rect key="frame" x="66" y="269" width="189" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
