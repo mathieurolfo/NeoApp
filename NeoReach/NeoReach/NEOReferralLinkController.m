@@ -20,11 +20,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.referralLinkField.font = [UIFont fontWithName:@"Lato-Regular" size:14.0];
+        
         UINavigationItem *navItem = self.navigationItem;
         navItem.title = @"Invite Friends";
-        self.shareTextLabel.font = [UIFont fontWithName:@"Lato-Light" size:14.0];
-        
+       
     }
     return self;
 }
@@ -57,6 +56,10 @@
     // Do any additional setup after loading the view from its nib.
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     self.referralLinkField.text = delegate.user.referralLinkURL;
+    
+    self.shareTextLabel.font = [UIFont fontWithName:@"Lato-Light" size:16.0];
+    self.referralLinkField.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+    [self.shareTextLabel sizeToFit];
 }
 
 - (void)didReceiveMemoryWarning

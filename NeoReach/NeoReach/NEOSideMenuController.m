@@ -167,7 +167,6 @@
         [delegate disableDrawerAccess];
         [delegate.login.loginIndicator stopAnimating];
         [delegate.login.loginButton setEnabled:YES];
-        delegate.login.logInOutInfoLabel.text = @"Successfully logged out";
         delegate.drawer.centerViewController = delegate.login;
 
         //deletes stored session configuration
@@ -185,8 +184,6 @@
         //[FBSession.activeSession closeAndClearTokenInformation];
         delegate.login.token = nil;
         delegate.login.dashboardCreated = NO;
-        
-        NSLog(@"Removed auth and digest");
 
         [delegate.drawer closeDrawerAnimated:YES completion:nil];
     }
