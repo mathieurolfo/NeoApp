@@ -110,8 +110,30 @@ static int defaultButtonWidth = 30;
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     if (self.tags.count == 0) {
-        UIAlertView *noTagsAlert = [[UIAlertView alloc] initWithTitle:@"Hold up!" message:@"Please have at least one tag in order to be matched with campaigns." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
-        [noTagsAlert show];
+        //UIAlertView *noTagsAlert = [[UIAlertView alloc] initWithTitle:@"Hold up!" message:@"Please have at least one tag in order to be matched with campaigns." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Okay", nil];
+        //[noTagsAlert show];
+        
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"You need at least one tag.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutTimeIntervalKey :
+                                           @0.35,
+                                       kCRToastAnimationInTimeIntervalKey :
+                                           @0.35,
+                                       kCRToastTimeIntervalKey :
+                                           @0.8
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                        self.textField.text = @"add new tag";
+                                    }];
+
+        
     } else {
         NSDictionary *dict = @{@"tags": _tags};
         [delegate.user postProfileInfoWithDictionary:dict];

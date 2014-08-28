@@ -140,6 +140,7 @@ static int defaultTimeout = 7;
         [loginIndicator startAnimating];
         self.loginIndicator = loginIndicator;
         [self.view insertSubview:loginIndicator aboveSubview:self.splashImage];
+        self.loginButton.enabled = NO;
     }
 }
 

@@ -84,7 +84,7 @@
         [NSJSONSerialization JSONObjectWithData:data
                                         options:NSJSONReadingMutableContainers
                                           error:&jsonError];
-        
+        NSLog(@"%@", profileJSON);
         if ([profileJSON[@"success"] intValue] == 0) //X-Auth and/or X-Digest invalid
         {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -95,6 +95,8 @@
                 } else {
                     NSLog(@"Tried new header and not working, aborting loop.");
                     [delegate.login endUnsuccessfulRequest];
+                    self.triedNewHeader = NO;
+                    [FBSession.activeSession closeAndClearTokenInformation];
                 }
             });
         } else { // success
