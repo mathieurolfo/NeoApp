@@ -10,7 +10,7 @@
 #import "NEOAppDelegate.h"
 #import "NEOTagCollectionViewCell.h"
 #import "NEOTagFlowLayout.h"
-
+#import <CRToast/CRToast.h>
 
 static int defaultCellHeight = 30;
 static int defaultButtonWidth = 30;
@@ -125,17 +125,56 @@ static int defaultButtonWidth = 30;
 {
     NSCharacterSet *badSet = [[NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 "] invertedSet];
     //if tag is duplicate, empty, or contains invalid characters
-    if ([self tagIsDuplicate:textField.text] || textField.text.length == 0 ||
-        [textField.text rangeOfCharacterFromSet:badSet].location != NSNotFound) {
+    if ([self tagIsDuplicate:textField.text]) {
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"Duplicate tag.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutTimeIntervalKey :
+                                           @0.35,
+                                       kCRToastAnimationInTimeIntervalKey :
+                                           @0.35,
+                                       kCRToastTimeIntervalKey :
+                                           @0.75
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                        textField.text = @"add new tag";
+                                    }];
+    } else if (textField.text.length == 0) {
+        
+    } else if ([textField.text rangeOfCharacterFromSet:badSet].location != NSNotFound) {
         //UIAlertView causes the delete buttons to turn to black for some reason so that won't work here.
-        textField.text = @"Not a valid tag";
+        NSDictionary *toastOptions = @{
+                                       kCRToastTextKey : @"Invalid tag.",
+                                       kCRToastTextAlignmentKey : @(NSTextAlignmentCenter),
+                                       kCRToastBackgroundColorKey : [UIColor orangeColor],
+                                       kCRToastAnimationInTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationOutTypeKey : @(CRToastAnimationTypeLinear),
+                                       kCRToastAnimationInDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutDirectionKey : @(CRToastAnimationDirectionTop),
+                                       kCRToastAnimationOutTimeIntervalKey :
+                                           @0.35,
+                                       kCRToastAnimationInTimeIntervalKey :
+                                           @0.35,
+                                       kCRToastTimeIntervalKey :
+                                           @0.5
+                                       };
+        [CRToastManager showNotificationWithOptions:toastOptions
+                                    completionBlock:^{
+                                        textField.text = @"add new tag";
+                                    }];
     } else {
         NSString *lowercase = [textField.text lowercaseString];
         [self.tags addObject:lowercase];
         [UIView setAnimationsEnabled:NO];
         [self.tagsCollectionView reloadData];
         [UIView setAnimationsEnabled:YES];
-        textField.text = @"Add new tag here";
+        textField.text = @"add new tag";
     }
     [textField resignFirstResponder];
     return YES;
