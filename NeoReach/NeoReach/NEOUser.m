@@ -350,20 +350,23 @@
         
         // Most information is in "campaign" field
         NSDictionary *campaignDict = campaignsJSON[i][@"campaign"];
-        campaign.ID = campaignDict[@"_id"];
-        campaign.name = campaignDict[@"name"];
-        campaign.promotion = campaignDict[@"promotion"];
-        campaign.creationDate = [self dateFromNeoReachString:campaignDict[@"created"]];
+        if (campaignDict != nil && ![campaignDict isEqual:[NSNull null]]) {
+            campaign.ID = campaignDict[@"_id"];
+            campaign.name = campaignDict[@"name"];
+            campaign.promotion = campaignDict[@"promotion"];
+            campaign.creationDate = [self dateFromNeoReachString:campaignDict[@"created"]];
         
-        //Image is stored in Files[0]
-        // TODO load image from URL
-        // *** not tested, Files are all empty for some reason ***
-        NSArray *files = [campaignDict objectForKey:@"Files"];
-        if ([files count] > 0) {
-            NSString *imageID = [[campaignDict objectForKey:@"Files"] objectAtIndex:0];
-            campaign.imageURL = [NSString stringWithFormat:@"https://app.neoreach.com/file/read/%@",imageID];
+            //Image is stored in Files[0]
+            // TODO load image from URL
+            // *** not tested, Files are all empty for some reason ***
+            NSArray *files = [campaignDict objectForKey:@"Files"];
+            if ([files count] > 0) {
+                NSString *imageID = [[campaignDict objectForKey:@"Files"] objectAtIndex:0];
+                campaign.imageURL = [NSString stringWithFormat:@"https://app.neoreach.com/file/read/%@",imageID];
+            }
+            [campaigns addObject:campaign];
         }
-        [campaigns addObject:campaign];
+
     }
     
     return campaigns;
