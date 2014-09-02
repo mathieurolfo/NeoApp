@@ -24,6 +24,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.scrollEnabled = NO;
     
     // Register the NIB files for the browse campaign cells
     UINib *lcNib = [UINib nibWithNibName:@"NEOBrowseLogosCell" bundle:nil];
