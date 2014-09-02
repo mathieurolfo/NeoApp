@@ -109,19 +109,17 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     
     CGFloat height = 0.0;
-    
     switch (indexPath.row) {
         case 0: // Logo
-            height = screenHeight / 3;
+            height = BROWSE_LOGO_HEIGHT;
             break;
         case 1: // Details
-            height = 32.0 + [self heightForPromotionText]; // 8.0 + 16.0 + 8.0
+            height = BROWSE_DETAILS_HEIGHT_WITHOUT_TEXT + [self heightForPromotionText]; 
             break;
         case 2: // Generate link
-            height = screenHeight / 12;
+            height = BROWSE_GEN_LINK_HEIGHT;
             break;
         default: // ?
             height = 0.0;
@@ -174,7 +172,6 @@
 -(void)setCampaign:(NEOCampaign *)campaign
 {
     _campaign = campaign;
-    NSLog(@"tableView: %@", self.tableView);
     [self.tableView reloadData];
 }
 

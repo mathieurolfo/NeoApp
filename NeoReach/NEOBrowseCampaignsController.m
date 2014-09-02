@@ -76,9 +76,32 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    return screenHeight / 2;
+    NEOUser *user = [(NEOAppDelegate *)[[UIApplication sharedApplication] delegate] user];
+    NEOCampaign *campaign = (NEOCampaign *)(user.campaigns[indexPath.row]);
+    CGFloat promotionHeight = [self heightForPromotionText:campaign.promotion];
+    
+    CGFloat height = BROWSE_LOGO_HEIGHT + BROWSE_DETAILS_HEIGHT_WITHOUT_TEXT + promotionHeight + BROWSE_GEN_LINK_HEIGHT;
+    return height;
 }
+
+-(CGFloat)heightForPromotionText:(NSString *)text
+{
+    UILabel *label = [[UILabel alloc] init];
+    
+    label.text = text;
+    label.font = [UIFont fontWithName:@"Lato-Regular" size:16.0];
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGSize maximumLabelSize = CGSizeMake(screenWidth - 16.0, 9999); // margins of 8 on both sides
+    CGSize expectSize = [label sizeThatFits:maximumLabelSize];
+    
+    return expectSize.height;
+}
+
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -86,7 +109,6 @@
     
     NEOBrowseCampaignsCell *bcc = [tableView dequeueReusableCellWithIdentifier:@"NEOBrowseCampaignsCell" forIndexPath:indexPath];
     
-    NSLog(@"campaign: %@ (%@), row: %ld",user.campaigns[indexPath.row], [(NEOCampaign *)user.campaigns[indexPath.row] promotion], indexPath.row);
     bcc.campaign = user.campaigns[indexPath.row];
     return bcc;
 }
