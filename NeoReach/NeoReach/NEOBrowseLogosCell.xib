@@ -22,22 +22,6 @@
                             <constraint firstAttribute="width" secondItem="fPO-KL-zbb" secondAttribute="height" multiplier="1:1" id="a0R-1X-smF"/>
                         </constraints>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuF-QP-WwU">
-                        <rect key="frame" x="21" y="87" width="30" height="60"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                        <state key="normal" title="&lt;">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5tZ-M2-JmP">
-                        <rect key="frame" x="284" y="87" width="30" height="60"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                        <state key="normal" title=">">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zappos Mmbye Spring Sale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icC-eq-68B">
                         <rect key="frame" x="0.0" y="233" width="335" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -46,23 +30,17 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fPO-KL-zbb" firstAttribute="centerY" secondItem="5tZ-M2-JmP" secondAttribute="centerY" id="0zq-KP-Tgh"/>
-                    <constraint firstItem="5tZ-M2-JmP" firstAttribute="leading" secondItem="fPO-KL-zbb" secondAttribute="trailing" constant="10" id="5Jp-UX-zsx"/>
                     <constraint firstAttribute="trailing" secondItem="icC-eq-68B" secondAttribute="trailing" id="5Vl-2N-bpY"/>
                     <constraint firstAttribute="centerX" secondItem="fPO-KL-zbb" secondAttribute="centerX" constant="0.5" id="7no-hh-bZl"/>
-                    <constraint firstItem="fPO-KL-zbb" firstAttribute="leading" secondItem="KuF-QP-WwU" secondAttribute="trailing" constant="10" id="Qhx-P0-1Tx"/>
                     <constraint firstItem="icC-eq-68B" firstAttribute="top" secondItem="fPO-KL-zbb" secondAttribute="bottom" constant="10" id="SwN-hH-9H7"/>
-                    <constraint firstItem="KuF-QP-WwU" firstAttribute="centerY" secondItem="fPO-KL-zbb" secondAttribute="centerY" id="Vuh-Bu-ZMJ"/>
                     <constraint firstItem="icC-eq-68B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XDd-4e-w0x"/>
                     <constraint firstItem="fPO-KL-zbb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Zwu-Sk-JVn"/>
                     <constraint firstAttribute="bottom" secondItem="icC-eq-68B" secondAttribute="bottom" constant="10" id="dzY-bB-oAT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="backButton" destination="KuF-QP-WwU" id="Mz3-yI-qsl"/>
                 <outlet property="campaignCircleView" destination="fPO-KL-zbb" id="ByZ-3y-JbR"/>
                 <outlet property="nameLabel" destination="icC-eq-68B" id="rfJ-zc-cvr"/>
-                <outlet property="nextButton" destination="5tZ-M2-JmP" id="iem-6T-Ym3"/>
             </connections>
         </tableViewCell>
     </objects>
