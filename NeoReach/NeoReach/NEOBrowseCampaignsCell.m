@@ -12,11 +12,18 @@
 #import "NEOBrowseDetailsCell.h"
 #import "NEOBrowseGenLinkCell.h"
 
+@interface NEOBrowseCampaignsCell ()
+@property (weak, nonatomic) NEOBrowseGenLinkCell *genLinkCell; //need a reference to this to update its contents when generating a link
+@end
+
 @implementation NEOBrowseCampaignsCell
 
 - (void)awakeFromNib
 {
     // Initialization code
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     
     // Register the NIB files for the browse campaign cells
     UINib *lcNib = [UINib nibWithNibName:@"NEOBrowseLogosCell" bundle:nil];
@@ -26,6 +33,9 @@
     [self.tableView registerNib:lcNib forCellReuseIdentifier:@"NEOBrowseLogosCell"];
     [self.tableView registerNib:dcNib forCellReuseIdentifier:@"NEOBrowseDetailsCell"];
     [self.tableView registerNib:glcNib forCellReuseIdentifier:@"NEOBrowseGenLinkCell"];
+    
+    //Add listener for generating neorea.ch url
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(campaignURLGenerated) name:@"campaignURLGenerated" object:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -49,16 +59,11 @@
                                       dequeueReusableCellWithIdentifier:@"NEOBrowseLogosCell"
                                       forIndexPath:indexPath];
             
-            if (campaign)
+            if (_campaign)
             {
-                lc.nameLabel.text = campaign.name;
+                lc.nameLabel.text = _campaign.name;
             } else {
-                if (_campaignsLoaded) {
-                    lc.nameLabel.text = @"No campaigns!";
-                } else {
-                    lc.nameLabel.text = @"Loading campaign...";
-                }
-                
+                lc.nameLabel.text = @"";
             }
             
             cell = (UITableViewCell *)lc;
@@ -70,10 +75,10 @@
                                         dequeueReusableCellWithIdentifier:@"NEOBrowseDetailsCell"
                                         forIndexPath:indexPath];
             
-            if (campaign)
+            if (_campaign)
             {
-                dc.promotionLabel.text = campaign.promotion;
-                dc.CPCLabel.text = [NSString stringWithFormat:@"$%.2f/click",campaign.costPerClick];
+                dc.promotionLabel.text = _campaign.promotion;
+                dc.CPCLabel.text = [NSString stringWithFormat:@"$%.2f/click",_campaign.costPerClick];
             } else {
                 dc.promotionLabel.text = @"";
                 dc.CPCLabel.text = @"";
@@ -88,8 +93,8 @@
                                          dequeueReusableCellWithIdentifier:@"NEOBrowseGenLinkCell"
                                          forIndexPath:indexPath];
             
-            glc.campaignExists = (campaign != nil);
-            glc.linkURL = campaign.referralURL;
+            glc.campaignExists = (_campaign != nil);
+            glc.linkURL = _campaign.referralURL;
             [glc.generateLinkButton addTarget:self action:@selector(generateReferralURL:) forControlEvents:UIControlEventTouchUpInside];
             _genLinkCell = glc;
             cell = (UITableViewCell *)glc;
@@ -129,6 +134,12 @@
     return 1;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
 -(CGFloat)heightForPromotionText
 {
     
@@ -147,6 +158,24 @@
     return expectSize.height;
 }
 
+
+-(void)generateReferralURL:(id)sender
+{
+    [(UIButton *)sender setEnabled:NO];
+    [_campaign generateReferralURL];
+}
+
+-(void)campaignURLGenerated
+{
+    [self.tableView reloadData];
+}
+
+-(void)setCampaign:(NEOCampaign *)campaign
+{
+    _campaign = campaign;
+    NSLog(@"tableView: %@", self.tableView);
+    [self.tableView reloadData];
+}
 
 
 

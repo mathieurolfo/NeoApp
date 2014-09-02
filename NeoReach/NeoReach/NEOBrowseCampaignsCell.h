@@ -11,7 +11,7 @@
 
 @interface NEOBrowseCampaignsCell : UITableViewCell <UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) NEOCampaign *campaign;
+@property (strong, nonatomic) NEOCampaign *campaign;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
