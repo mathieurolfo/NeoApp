@@ -132,7 +132,6 @@
                                           error:&jsonError];
         
         
-        
         NSMutableArray *campaignsWithoutReferralURLs = [self campaignsFromDictionary:dict];
         [self fetchReferralURLsForCampaigns:campaignsWithoutReferralURLs];
         
@@ -360,12 +359,11 @@
             campaign.creationDate = [self dateFromNeoReachString:campaignDict[@"created"]];
         
             //Image is stored in Files[0]
-            // TODO load image from URL
-            // *** not tested, Files are all empty for some reason ***
-            NSArray *files = [campaignDict objectForKey:@"Files"];
+            NSArray *files = campaignDict[@"Files"];
             if ([files count] > 0) {
                 NSString *imageID = [[campaignDict objectForKey:@"Files"] objectAtIndex:0];
                 campaign.imageURL = [NSString stringWithFormat:@"https://app.neoreach.com/file/read/%@",imageID];
+                campaign.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:campaign.imageURL]]];
             }
             [campaigns addObject:campaign];
         }

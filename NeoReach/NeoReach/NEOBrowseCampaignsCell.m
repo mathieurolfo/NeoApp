@@ -63,6 +63,7 @@
             if (_campaign)
             {
                 lc.nameLabel.text = _campaign.name;
+                lc.campaignCircleView.image = _campaign.image;
             } else {
                 lc.nameLabel.text = @"";
             }
