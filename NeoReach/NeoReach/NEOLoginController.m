@@ -107,7 +107,7 @@ static int defaultTimeout = 7;
     NSLog(@"loadToken");
     [self displayActivityIndicator];
     NEOAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-    [FBSession openActiveSessionWithReadPermissions:@[@"email, publish_stream, user_friends, publish_actions, manage_pages"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile, email, user_friends"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
         self.token = [NSString stringWithFormat:@"%@", session.accessTokenData];
         NSLog(@"%@", self.token);
         NSLog(@"calling pullHeadersFromToken");
