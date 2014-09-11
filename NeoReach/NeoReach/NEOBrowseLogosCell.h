@@ -10,7 +10,7 @@
 #import "NEOCircleView.h"
 
 @interface NEOBrowseLogosCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet NEOCircleView *campaignCircleView;
+@property (weak, nonatomic) IBOutlet UIImageView *campaignImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

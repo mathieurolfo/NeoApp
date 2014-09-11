@@ -63,7 +63,8 @@
             if (_campaign)
             {
                 lc.nameLabel.text = _campaign.name;
-                lc.campaignCircleView.image = _campaign.image;
+                lc.campaignImageView.image = _campaign.image;
+                NSLog (@" %@ %@", lc.nameLabel.text, lc.campaignImageView.image);
             } else {
                 lc.nameLabel.text = @"";
             }
