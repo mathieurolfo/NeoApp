@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NEOCampaign.h"
 
-#define BROWSE_LOGO_HEIGHT 100.0
+#define BROWSE_LOGO_HEIGHT 160.0
 #define BROWSE_GEN_LINK_HEIGHT 40.0
 #define BROWSE_DETAILS_HEIGHT_WITHOUT_TEXT 32.0 // 8.0 + 16.0 + 8.0
 

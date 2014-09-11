@@ -7,21 +7,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="167" id="KGk-i7-Jjw" customClass="NEOBrowseLogosCell">
-            <rect key="frame" x="0.0" y="0.0" width="335" height="167"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="176" id="KGk-i7-Jjw" customClass="NEOBrowseLogosCell">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="176"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="166"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="175"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zappos Mmbye Spring Sale" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icC-eq-68B">
-                        <rect key="frame" x="0.0" y="137" width="335" height="21"/>
+                        <rect key="frame" x="0.0" y="146" width="335" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ydw-Sk-20O">
-                        <rect key="frame" x="7" y="8" width="319" height="121"/>
+                        <rect key="frame" x="0.0" y="8" width="335" height="127"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -31,11 +31,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="icC-eq-68B" secondAttribute="trailing" id="5Vl-2N-bpY"/>
-                    <constraint firstAttribute="centerX" secondItem="Ydw-Sk-20O" secondAttribute="centerX" constant="1" id="8tb-nn-Spy"/>
                     <constraint firstItem="icC-eq-68B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="XDd-4e-w0x"/>
                     <constraint firstItem="Ydw-Sk-20O" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ZdV-ac-A3l"/>
-                    <constraint firstItem="icC-eq-68B" firstAttribute="top" secondItem="Ydw-Sk-20O" secondAttribute="bottom" constant="8" id="b1Z-35-VwX"/>
                     <constraint firstAttribute="bottom" secondItem="icC-eq-68B" secondAttribute="bottom" constant="8" id="dzY-bB-oAT"/>
+                    <constraint firstAttribute="trailing" secondItem="Ydw-Sk-20O" secondAttribute="trailing" id="io9-Zt-asL"/>
+                    <constraint firstItem="Ydw-Sk-20O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xEh-GT-pP2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
